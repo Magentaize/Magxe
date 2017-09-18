@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Magxe.Controllers;
@@ -11,6 +12,7 @@ using Magxe.Data;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
+using Magxe.Helpers;
 
 namespace Magxe
 {
@@ -44,17 +46,9 @@ namespace Magxe
             }
 
             app.UseStaticFiles();
-
-            //app.UseMvc(routes =>
-            //{
-            //    routes.MapRoute(
-            //        name: "default",
-            //        template: "{controller=home}/{action=index}/{id?}");
-            //});
             app.UseMvc();
-            //var a = services.GetService<IActionDescriptorCollectionProvider>();
 
-
+            Helper.RegisterHelpers();
         }
 
         private void RegisterRoutes(IApplicationBuilder app)

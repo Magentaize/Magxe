@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Handlebars.Net" Version="1.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
@@ -21,6 +20,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Magxe.Admin\Magxe.Admin.csproj" />
     <ProjectReference Include="..\Magxe.Data\Magxe.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Handlebars">
+      <HintPath>..\..\Handlebars.Net\source\Handlebars\bin\Debug\netstandard1.3\Handlebars.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

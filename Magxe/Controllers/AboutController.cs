@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using HandlebarsDotNet;
+using Magxe.Helpers;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Magxe.Controllers
@@ -13,17 +14,15 @@ namespace Magxe.Controllers
         [Route("")]
         public async Task<string> Index()
         {
-            //Handlebars.RegisterHelper("foreach", (writer, context, arguments) =>
-            //{
-            //    writer.WriteSafeString();
-            //});
+            var l = new StreamReader(@"D:\Development\GitHub\CasperV1\partials\loop.hbs");
 
-            var l = await new StreamReader(@"D:\Development\GitHub\CasperV1\partials\loop.hbs")
-                .ReadToEndAsync();
-            Handlebars.RegisterTemplate("loop" , l);
+            Handlebars.RegisterTemplate("loop" , Handlebars.Compile(l));
             var f = await new StreamReader(@"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\default.hbs")
                 .ReadToEndAsync();
-            var source = Handlebars.Compile(f);
+            Handlebars.RegisterTemplate("default",f);
+            var i = await new StreamReader(@"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\index.hbs")
+                .ReadToEndAsync();
+            var source = Handlebars.Compile(i);
             var data = new
             {
                 blog = new
