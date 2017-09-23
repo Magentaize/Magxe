@@ -1,16 +1,20 @@
-﻿using HandlebarsDotNet;
+﻿using System.IO;
+using HandlebarsDotNet;
+using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Data.Meta;
+using Magxe.Extensions;
 
 namespace Magxe.Helpers
 {
-    internal static class AssetHelper
+    internal class AssetHelper : BaseHelper
     {
-        internal static void RegisterHelper()
+        public AssetHelper():base("asset", HelperType.HandlebarsHelper)
         {
-            Handlebars.RegisterHelper("asset", (writer, context, parameters) =>
-            {
-                writer.WriteSafeString(AssetUrl.GetAssetUrl((string) parameters[0]));
-            });
+        }
+
+        public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
+        {
+            output.WriteSafeString(AssetUrl.GetAssetUrl(arguments[0].Cast<string>()));
         }
     }
 }

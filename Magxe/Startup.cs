@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using HandlebarsDotNet.ViewEngine.Extensions;
 using Magxe.Controllers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Magxe.Data;
+using Magxe.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
 using Magxe.Helpers;
+using Magxe.Services;
 
 namespace Magxe
 {
@@ -28,8 +31,30 @@ namespace Magxe
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
-            services.AddDbContext<DataContext>();
+            services.AddRouting()
+                .AddScoped<ThemeService, ThemeService>()
+                .AddDbContext<DataContext>()
+                .AddMvc()
+                .AddViewOptions(options =>
+                {
+                    options.ViewEngines.Clear();
+                })
+                .AddHandlebarsViewEngine(options =>
+                {
+                    options.RegisterHelpers = helpers =>
+                        helpers.Append<AssetHelper>()
+                            .Append<DateHelper>()
+                            .Append<ExcerptHelper>()
+                            .Append<TagsHelper>()
+                            .Append<BlockHelper>()
+                            .Append<ContentForHelper>()
+                            .Append<ForeachHelper>();
+
+                    options.ViewLocationFormats.Clear();
+                    options.ViewLocationFormats.Add(
+                        () => @"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\{1}.hbs"//services.BuildServiceProvider().GetService<ThemeService>().CurrentTheme
+                    );
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,17 +70,8 @@ namespace Magxe
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseStaticFiles();
-            app.UseMvc();
-
-            Helper.RegisterHelpers();
+            app.UseStaticFiles()
+                .UseMvc();
         }
-
-        private void RegisterRoutes(IApplicationBuilder app)
-        {
-            var routes = new RouteBuilder(app);
-
-        }
-
     }
 }

@@ -14,6 +14,7 @@ namespace Magxe
     {
         public static void Main(string[] args)
         {
+            Directory.SetCurrentDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
             BuildWebHost(args).Run();
         }
 

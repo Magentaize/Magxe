@@ -1,16 +1,24 @@
 ﻿using HandlebarsDotNet;
-using Magxe.Data.Meta;
+using HandlebarsDotNet.Compiler;
+using HandlebarsDotNet.ViewEngine.Abstractions;
+using Magxe.Extensions;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 
 namespace Magxe.Helpers
 {
-    internal static class DateHelper
+    internal class DateHelper : BaseHelper
     {
-        internal static void RegisterHelper()
+        public DateHelper() : base("date", HelperType.HandlebarsHelper)
         {
-            Handlebars.RegisterHelper("date", (writer, context, parameters) =>
-            {
-                string timezone, format, timeago, timeNow;
-            });
+        }
+
+        public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
+        {
+            var pattern = arguments[0].Cast<HashParameterDictionary>()["format"].Cast<string>();
+            output.WriteSafeString(DateTime.Now.ToString(pattern));
         }
     }
 }

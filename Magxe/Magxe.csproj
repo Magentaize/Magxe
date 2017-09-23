@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Handlebars.Net" Version="1.9.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
@@ -23,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Handlebars">
-      <HintPath>..\..\Handlebars.Net\source\Handlebars\bin\Debug\netstandard1.3\Handlebars.dll</HintPath>
+    <Reference Include="Handlebars.ViewEngine">
+      <HintPath>..\..\Handlebars.Net.ViewEngine\src\HandlebarsDotNet.ViewEngine\bin\Debug\netcoreapp2.0\Handlebars.ViewEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 

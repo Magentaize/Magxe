@@ -286,3 +286,4 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
+/Magxe/wwwroot/themes/casperv1/assets

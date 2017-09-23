@@ -1,38 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using HandlebarsDotNet;
-using Magxe.Helpers;
+﻿using Magxe.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Magxe.Controllers
 {
-    public class AboutController : Controller
+    public class indexController : Controller
     {
-        [Route("")]
-        public async Task<string> Index()
+        private ThemeService _themeService;
+        public indexController(ThemeService themeService)
         {
-            var l = new StreamReader(@"D:\Development\GitHub\CasperV1\partials\loop.hbs");
+            _themeService = themeService;
+        }
 
-            Handlebars.RegisterTemplate("loop" , Handlebars.Compile(l));
-            var f = await new StreamReader(@"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\default.hbs")
-                .ReadToEndAsync();
-            Handlebars.RegisterTemplate("default",f);
-            var i = await new StreamReader(@"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\index.hbs")
-                .ReadToEndAsync();
-            var source = Handlebars.Compile(i);
-            var data = new
+        [Route("")]
+        public async Task<IActionResult> Index()
+        {
+            ViewData["blog"] = new
             {
-                blog = new
-                {
-                    title = "title"
-                }
+                title = "title"
             };
-            var result = source(data);
-
-            return result;
+            return View();
         }
     }
 }
