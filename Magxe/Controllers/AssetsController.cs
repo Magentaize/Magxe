@@ -12,7 +12,7 @@ namespace Magxe.Controllers
     [Route("assets")]
     public class AssetsController : Controller
     {
-        private ThemeService _themeService;
+        private readonly ThemeService _themeService;
 
         public AssetsController(ThemeService themeService)
         {
@@ -22,7 +22,18 @@ namespace Magxe.Controllers
         [Route("css/{file}")]
         public async Task<IActionResult> GetCss()
         {
-            var filePath = Path.Combine("themes", Path.Combine(_themeService.CurrentTheme, "assets", "css",
+            return await GetAsset("css", "text/css");
+        }
+
+        [Route("js/{file}")]
+        public async Task<IActionResult> GetJs()
+        {
+            return await GetAsset("js", "application/javascript");
+        }
+
+        private async Task<IActionResult> GetAsset(string assetType, string contentType)
+        {
+            var filePath = Path.Combine("themes", Path.Combine(_themeService.CurrentTheme, "assets", assetType,
                 HttpContext.GetRouteValue("file").Cast<string>()));
 
             if (!System.IO.File.Exists(filePath))
@@ -31,8 +42,12 @@ namespace Magxe.Controllers
             }
             else
             {
-                var stream = new FileStream(filePath, FileMode.Open);
-                var res = File(stream, "text/css");
+                FileStreamResult res = null;
+                await Task.Run(() =>
+                {
+                    var stream = new FileStream(filePath, FileMode.Open);
+                    res = File(stream, contentType);
+                });
                 return res;
             }
         }

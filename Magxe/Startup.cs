@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
 using Magxe.Helpers;
 using Magxe.Services;
+using Microsoft.Extensions.FileProviders;
 
 namespace Magxe
 {
@@ -71,6 +72,7 @@ namespace Magxe
             }
 
             app.UseStaticFiles()
+                .Map("/favicon.ico", cfg => cfg.UseStaticFiles())
                 .UseMvc();
         }
     }
