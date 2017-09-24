@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using HandlebarsDotNet.ViewEngine.Abstractions;
 using HandlebarsDotNet.ViewEngine.Extensions;
 using Magxe.Controllers;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +17,8 @@ using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
 using Magxe.Helpers;
 using Magxe.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.FileProviders;
 
 namespace Magxe
@@ -33,6 +36,7 @@ namespace Magxe
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting()
+                .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
                 .AddDbContext<DataContext>()
                 .AddMvc()
@@ -42,18 +46,11 @@ namespace Magxe
                 })
                 .AddHandlebarsViewEngine(options =>
                 {
-                    options.RegisterHelpers = helpers =>
-                        helpers.Append<AssetHelper>()
-                            .Append<DateHelper>()
-                            .Append<ExcerptHelper>()
-                            .Append<TagsHelper>()
-                            .Append<BlockHelper>()
-                            .Append<ContentForHelper>()
-                            .Append<ForeachHelper>();
+                    options.RegisterHelpers = RegisterHelpers;
 
                     options.ViewLocationFormats.Clear();
                     options.ViewLocationFormats.Add(
-                        () => @"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\{1}.hbs"//services.BuildServiceProvider().GetService<ThemeService>().CurrentTheme
+                        () => @"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\{0}.hbs"//services.BuildServiceProvider().GetService<ThemeService>().CurrentTheme
                     );
                 });
         }
@@ -74,6 +71,21 @@ namespace Magxe
             app.UseStaticFiles()
                 .Map("/favicon.ico", cfg => cfg.UseStaticFiles())
                 .UseMvc();
+        }
+
+        private static void RegisterHelpers(IHelperList helpers)
+        {
+            helpers.Append<AssetHelper>()
+                .Append<DateHelper>()
+                .Append<ExcerptHelper>()
+                .Append<TagsHelper>()
+                .Append<BlockHelper>()
+                .Append<ContentForHelper>()
+                .Append<ForeachHelper>()
+                .Append<BodyClassHelper>()
+                .Append<NavigationHelper>()
+                .Append<UrlHelper>()
+                ;
         }
     }
 }

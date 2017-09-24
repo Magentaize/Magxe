@@ -1,4 +1,5 @@
 ﻿using System;
+using Magxe.Data.Setting;
 using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Data
@@ -13,7 +14,7 @@ namespace Magxe.Data
         {
         }
 
-        public DbSet<Setting> Settings { get; set; }
+        public DbSet<SettingItem> Settings { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Post> Posts { get; set; }

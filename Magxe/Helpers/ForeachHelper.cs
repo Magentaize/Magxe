@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using System.IO;
@@ -13,7 +15,6 @@ namespace Magxe.Helpers
 
         public override void HandlebarsBlockHelper(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
         {
-
         }
     }
 }

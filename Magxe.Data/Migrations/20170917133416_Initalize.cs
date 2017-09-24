@@ -116,6 +116,9 @@ namespace Magxe.Data.Migrations
                     case Setting.Key.Theme:
                         t = "casperv1";
                         break;
+                    case Setting.Key.Navigation:
+                        t = "[{\"label\":\"Home\", \"url\":\"/\"}]";
+                        break;
                     default:
                         t = string.Empty;
                         break;
