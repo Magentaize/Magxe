@@ -7,15 +7,24 @@ namespace Magxe.Data
     public class Post : MetaItem
     {
         [StringLength(150)]
-        public string Slug { get; set; }
-
-        public string Html { get; set; }
-
-        public string MobileDoc { get; set; }
-
-        public string PlainText { get; set; }
+        [Column(Order = 1)]
+        public string Title { get; set; }
 
         [StringLength(150)]
+        [Column(Order = 2)]
+        public string Slug { get; set; }
+
+        [Column(Order = 3)]
+        public string Html { get; set; }
+
+        [Column(Order = 4)]
+        public string PlainText { get; set; }
+
+        [Column(Order = 5)]
+        public string MobileDoc { get; set; }
+
+        [StringLength(150)]
+        [Column(Order = 6)]
         public string FeatureImage { get; set; }
 
         public PostStatus Status { get; set; }

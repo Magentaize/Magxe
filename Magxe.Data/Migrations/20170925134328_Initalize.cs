@@ -29,6 +29,7 @@ namespace Magxe.Data.Migrations
                     PublishedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Slug = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    Title = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     UpdatedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
@@ -98,32 +99,32 @@ namespace Magxe.Data.Migrations
                 var e = (Setting.Key)i;
                 settingsValues[i, 0] = i;
                 settingsValues[i, 1] = e.ToString();
-                string t;
+                string value;
                 switch (e)
                 {
                     case Setting.Key.DisplayUpdateNotification:
-                        t = "1.0";
+                        value = "1.0";
                         break;
                     case Setting.Key.Title:
-                        t = "Magxe";
+                        value = "Magxe";
                         break;
                     case Setting.Key.Description:
-                        t = "Title of Magxe";
+                        value = "Title of Magxe";
                         break;
                     case Setting.Key.TimeZone:
-                        t = "Asia/Shanghai";
+                        value = "Asia/Shanghai";
                         break;
                     case Setting.Key.Theme:
-                        t = "casperv1";
+                        value = "casperv1";
                         break;
                     case Setting.Key.Navigation:
-                        t = "[{\"label\":\"Home\", \"url\":\"/\"}]";
+                        value = "[{\"label\":\"Home\", \"url\":\"/\"}]";
                         break;
                     default:
-                        t = string.Empty;
+                        value = string.Empty;
                         break;
                 }
-                settingsValues[i, 2] = t;
+                settingsValues[i, 2] = value;
             }
 
             migrationBuilder.InsertData(

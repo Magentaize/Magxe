@@ -59,6 +59,9 @@ namespace Magxe.Data.Migrations
 
                     b.Property<int>("Status");
 
+                    b.Property<string>("Title")
+                        .HasMaxLength(150);
+
                     b.Property<DateTime>("UpdatedTime");
 
                     b.HasKey("Id");

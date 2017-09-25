@@ -12,7 +12,7 @@ using System;
 namespace Magxe.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20170925091535_Initalize")]
+    [Migration("20170925134328_Initalize")]
     partial class Initalize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,9 @@ namespace Magxe.Data.Migrations
                         .HasMaxLength(150);
 
                     b.Property<int>("Status");
+
+                    b.Property<string>("Title")
+                        .HasMaxLength(150);
 
                     b.Property<DateTime>("UpdatedTime");
 

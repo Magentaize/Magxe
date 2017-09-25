@@ -1,21 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Magxe.Data;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using System.Threading.Tasks;
-using Magxe.Extensions;
-using Microsoft.EntityFrameworkCore;
+﻿using Magxe.Data;
 using Magxe.Data.Setting;
+using Magxe.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Magxe.Controllers
 {
     [Route("")]
-    public class HomeController : Controller
+    public class IndexController : Controller
     {
-        private DataContext _dataContext;
+        private readonly DataContext _dataContext;
 
-        public HomeController(DataContext dataContext)
+        public IndexController(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
@@ -30,7 +26,7 @@ namespace Magxe.Controllers
                 {
                     cover_image = await _dataContext.GetValueAsync(Key.CoverImage),
                     logo = await _dataContext.GetValueAsync(Key.Logo),
-                    title = title,
+                    title,
                     description = await _dataContext.GetValueAsync(Key.Description),
                     navigation = await _dataContext.Settings.GetNavigationsAsync()
                 },
