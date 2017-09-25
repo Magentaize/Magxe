@@ -1,4 +1,5 @@
-﻿using HandlebarsDotNet;
+﻿using Dynamitey;
+using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Data;
 using Magxe.Data.Setting;
@@ -6,6 +7,7 @@ using Magxe.Extensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -27,7 +29,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            var navigationData = _dataContext.Settings.GetNavigationsAsync().Result;
+            var navigationData = (ICollection<NavigationItem>)((dynamic)((object[])Dynamic.InvokeGet(context, "_objects"))[1]).blog.navigation;
             if (navigationData.Count == 0)
             {
                 output.WriteSafeString(string.Empty);

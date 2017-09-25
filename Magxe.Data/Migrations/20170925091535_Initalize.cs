@@ -7,9 +7,9 @@ namespace Magxe.Data.Migrations
 {
     public partial class Initalize : Migration
     {
-        protected override void Up(MigrationBuilder @this)
+        protected override void Up(MigrationBuilder migrationBuilder)
         {
-            @this.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Posts",
                 columns: table => new
                 {
@@ -36,7 +36,7 @@ namespace Magxe.Data.Migrations
                     table.PrimaryKey("PK_Posts", x => x.Id);
                 });
 
-            @this.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Settings",
                 columns: table => new
                 {
@@ -49,7 +49,7 @@ namespace Magxe.Data.Migrations
                     table.PrimaryKey("PK_Settings", x => x.Id);
                 });
 
-            @this.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Tags",
                 columns: table => new
                 {
@@ -67,7 +67,7 @@ namespace Magxe.Data.Migrations
                     table.PrimaryKey("PK_Tags", x => x.Id);
                 });
 
-            @this.CreateTable(
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -95,7 +95,7 @@ namespace Magxe.Data.Migrations
             var settingsValues = new object[es.Length, 3];
             for (int i = 0; i < es.Length; i++)
             {
-                var e = (Setting.Key) i;
+                var e = (Setting.Key)i;
                 settingsValues[i, 0] = i;
                 settingsValues[i, 1] = e.ToString();
                 string t;
@@ -126,9 +126,9 @@ namespace Magxe.Data.Migrations
                 settingsValues[i, 2] = t;
             }
 
-            @this.InsertData(
+            migrationBuilder.InsertData(
                 table: "Settings",
-                columns: new[] {"Id", "Name", "Value"},
+                columns: new[] { "Id", "Name", "Value" },
                 values: settingsValues
             );
         }

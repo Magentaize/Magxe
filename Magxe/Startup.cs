@@ -81,7 +81,7 @@ namespace Magxe
                 .Append<TagsHelper>()
                 .Append<BlockHelper>()
                 .Append<ContentForHelper>()
-                //.Append<ForeachHelper>()
+                .Append<ForeachHelper>()
                 .Append<BodyClassHelper>()
                 .Append<NavigationHelper>()
                 .Append<UrlHelper>()

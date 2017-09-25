@@ -32,7 +32,7 @@ namespace Magxe.Controllers
                     logo = await _dataContext.GetValueAsync(Key.Logo),
                     title = title,
                     description = await _dataContext.GetValueAsync(Key.Description),
-                    navigation = await _dataContext.GetValueAsync(Key.Navigation)
+                    navigation = await _dataContext.Settings.GetNavigationsAsync()
                 },
                 controllerType = ControllerType.Home
             };
