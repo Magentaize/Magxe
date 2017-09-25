@@ -1,7 +1,6 @@
 ﻿using Dynamitey;
 using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Data;
 using Magxe.Data.Setting;
 using Magxe.Extensions;
 using Microsoft.AspNetCore.Http;
@@ -16,13 +15,11 @@ namespace Magxe.Helpers
 {
     internal class NavigationHelper : BaseHelper
     {
-        private readonly DataContext _dataContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IServiceProvider _services;
 
-        public NavigationHelper(DataContext dataContext, IHttpContextAccessor httpContextAccessor, IServiceProvider services) : base("navigation", HelperType.HandlebarsHelper)
+        public NavigationHelper(IHttpContextAccessor httpContextAccessor, IServiceProvider services) : base("navigation", HelperType.HandlebarsHelper)
         {
-            _dataContext = dataContext;
             _httpContextAccessor = httpContextAccessor;
             _services = services;
         }
