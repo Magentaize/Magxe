@@ -85,6 +85,8 @@ namespace Magxe
                 .Append<BodyClassHelper>()
                 .Append<NavigationHelper>()
                 .Append<UrlHelper>()
+                .Append<PostClassHelper>()
+                .Append<AuthorHelper>()
                 ;
         }
     }
