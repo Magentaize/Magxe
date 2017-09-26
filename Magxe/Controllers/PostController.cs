@@ -8,6 +8,7 @@ using Magxe.Extensions;
 using Magxe.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Controllers
 {
@@ -23,13 +24,20 @@ namespace Magxe.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var postData1 = _dataContext.Posts
-                .Where(row => row.Slug == HttpContext.GetRouteValue("postSlug").Cast<string>())
-                .Select(row => row.Html);
+            var postData = await _dataContext.Posts.FirstOrDefaultAsync(row =>
+                row.Slug == HttpContext.GetRouteValue("postSlug").Cast<string>());
             var viewData = new PostModel()
             {
-                blog = await _dataContext.Settings.GetBlogModelAsync()
+                controllerType = ControllerType.Post,
+                blog = await _dataContext.Settings.GetBlogModelAsync(),
+                authorId = postData.AuthorId,
+                feature_image = postData.FeatureImage,
+                title = postData.Title,
+                content = postData.Html,
+                url = "/"
             };
+            ViewData["key"] = "post";
+            ViewData["post"] = viewData;
             return View();
         }
     }

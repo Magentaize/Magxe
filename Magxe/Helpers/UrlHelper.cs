@@ -16,7 +16,11 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            bool absolute = Convert.ToBoolean(arguments[0].Cast<HashParameterDictionary>()["absolute"].Cast<string>());
+            bool absolute = false;
+            if (arguments.Length != 0)
+            {
+                absolute = Convert.ToBoolean(arguments[0].Cast<HashParameterDictionary>()["absolute"].Cast<string>());
+            }
             if (!absolute)
             {
                 var uri = new Uri(Config.Url, (string) context.url);
