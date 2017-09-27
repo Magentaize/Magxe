@@ -50,7 +50,7 @@ namespace Magxe
 
                     options.ViewLocationFormats.Clear();
                     options.ViewLocationFormats.Add(
-                        () => @"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\{1}.hbs"//services.BuildServiceProvider().GetService<ThemeService>().CurrentTheme
+                        () => @"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\{0}.hbs"//services.BuildServiceProvider().GetService<ThemeService>().CurrentTheme
                     );
                 });
         }
@@ -90,6 +90,7 @@ namespace Magxe
                 .Append<PostHelper>()
                 .Append<EncodeHelper>()
                 .Append<ContentHelper>()
+                .Append<PluralHelper>()
                 ;
         }
     }

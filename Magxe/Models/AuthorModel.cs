@@ -7,5 +7,6 @@
         public string name { get; set; }
         public string location { get; set; }
         public string website { get; set; }
+        public string bio { get; set; }
     }
 }

@@ -37,5 +37,8 @@ namespace Magxe.Data
 
         [Required]
         public DateTime CreatedTime { get; set; }
+
+        //[StringLength(50)]
+        //public string Website { get; set; }
     }
 }

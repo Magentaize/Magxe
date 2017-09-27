@@ -34,7 +34,7 @@ namespace Magxe.Controllers
                 feature_image = postData.FeatureImage,
                 title = postData.Title,
                 content = postData.Html,
-                url = "/"
+                url = new Uri(Config.Url, HttpContext.Request.Path.Value).ToString(),
             };
             ViewData["key"] = "post";
             ViewData["post"] = viewData;
