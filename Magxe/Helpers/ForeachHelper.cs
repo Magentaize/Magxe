@@ -14,11 +14,11 @@ namespace Magxe.Helpers
 
         public override void HandlebarsBlockHelper(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
         {
-            var collection = arguments[0].Cast<IEnumerable>();
-            foreach (object o in collection)
-            {
-                options.Template(output, o);
-            }
+            //var collection = arguments[0].Cast<IEnumerable>();
+            //foreach (object o in collection)
+            //{
+            //    options.Template(output, o);
+            //}
         }
     }
 }

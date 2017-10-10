@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using Dynamitey;
 using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Controllers;
+using Magxe.Data;
 using Magxe.Utils;
 
 namespace Magxe.Helpers
@@ -37,7 +39,8 @@ namespace Magxe.Helpers
                     break;
                 case ControllerType.Author:
                     classes.Add("author-template");
-                    classes.Add($"author-{context.slug}");
+                    var slug = ((User)((dynamic)((object[])Dynamic.InvokeGet(context, "_objects"))[1]).author).Slug;
+                    classes.Add($"author-{slug}");
                     break;
                 case ControllerType.Private:
                     classes.Add("private-template");

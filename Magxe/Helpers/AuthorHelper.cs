@@ -16,7 +16,22 @@ namespace Magxe.Helpers
         private readonly DataContext _dataContext;
         private const string _authorPrefix = "/author/";
 
-        public AuthorHelper(DataContext dataContext) : base("author", HelperType.HandlebarsBlockHelper)
+        public AuthorHelper(DataContext dataContext) : base("author", HelperType.HandlebarsHelper)
+        {
+            _dataContext = dataContext;
+        }
+
+        public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
+        {
+        }
+    }
+
+    public class AuthorBlockHelper : BaseHelper
+    {
+        private readonly DataContext _dataContext;
+        private const string _authorPrefix = "/author/";
+
+        public AuthorBlockHelper(DataContext dataContext) : base("author", HelperType.HandlebarsBlockHelper)
         {
             _dataContext = dataContext;
         }
@@ -44,7 +59,7 @@ namespace Magxe.Helpers
             AuthorPageAuthorModel obj = null;
             await Task.Run(async () =>
             {
-                var authorId = (int)context.authorId;
+                var authorId = (int)context.author.Id;
                 var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Id == authorId);
                 obj = new AuthorPageAuthorModel
                 {

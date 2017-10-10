@@ -25,8 +25,7 @@ namespace Magxe.Controllers
             ViewData["author"] = new
             {
                 controllerType = ControllerType.Author,
-                authorId = author.Id 
-
+                author
             };
 
             return View("author");
