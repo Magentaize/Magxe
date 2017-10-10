@@ -12,7 +12,7 @@ using System;
 namespace Magxe.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20170925134328_Initalize")]
+    [Migration("20171010140330_Initalize")]
     partial class Initalize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,8 @@ namespace Magxe.Data.Migrations
             modelBuilder.Entity("Magxe.Data.Post", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("AuthorId");
 
@@ -60,6 +61,9 @@ namespace Magxe.Data.Migrations
 
                     b.Property<int>("Status");
 
+                    b.Property<string>("TagsValue")
+                        .HasColumnName("Tags");
+
                     b.Property<string>("Title")
                         .HasMaxLength(150);
 
@@ -87,7 +91,8 @@ namespace Magxe.Data.Migrations
             modelBuilder.Entity("Magxe.Data.Tag", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -116,7 +121,8 @@ namespace Magxe.Data.Migrations
             modelBuilder.Entity("Magxe.Data.User", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Bio")
                         .HasColumnType("text");

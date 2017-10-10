@@ -29,6 +29,7 @@ namespace Magxe.Data.Migrations
                     PublishedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Slug = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
+                    Tags = table.Column<string>(type: "longtext", nullable: true),
                     Title = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     UpdatedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -96,7 +97,7 @@ namespace Magxe.Data.Migrations
             var settingsValue = new object[es.Length, 3];
             for (int i = 0; i < es.Length; i++)
             {
-                var e = (Setting.Key) i;
+                var e = (Setting.Key)i;
                 settingsValue[i, 0] = i;
                 settingsValue[i, 1] = e.ToString();
                 string value;
@@ -130,11 +131,11 @@ namespace Magxe.Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "Settings",
-                columns: new[] {"Id", "Name", "Value"},
+                columns: new[] { "Id", "Name", "Value" },
                 values: settingsValue
             );
 
-            var postsValue = new object[4, 8];
+            var postsValue = new object[4, 9];
             for (int i = 0; i < 4; i++)
             {
                 postsValue[i, 0] = 1;
@@ -181,11 +182,24 @@ your team to remove all of these introductory posts!";
                 postsValue[i, 5] = $"welcome{i}";
                 postsValue[i, 6] = "Welcome to Ghost";
                 postsValue[i, 7] = DateTime.Now;
+                postsValue[i, 8] = "[1,2]";
             }
             migrationBuilder.InsertData(
                 "Posts",
-                new[] {"AuthorId", "CreatedTime", "Html", "PlainText", "PublishedTime", "Slug", "Title", "UpdatedTime"},
+                new[] { "AuthorId", "CreatedTime", "Html", "PlainText", "PublishedTime", "Slug", "Title", "UpdatedTime", "Tags" },
                 postsValue
+            );
+
+            var tagsValue= new object[3,2];
+            for (int i = 0; i < 3; i++)
+            {
+                tagsValue[i, 0] = "tag1";
+                tagsValue[i, 1] = "Tag 1";
+            }
+            migrationBuilder.InsertData(
+                "Tags",
+                new[] {"Slug", "Name"},
+                tagsValue
             );
         }
 

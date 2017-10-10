@@ -19,7 +19,6 @@ namespace Magxe.Data
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Post> Posts { get; set; }
 
-
         private const string DbS =
                 "Server=localhost;database=Magxe;port=3306;charset=UTF8;uid=root;pwd=;"
             ;
@@ -27,6 +26,5 @@ namespace Magxe.Data
         {
             builder.UseMySql(DbS);
         }
-
     }
 }

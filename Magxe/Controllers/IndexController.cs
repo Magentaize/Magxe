@@ -3,10 +3,12 @@ using Magxe.Data.Setting;
 using Magxe.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Magxe.Models;
 
 namespace Magxe.Controllers
 {
     [Route("")]
+    [Route("page/{pageNumber:int}")]
     public class IndexController : Controller
     {
         private readonly DataContext _dataContext;
@@ -19,21 +21,22 @@ namespace Magxe.Controllers
         public async Task<IActionResult> Index()
         {
             var title = await _dataContext.GetValueAsync(Key.Title);
-            var blog = new
+            var vm = new IndexViewModel()
             {
-                meta_title = title,
-                blog = new
+                ControllerType = ControllerType.Index,
+                meta_title = await _dataContext.GetValueAsync(Key.Title),
+                blog = new BlogViewModel()
                 {
-                    cover_image = await _dataContext.GetValueAsync(Key.CoverImage),
+                    title = title,
                     logo = await _dataContext.GetValueAsync(Key.Logo),
-                    title,
+                    cover_image = await _dataContext.GetValueAsync(Key.CoverImage),
                     description = await _dataContext.GetValueAsync(Key.Description),
                     navigation = await _dataContext.Settings.GetNavigationsAsync()
-                },
-                controllerType = ControllerType.Home
+                }
             };
+
             ViewData["key"] = "blog";
-            ViewData["blog"] = blog;
+            ViewData["blog"] = vm;
             return View("index");
         }
     }

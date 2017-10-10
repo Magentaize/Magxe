@@ -2,7 +2,7 @@
 {
     public enum ControllerType
     {
-        Home,
+        Index,
         Post,
         Page,
         Tag,

@@ -1,6 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using Microsoft.EntityFrameworkCore.Internal;
+using Newtonsoft.Json;
 
 namespace Magxe.Data
 {
@@ -26,6 +31,20 @@ namespace Magxe.Data
         [StringLength(150)]
         [Column(Order = 6)]
         public string FeatureImage { get; set; }
+
+        #region Tags
+
+        [NotMapped]
+        public int[] Tags
+        {
+            get => JsonConvert.DeserializeObject<int[]>(TagsValue);
+            set => JsonConvert.SerializeObject(value);
+        }
+
+        [Column("Tags")]
+        public string TagsValue { get; set; }
+
+        #endregion
 
         public PostStatus Status { get; set; }
 

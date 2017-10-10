@@ -23,7 +23,7 @@ namespace Magxe.Helpers
 
             switch ((ControllerType)context.controllerType)
             {
-                case ControllerType.Home:
+                case ControllerType.Index:
                     classes.Add("home-template");
                     break;
                 case ControllerType.Post:
