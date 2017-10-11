@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Magxe.Extensions
 {
@@ -15,5 +17,11 @@ namespace Magxe.Extensions
 
             foreach (var obj in source) yield return converter(obj);
         }
-    }
+
+        public static IEnumerable<TResult> SelectSync<TSource, TResult>(this IEnumerable<TSource> source,
+            Func<TSource, Task<TResult>> selector)
+        {
+            return source.Select(selector).Select(t => t.Result);
+        }
+     }
 }

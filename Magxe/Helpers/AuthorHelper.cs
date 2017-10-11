@@ -78,12 +78,12 @@ namespace Magxe.Helpers
 
         private async Task<object> GetPostControllerAuthorAsync(dynamic context)
         {
-            AuthorModel obj = null;
+            AuthorViewModel obj = null;
             await Task.Run(async () =>
             {
                 var authorId = (int) context.authorId;
                 var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Id == authorId);
-                obj = new AuthorModel()
+                obj = new AuthorViewModel()
                 {
                     url = $"{_authorPrefix}{author.Name}",
                     profile_image = author.ProfileImage,

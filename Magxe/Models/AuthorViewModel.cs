@@ -1,6 +1,6 @@
 ﻿namespace Magxe.Models
 {
-    public class AuthorModel
+    public class AuthorViewModel
     {
         public string profile_image { get; set; }
         public string url { get; set; }
