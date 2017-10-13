@@ -26,10 +26,10 @@ namespace Magxe.Helpers
                 string excerpt;
                 if (post.CustomExcerpt.IsNullOrEmpty())
                 {
-                    excerpt = post.Html.RegexReplace("<a href=\"#fn.*?rel=\"footnote\">.*?<\\/a>",
+                    excerpt = post.Html.RegexReplace("<a href=\"#fn.*?rel=\"footnote\">.*?</a>",
                             RegexOptions.IgnoreCase)
-                        .RegexReplace("<div class=\"footnotes\"><ol>.*?<\\/ol><\\/div>")
-                        .RegexReplace("<\\/?[^>]+>", RegexOptions.IgnoreCase)
+                        .RegexReplace("<div class=\"footnotes\"><ol>.*?</ol></div>")
+                        .RegexReplace("</?[^>]+>", RegexOptions.IgnoreCase)
                         .RegexReplace("(\r\n|\n|\r)+", " ", RegexOptions.Multiline);
                 }
                 else

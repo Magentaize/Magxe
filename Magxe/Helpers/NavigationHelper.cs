@@ -1,19 +1,16 @@
-﻿using Dynamitey;
-using HandlebarsDotNet;
+﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
+using Magxe.Data;
 using Magxe.Data.Setting;
 using Magxe.Extensions;
+using Magxe.Models;
+using Magxe.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Magxe.Data;
-using Magxe.Models;
-using Magxe.Services;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Magxe.Helpers
 {
@@ -35,7 +32,6 @@ namespace Magxe.Helpers
         public override async void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
             var navigationData = await _dataContext.Settings.GetNavigationsAsync();
-            //var navigationData = (ICollection<NavigationItem>)((dynamic)((object[])Dynamic.InvokeGet(context, "_objects"))[1]).blog.navigation;
             if (navigationData.Count == 0)
             {
                 output.WriteSafeString(string.Empty);
@@ -56,9 +52,7 @@ namespace Magxe.Helpers
 
                 var viewEngine = _services.GetService<IHandlebarsViewEngine>();
                 var viewPath = Path.Combine(_themeService.CurrentThemePath(), "partials","navigation");
-               var viewHtml = await viewEngine.RenderViewWithDataAsync(viewPath, viewData);
-                //var viewHtml = viewEngine.RenderViewWithDataAsync(@"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\partials\navigation", viewData)
-                //    .Result;
+                var viewHtml = await viewEngine.RenderViewWithDataAsync(viewPath, viewData);
                 output.WriteSafeString(viewHtml);
             }
         }
@@ -75,15 +69,6 @@ namespace Magxe.Helpers
         {
             var current = _httpContextAccessor.HttpContext.Request.Path.Value;
             return current.Equals(href);
-        }
-
-        internal class ViewNavigationItem
-        {
-            public bool current { get; set; }
-            public string label { get; set; }
-            public string slug { get; set; }
-            public string url { get; set; }
-            public bool secure { get; set; }
         }
     }
 }
