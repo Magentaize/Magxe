@@ -47,9 +47,8 @@ namespace Magxe.Controllers
 
         private async Task<IActionResult> GetAsset(string assetType, string contentType)
         {
-            var filePath = Path.Combine(_hostingEnvironment.WebRootPath, "themes", Path.Combine(
-                _themeService.CurrentTheme, "assets", assetType,
-                HttpContext.GetRouteValue("file").Cast<string>()));
+            var filePath = Path.Combine(_themeService.CurrentThemePath(), "assets", assetType,
+                HttpContext.GetRouteValue("file").Cast<string>());
 
             if (!System.IO.File.Exists(filePath))
             {

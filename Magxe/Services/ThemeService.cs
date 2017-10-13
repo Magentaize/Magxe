@@ -1,16 +1,20 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
 using Magxe.Data;
 using Magxe.Data.Setting;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Magxe.Services
 {
     public class ThemeService
     {
         private readonly DataContext _dataContext;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public ThemeService(DataContext dataContext)
+        public ThemeService(DataContext dataContext, IHostingEnvironment hostingEnvironment)
         {
             _dataContext = dataContext;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         internal string CurrentTheme
@@ -25,6 +29,11 @@ namespace Magxe.Services
                 _dataContext.SaveChangesAsync();
 
             }
+        }
+
+        internal string CurrentThemePath()
+        {
+            return Path.Combine(_hostingEnvironment.WebRootPath, "themes", CurrentTheme);
         }
     }
 }

@@ -1,5 +1,9 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Text.RegularExpressions;
+using DownsizeNet;
+using HandlebarsDotNet;
 using HandlebarsDotNet.Compiler;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Controllers;
@@ -17,15 +21,12 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic dContext, params object[] oArguments)
         {
-            var arguments = oArguments[0].Cast<HashParameterDictionary>();
-            var wordLimit = arguments.ContainsKey("words") ? arguments["words"].CastToInt() : 50;
-
             if (dContext is PostViewModel post)
             {
-
+                string excerpt;
                 if (post.CustomExcerpt.IsNullOrEmpty())
                 {
-                    post.excerpt = post.Html.RegexReplace("<a href=\"#fn.*?rel=\"footnote\">.*?<\\/a>",
+                    excerpt = post.Html.RegexReplace("<a href=\"#fn.*?rel=\"footnote\">.*?<\\/a>",
                             RegexOptions.IgnoreCase)
                         .RegexReplace("<div class=\"footnotes\"><ol>.*?<\\/ol><\\/div>")
                         .RegexReplace("<\\/?[^>]+>", RegexOptions.IgnoreCase)
@@ -33,11 +34,21 @@ namespace Magxe.Helpers
                 }
                 else
                 {
-                    post.excerpt = post.CustomExcerpt;
+                    excerpt = post.CustomExcerpt;
                 }
 
-                // TODO: substring excerpt like downsize in JS
-                post.excerpt = post.excerpt.Substring(0, wordLimit);
+                var arguments = oArguments[0].Cast<HashParameterDictionary>();
+                var parameters = new Dictionary<string, object>()
+                {
+                    {"words", arguments.GetValueOrDefault("words", DownsizeOptions.DefaultTruncationLimit).CastToInt()},
+                    {"characters", arguments.GetValueOrDefault("characters", DownsizeOptions.DefaultTruncationLimit).CastToInt()},
+                    {"round", arguments.GetValueOrDefault("round", false)},
+                };
+                var ctor = typeof(DownsizeOptions).GetConstructors()[0];
+                var options = ctor.InvokeWithNamedParameters<DownsizeOptions>(parameters);
+
+                excerpt = Downsize.Substring(excerpt, options);
+                output.WriteSafeString(excerpt);
             }
         }
     }

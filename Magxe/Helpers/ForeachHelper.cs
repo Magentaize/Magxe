@@ -17,12 +17,27 @@ namespace Magxe.Helpers
 
         public override void HandlebarsBlockHelper(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
         {
-            var controlleerType = (ControllerType)context.ControllerType;
-            switch (controlleerType)
+            // Determine context is a view model contains ControllerType or not
+            if (context is ControllerBaseModel controllerContext)
             {
-                case ControllerType.Index:IndexForEach(output,options,context,arguments);
-                    break;
+                var controllerType = controllerContext.ControllerType;
+                switch (controllerType)
+                {
+                    case ControllerType.Index:
+                        IndexForEach(output, options, context, arguments);
+                        break;
+                }
             }
+            // If not, context is navigation view model
+            else
+            {
+                var navigations = (IEnumerable<NavigationViewModelItem>)context.navigation;
+                foreach (var navi in navigations)
+                {
+                    options.Template(output, navi);
+                }
+            }
+
             //var collection = arguments[0].Cast<IEnumerable>();
             //foreach (object o in collection)
             //{
