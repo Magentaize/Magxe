@@ -13,16 +13,14 @@ namespace Magxe.Helpers
 {
     public class AuthorHelper : HandlebarsBaseHelper
     {
-        private readonly DataContext _dataContext;
-        private const string _authorPrefix = "/author/";
-
-        public AuthorHelper(DataContext dataContext) : base("author", HelperType.HandlebarsHelper)
+        public AuthorHelper() : base("author", HelperType.HandlebarsHelper)
         {
-            _dataContext = dataContext;
         }
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
+            var vm = (AuthorViewModel)(context.author);
+            output.WriteSafeString($"<a href=\"/author/{vm.url}/\">{vm.name}</a>");
         }
     }
 

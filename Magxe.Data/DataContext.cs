@@ -20,7 +20,7 @@ namespace Magxe.Data
         public DbSet<Post> Posts { get; set; }
 
         private const string DbS =
-                "Server=localhost;database=Magxe;port=3306;charset=UTF8;uid=root;pwd=;"
+                "Server=localhost;database=Magxe;port=3306;charset=UTF8;uid=root;pwd=;convert zero datetime=True"
             ;
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {

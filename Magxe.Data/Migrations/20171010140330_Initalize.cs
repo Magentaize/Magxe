@@ -201,6 +201,12 @@ your team to remove all of these introductory posts!";
                 new[] {"Slug", "Name"},
                 tagsValue
             );
+
+            migrationBuilder.InsertData(
+                "Users",
+                new []{"Name","Slug"},
+                new object[,] {{"Magxe", "magxe"}}
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

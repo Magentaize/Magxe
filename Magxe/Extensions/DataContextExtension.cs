@@ -1,10 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Magxe.Data;
+﻿using Magxe.Data;
 using Magxe.Data.Setting;
 using Microsoft.EntityFrameworkCore;
-using static Magxe.Constants;
+using System.Threading.Tasks;
 
 namespace Magxe.Extensions
 {
@@ -13,16 +10,6 @@ namespace Magxe.Extensions
         public static async Task<string> GetSettingAsync(this DataContext dataContext, Key key)
         {
             return (await dataContext.Settings.FirstOrDefaultAsync(s => s.Id == key)).Value;
-        }
-
-        public static async Task<IList<Post>> GetPostsAsync(this DataContext dataContext, int page)
-        {
-            return await dataContext.Posts.OrderByDescending(k => k.Id).Take(PostPerPage).ToListAsync();
-        }
-
-        public static async Task<IList<Tag>> GetTagsAsync(this DataContext dataContext, int[] tagIds)
-        {
-            return await dataContext.Tags.Where(t => tagIds.Contains(t.Id)).ToListAsync();
         }
     }
 }

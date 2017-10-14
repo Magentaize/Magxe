@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using HandlebarsDotNet.ViewEngine.Extensions;
 using Magxe.Controllers;
@@ -16,6 +17,8 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
 using Magxe.Helpers;
+using Magxe.Models;
+using Magxe.Models.DaoConverters;
 using Magxe.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -36,6 +39,10 @@ namespace Magxe
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting()
+                .AddAutoMapper(cfg =>
+                {
+                    cfg.CreateMap<User, AuthorViewModel>().ConvertUsing<User2AuthorViewModelConverter>();
+                })
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
                 .AddDbContext<DataContext>()
@@ -86,8 +93,8 @@ namespace Magxe
                 .Append<NavigationHelper>()
                 .Append<UrlHelper>()
                 .Append<PostClassHelper>()
-                //.Append<AuthorHelper>()
-                .Append<AuthorBlockHelper>()
+                .Append<AuthorHelper>()
+                //.Append<AuthorBlockHelper>()
                 .Append<PostHelper>()
                 .Append<EncodeHelper>()
                 .Append<ContentHelper>()
