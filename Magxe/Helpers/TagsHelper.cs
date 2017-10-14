@@ -3,7 +3,7 @@ using HandlebarsDotNet.ViewEngine.Abstractions;
 
 namespace Magxe.Helpers
 {
-    internal class TagsHelper : BaseHelper
+    internal class TagsHelper : HandlebarsBaseHelper
     {
         public TagsHelper() : base("tags", HelperType.HandlebarsHelper)
         {

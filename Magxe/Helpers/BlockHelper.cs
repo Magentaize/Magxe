@@ -6,7 +6,7 @@ using static Magxe.Helpers.BlockAndContentForHelperCommonData;
 
 namespace Magxe.Helpers
 {
-    internal class BlockHelper : BaseHelper
+    internal class BlockHelper : HandlebarsBaseHelper
     {
         public BlockHelper() : base("block", HelperType.HandlebarsHelper)
         {

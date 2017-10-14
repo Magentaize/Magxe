@@ -14,11 +14,11 @@ using System.Text.RegularExpressions;
 
 namespace Magxe.Helpers
 {
-    internal class NavigationHelper : BaseHelper
+    internal class NavigationHelper : HandlebarsBaseHelper
     {
         private readonly ThemeService _themeService;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly IServiceProvider _services;
+        private readonly Lazy<IHandlebarsViewEngine> _viewEngine;
         private readonly DataContext _dataContext;
 
         public NavigationHelper(DataContext dataContext, ThemeService themeService, IHttpContextAccessor httpContextAccessor, IServiceProvider services) : base("navigation", HelperType.HandlebarsHelper)
@@ -26,7 +26,7 @@ namespace Magxe.Helpers
             _themeService = themeService;
             _dataContext = dataContext;
             _httpContextAccessor = httpContextAccessor;
-            _services = services;
+            _viewEngine = new Lazy<IHandlebarsViewEngine>(services.GetService<IHandlebarsViewEngine>);
         }
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
@@ -50,10 +50,8 @@ namespace Magxe.Helpers
                     })
                 };
 
-                // get IHandlebarsViewEngine by DI will crash dotnet process
-                var viewEngine = _services.GetService<IHandlebarsViewEngine>();
-                var viewPath = Path.Combine(_themeService.CurrentThemePath(), "partials", "navigation");
-                var viewHtml = viewEngine.RenderViewWithDataAsync(viewPath, viewData).Result;
+                var viewPath = Path.Combine(_themeService.CurrentThemePath, "partials", "navigation.hbs");
+                var viewHtml = _viewEngine.Value.RenderViewWithDataAsync(viewPath, viewData).Result;
 
                 output.WriteSafeString(viewHtml);
             }

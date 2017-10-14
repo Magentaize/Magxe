@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Magxe.Helpers
 {
-    internal class ExcerptHelper : BaseHelper
+    internal class ExcerptHelper : HandlebarsBaseHelper
     {
         public ExcerptHelper() : base("excerpt", HelperType.HandlebarsHelper)
         {

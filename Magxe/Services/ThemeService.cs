@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using Magxe.Data;
 using Magxe.Data.Setting;
@@ -10,6 +11,7 @@ namespace Magxe.Services
     {
         private readonly DataContext _dataContext;
         private readonly IHostingEnvironment _hostingEnvironment;
+        public event EventHandler<string> ThemeChanged = delegate{ };
 
         public ThemeService(DataContext dataContext, IHostingEnvironment hostingEnvironment)
         {
@@ -27,13 +29,10 @@ namespace Magxe.Services
                 _dataContext.Update(t);
                 //_dataContext.Settings.First(s => s.Id == Setting.Key.Theme).Value = value;
                 _dataContext.SaveChangesAsync();
-
+                ThemeChanged(this, value);
             }
         }
 
-        internal string CurrentThemePath()
-        {
-            return Path.Combine(_hostingEnvironment.WebRootPath, "themes", CurrentTheme);
-        }
+        internal string CurrentThemePath => Path.Combine(_hostingEnvironment.WebRootPath, "themes", CurrentTheme);
     }
 }

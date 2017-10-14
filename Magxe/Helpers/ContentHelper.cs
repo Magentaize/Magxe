@@ -4,7 +4,7 @@ using HandlebarsDotNet.ViewEngine.Abstractions;
 
 namespace Magxe.Helpers
 {
-    public class ContentHelper : BaseHelper
+    public class ContentHelper : HandlebarsBaseHelper
     {
         public ContentHelper() : base("content", HelperType.HandlebarsHelper)
         {

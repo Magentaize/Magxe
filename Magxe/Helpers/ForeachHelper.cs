@@ -9,7 +9,7 @@ using Magxe.Models;
 
 namespace Magxe.Helpers
 {
-    internal class ForeachHelper : BaseHelper
+    internal class ForeachHelper : HandlebarsBaseHelper
     {
         public ForeachHelper() : base("foreach", HelperType.HandlebarsBlockHelper)
         {

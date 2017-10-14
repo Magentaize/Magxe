@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Magxe.Helpers
 {
-    internal class DateHelper : BaseHelper
+    internal class DateHelper : HandlebarsBaseHelper
     {
         public DateHelper() : base("date", HelperType.HandlebarsHelper)
         {

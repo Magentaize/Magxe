@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Helpers
 {
-    public class AuthorHelper : BaseHelper
+    public class AuthorHelper : HandlebarsBaseHelper
     {
         private readonly DataContext _dataContext;
         private const string _authorPrefix = "/author/";
@@ -26,7 +26,7 @@ namespace Magxe.Helpers
         }
     }
 
-    public class AuthorBlockHelper : BaseHelper
+    public class AuthorBlockHelper : HandlebarsBaseHelper
     {
         private readonly DataContext _dataContext;
         private const string _authorPrefix = "/author/";

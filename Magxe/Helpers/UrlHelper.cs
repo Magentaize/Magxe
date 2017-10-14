@@ -8,7 +8,7 @@ using Magxe.Extensions;
 
 namespace Magxe.Helpers
 {
-    internal class UrlHelper : BaseHelper
+    internal class UrlHelper : HandlebarsBaseHelper
     {
         public UrlHelper() : base("url", HelperType.HandlebarsHelper)
         {

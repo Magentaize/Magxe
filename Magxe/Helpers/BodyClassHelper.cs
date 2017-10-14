@@ -11,7 +11,7 @@ using Magxe.Utils;
 
 namespace Magxe.Helpers
 {
-    public class BodyClassHelper : BaseHelper
+    public class BodyClassHelper : HandlebarsBaseHelper
     {
         public BodyClassHelper() : base("body_class", HelperType.HandlebarsHelper)
         {

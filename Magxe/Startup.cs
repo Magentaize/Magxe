@@ -92,6 +92,10 @@ namespace Magxe
                 .Append<EncodeHelper>()
                 .Append<ContentHelper>()
                 .Append<PluralHelper>()
+                .Append<GhostHeadHelper>()
+                .Append<GhostFootHelper>()
+                .Append<PaginationHelper>()
+                .Append<PageUrlHelper>()
                 ;
         }
     }

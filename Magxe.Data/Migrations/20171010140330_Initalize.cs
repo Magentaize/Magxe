@@ -135,8 +135,8 @@ namespace Magxe.Data.Migrations
                 values: settingsValue
             );
 
-            var postsValue = new object[4, 9];
-            for (int i = 0; i < 4; i++)
+            var postsValue = new object[10, 9];
+            for (int i = 0; i < 10; i++)
             {
                 postsValue[i, 0] = 1;
                 postsValue[i, 1] = DateTime.Now;

@@ -3,7 +3,7 @@ using HandlebarsDotNet.ViewEngine.Abstractions;
 
 namespace Magxe.Helpers
 {
-    public class PluralHelper : BaseHelper
+    public class PluralHelper : HandlebarsBaseHelper
     {
         public PluralHelper() : base("plural", HelperType.HandlebarsHelper)
         {

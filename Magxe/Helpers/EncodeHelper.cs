@@ -6,7 +6,7 @@ using Magxe.Extensions;
 
 namespace Magxe.Helpers
 {
-    public class EncodeHelper : BaseHelper
+    public class EncodeHelper : HandlebarsBaseHelper
     {
         public EncodeHelper() : base("encode", HelperType.HandlebarsHelper)
         {
