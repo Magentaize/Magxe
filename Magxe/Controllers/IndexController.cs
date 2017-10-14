@@ -5,6 +5,7 @@ using Magxe.Data.Setting;
 using Magxe.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Models;
 using Microsoft.AspNetCore.Routing;
 

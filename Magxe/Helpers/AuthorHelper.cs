@@ -38,7 +38,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsBlockHelper(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
         {
-            var controllerType = (ControllerType) context.controllerType;
+            var controllerType = (ControllerType)context.controllerType;
             object viewData = null;
             switch (controllerType)
             {

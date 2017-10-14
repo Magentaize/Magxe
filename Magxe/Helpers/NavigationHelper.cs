@@ -29,9 +29,9 @@ namespace Magxe.Helpers
             _services = services;
         }
 
-        public override async void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
+        public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            var navigationData = await _dataContext.Settings.GetNavigationsAsync();
+            var navigationData = _dataContext.Settings.GetNavigationsAsync().Result;
             if (navigationData.Count == 0)
             {
                 output.WriteSafeString(string.Empty);
@@ -50,9 +50,11 @@ namespace Magxe.Helpers
                     })
                 };
 
+                // get IHandlebarsViewEngine by DI will crash dotnet process
                 var viewEngine = _services.GetService<IHandlebarsViewEngine>();
-                var viewPath = Path.Combine(_themeService.CurrentThemePath(), "partials","navigation");
-                var viewHtml = await viewEngine.RenderViewWithDataAsync(viewPath, viewData);
+                var viewPath = Path.Combine(_themeService.CurrentThemePath(), "partials", "navigation");
+                var viewHtml = viewEngine.RenderViewWithDataAsync(viewPath, viewData).Result;
+
                 output.WriteSafeString(viewHtml);
             }
         }

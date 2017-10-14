@@ -47,7 +47,7 @@
 
   <ItemGroup>
     <Reference Include="Handlebars">
-      <HintPath>C:\Users\PeoLeser\.nuget\packages\handlebars.net\1.9.0\lib\netstandard1.3\Handlebars.dll</HintPath>
+      <HintPath>..\..\Handlebars.Net\source\Handlebars\bin\Debug\netstandard2.0\Handlebars.dll</HintPath>
     </Reference>
     <Reference Include="Handlebars.ViewEngine">
       <HintPath>..\..\Handlebars.Net.ViewEngine\src\HandlebarsDotNet.ViewEngine\bin\Debug\netcoreapp2.0\Handlebars.ViewEngine.dll</HintPath>

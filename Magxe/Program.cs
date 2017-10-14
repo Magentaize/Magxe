@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,6 +17,10 @@ namespace Magxe
         {
             //Directory.SetCurrentDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot"));
             BuildWebHost(args).Run();
+            AppDomain.CurrentDomain.UnhandledException += (o, e) =>
+            {
+                Debug.WriteLine(e);
+            };
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
