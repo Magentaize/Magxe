@@ -3,7 +3,7 @@ using Magxe.Data;
 
 namespace Magxe.Models.DaoConverters
 {
-    public class User2AuthorViewModelConverter : ITypeConverter<User, AuthorViewModel>
+    internal class User2AuthorViewModelConverter : ITypeConverter<User, AuthorViewModel>
     {
         public AuthorViewModel Convert(User source, AuthorViewModel dest, ResolutionContext context)
         {

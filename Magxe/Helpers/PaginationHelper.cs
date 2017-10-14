@@ -18,6 +18,7 @@ namespace Magxe.Helpers
         private const string DefaultTpl =
                 "<nav class=\"pagination\" role=\"navigation\">    {{#if prev}}        <a class=\"newer-posts\" href=\"{{page_url prev}}\"><span aria-hidden=\"true\">&larr;</span> Newer Posts</a>    {{/if}}    <span class=\"page-number\">Page {{page}} of {{pages}}</span>    {{#if next}}        <a class=\"older-posts\" href=\"{{page_url next}}\">Older Posts <span aria-hidden=\"true\">&rarr;</span></a>    {{/if}}</nav>"
             ;
+
         private static string _template;
 
         private readonly ThemeService _themeService;
@@ -25,7 +26,8 @@ namespace Magxe.Helpers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DataContext _dataContext;
 
-        public PaginationHelper(DataContext dataContext, ThemeService themeService, IServiceProvider services, IHttpContextAccessor httpContextAccessor) : base("pagination", HelperType.HandlebarsHelper)
+        public PaginationHelper(DataContext dataContext, ThemeService themeService, IServiceProvider services,
+            IHttpContextAccessor httpContextAccessor) : base("pagination", HelperType.HandlebarsHelper)
         {
             _themeService = themeService;
             _viewEngine = new Lazy<IHandlebarsViewEngine>(services.GetService<IHandlebarsViewEngine>);
@@ -67,16 +69,17 @@ namespace Magxe.Helpers
 
         private async Task SetTemplateAsync()
         {
-            var files = Directory.GetFiles(_themeService.CurrentThemePath, "pagination.hbs",
-                SearchOption.AllDirectories);
-            if (files.Any())
+            var themePath = _themeService.CurrentThemePath;
+            if (Directory.Exists(themePath))
             {
-                _template = await File.ReadAllTextAsync(files[0]);
+                var files = Directory.GetFiles(themePath, "pagination.hbs", SearchOption.AllDirectories);
+                if (files.Any())
+                {
+                    _template = await File.ReadAllTextAsync(files[0]);
+                    return;
+                }
             }
-            else
-            {
-                _template = DefaultTpl;
-            }
+            _template = DefaultTpl;
         }
     }
 }

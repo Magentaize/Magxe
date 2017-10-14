@@ -1,11 +1,11 @@
-﻿using System;
-using Magxe.Extensions;
+﻿using Magxe.Extensions;
 using Magxe.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Magxe.Controllers
 {
@@ -41,7 +41,7 @@ namespace Magxe.Controllers
             {
                 case ".woff":
                     return await GetAsset("fonts", "application/font-woff");
-                default: throw new NotImplementedException();
+                default: throw new NotImplementedException($"fontType: {fontType}");
             }
         }
 
@@ -54,16 +54,14 @@ namespace Magxe.Controllers
             {
                 return new NotFoundResult();
             }
-            else
+
+            FileStreamResult res = null;
+            await Task.Run(() =>
             {
-                FileStreamResult res = null;
-                await Task.Run(() =>
-                {
-                    var stream = new FileStream(filePath, FileMode.Open);
-                    res = File(stream, contentType);
-                });
-                return res;
-            }
+                var stream = new FileStream(filePath, FileMode.Open);
+                res = File(stream, contentType);
+            });
+            return res;
         }
     }
 }

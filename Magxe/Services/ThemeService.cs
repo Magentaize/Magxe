@@ -17,6 +17,8 @@ namespace Magxe.Services
         {
             _dataContext = dataContext;
             _hostingEnvironment = hostingEnvironment;
+
+            SetCurrentThemePath();
         }
 
         internal string CurrentTheme
@@ -27,12 +29,22 @@ namespace Magxe.Services
                 var t = _dataContext.Settings.First(s => s.Id == Key.Theme);
                 t.Value = value;
                 _dataContext.Update(t);
-                //_dataContext.Settings.First(s => s.Id == Setting.Key.Theme).Value = value;
-                _dataContext.SaveChangesAsync();
-                ThemeChanged(this, value);
+                _dataContext.SaveChanges();
+                RaiseThemeChanged(this, value);
             }
         }
 
-        internal string CurrentThemePath => Path.Combine(_hostingEnvironment.WebRootPath, "themes", CurrentTheme);
+        internal void RaiseThemeChanged(object sender, string value)
+        {
+            SetCurrentThemePath();
+            ThemeChanged(sender, value);
+        }
+
+        internal void SetCurrentThemePath()
+        {
+            CurrentThemePath = Path.Combine(_hostingEnvironment.WebRootPath, "themes", CurrentTheme);
+        }
+
+        internal string CurrentThemePath { get; private set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using AutoMapper;
 using Magxe.Data;
 using Magxe.Data.Setting;
 using Magxe.Extensions;
@@ -6,6 +8,7 @@ using Magxe.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using System.Threading.Tasks;
+using Magxe.Services;
 
 namespace Magxe.Controllers
 {
@@ -15,9 +18,11 @@ namespace Magxe.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
+        private readonly ThemeService _themeService;
 
-        public IndexController(DataContext dataContext, IMapper mapper)
+        public IndexController(ThemeService themeService, DataContext dataContext, IMapper mapper)
         {
+            _themeService = themeService;
             _dataContext = dataContext;
             _mapper = mapper;
         }
@@ -33,21 +38,7 @@ namespace Magxe.Controllers
             var posts =
                 _dataContext.Posts
                     .GetPagePosts(pageNumber)
-                    .SelectSync(async p =>
-                        {
-                            var ivm = new PostViewModel()
-                            {
-                                title = p.Title,
-                                url = p.Slug,
-                                date = p.UpdatedTime,
-                                author = _mapper.Map<User, AuthorViewModel>(await _dataContext.Users.GetUserByIdAsync(p.AuthorId)),
-                                tags = _dataContext.GetTagsByIds(p.Tags),
-                                CustomExcerpt = p.CustomExcerpt,
-                                Html = p.Html
-                            };
-                            return ivm;
-                        }
-                    );
+                    .Select(p => _mapper.Map<Post, PostViewModel>(p));
        
             var title = await _dataContext.GetSettingAsync(Key.Title);
 

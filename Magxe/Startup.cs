@@ -16,9 +16,9 @@ using Magxe.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
-using Magxe.Helpers;
 using Magxe.Models;
 using Magxe.Models.DaoConverters;
+using Magxe.Helpers;
 using Magxe.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -39,10 +39,7 @@ namespace Magxe
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddRouting()
-                .AddAutoMapper(cfg =>
-                {
-                    cfg.CreateMap<User, AuthorViewModel>().ConvertUsing<User2AuthorViewModelConverter>();
-                })
+                .AddAutoMapper(DaoConverters.ConfigAutoMapper)
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
                 .AddDbContext<DataContext>()
@@ -53,7 +50,7 @@ namespace Magxe
                 })
                 .AddHandlebarsViewEngine(options =>
                 {
-                    options.RegisterHelpers = RegisterHelpers;
+                    options.RegisterHelpers = Helpers.Helpers.RegisterHelpers;
 
                     options.ViewLocationFormats.Clear();
                     options.ViewLocationFormats.Add(
@@ -78,32 +75,6 @@ namespace Magxe
             app.UseStaticFiles()
                 .Map("/favicon.ico", cfg => cfg.UseStaticFiles())
                 .UseMvc();
-        }
-
-        private static void RegisterHelpers(IHelperList helpers)
-        {
-            helpers.Append<AssetHelper>()
-                .Append<DateHelper>()
-                .Append<ExcerptHelper>()
-                .Append<TagsHelper>()
-                .Append<BlockHelper>()
-                .Append<ContentForHelper>()
-                .Append<ForeachHelper>()
-                .Append<BodyClassHelper>()
-                .Append<NavigationHelper>()
-                .Append<UrlHelper>()
-                .Append<PostClassHelper>()
-                .Append<AuthorHelper>()
-                //.Append<AuthorBlockHelper>()
-                .Append<PostHelper>()
-                .Append<EncodeHelper>()
-                .Append<ContentHelper>()
-                .Append<PluralHelper>()
-                .Append<GhostHeadHelper>()
-                .Append<GhostFootHelper>()
-                .Append<PaginationHelper>()
-                .Append<PageUrlHelper>()
-                ;
         }
     }
 }
