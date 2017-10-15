@@ -3,7 +3,7 @@ using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Extensions;
 using System.IO;
 using System.Text;
-using static Magxe.Helpers.BlockAndContentForHelperCommonData;
+using static Magxe.Helpers.BlockAndContentForHelper;
 
 namespace Magxe.Helpers
 {

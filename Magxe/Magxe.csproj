@@ -31,6 +31,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Helpers\BlockHelper.cs">
+      <DependentUpon>BlockAndContentForHelper.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Helpers\ContentForHelper.cs">
+      <DependentUpon>BlockAndContentForHelper.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="Helpers\Tpl\navigation.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
