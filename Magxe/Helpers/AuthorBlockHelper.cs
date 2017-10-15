@@ -53,7 +53,7 @@ namespace Magxe.Helpers
                 var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Id == authorId);
                 obj = new AuthorPageAuthorModel
                 {
-                    url = $"{_authorPrefix}{author.Name}",
+                    slug = $"{_authorPrefix}{author.Name}",
                     profile_image = author.ProfileImage,
                     name = author.Name,
                     location = author.Location,

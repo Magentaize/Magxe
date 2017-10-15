@@ -4,27 +4,23 @@ using Magxe.Extensions;
 
 namespace Magxe.Models.DaoConverters
 {
-    public class Post2PostViewModelConverter : ITypeConverter<Post, PostViewModel>
+    internal class Page2PageViewModelConverter : ITypeConverter<Page, PageViewModel>
     {
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
 
-        public Post2PostViewModelConverter(DataContext dataContext, IMapper mapper)
+        public Page2PageViewModelConverter(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
-            _mapper = mapper;
         }
 
-        public PostViewModel Convert(Post source, PostViewModel destination, ResolutionContext context)
+        public PageViewModel Convert(Page source, PageViewModel destination, ResolutionContext context)
         {
-            return new PostViewModel()
+            return new PageViewModel()
             {
                 blog = _dataContext.Settings.GetBlogViewModelAsync().Result,
                 content = source.Html,
                 feature_image = source.FeatureImage,
                 title = source.Title,
-                AuthorId = source.AuthorId,
-                tags = _dataContext.Tags.GetTagsByIds(source.Tags),
                 slug = source.Slug
             };
         }

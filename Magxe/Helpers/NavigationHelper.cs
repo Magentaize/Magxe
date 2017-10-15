@@ -53,9 +53,8 @@ namespace Magxe.Helpers
                     {
                         current = IsCurrentUrl(o.Url),
                         label = o.Label,
-                        url = o.Url,
                         secure = false,
-                        slug = Slugify(o.Label)
+                        slug = Slugify(o.Url)
                     })
                 };
 

@@ -13,7 +13,7 @@ namespace Magxe.Models.DaoConverters
                 location = source.Location,
                 name = source.Name,
                 profile_image = source.ProfileImage,
-                url = $"/author/{source.Slug}",              
+                slug = $"/author/{source.Slug}",              
             };
         }
     }

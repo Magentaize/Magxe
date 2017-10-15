@@ -14,7 +14,7 @@ namespace Magxe.Helpers
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
             var vm = (PostAuthorViewModel)(context.author);
-            output.WriteSafeString($"<a href=\"/author/{vm.url}/\">{vm.name}</a>");
+            output.WriteSafeString($"<a href=\"/author/{vm.slug}/\">{vm.name}</a>");
         }
     }
 }

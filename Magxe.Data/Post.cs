@@ -1,36 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using Microsoft.EntityFrameworkCore.Internal;
-using Newtonsoft.Json;
 
 namespace Magxe.Data
 {
-    public class Post : MetaItem
+    public class Post : Page
     {
-        [StringLength(150)]
-        [Column(Order = 1)]
-        public string Title { get; set; }
-
-        [StringLength(150)]
-        [Column(Order = 2)]
-        public string Slug { get; set; }
-
-        [Column(Order = 3)]
-        public string Html { get; set; }
-
-        [Column(Order = 4)]
-        public string PlainText { get; set; }
-
-        [Column(Order = 5)]
-        public string MobileDoc { get; set; }
-
-        [StringLength(150)]
-        [Column(Order = 6)]
-        public string FeatureImage { get; set; }
+        public Post()
+        {
+            IsPage = false;
+        }
 
         #region Tags
 
@@ -46,8 +26,6 @@ namespace Magxe.Data
 
         #endregion
 
-        public PostStatus Status { get; set; }
-
         public int AuthorId { get; set; }
 
         [Required]
@@ -60,15 +38,5 @@ namespace Magxe.Data
 
         [Column(TypeName = "text")]
         public string CustomExcerpt { get; set; }
-
-        public string CodeInjectionHead { get; set; }
-
-        public string CodeInjectionFoot { get; set; }
-
-        public enum PostStatus
-        {
-            Published,
-            Draft
-        }
     }
 }

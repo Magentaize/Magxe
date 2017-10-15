@@ -5,6 +5,7 @@ using HandlebarsDotNet.Compiler;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Data.Meta;
 using Magxe.Extensions;
+using Magxe.Helpers.Abstractions;
 
 namespace Magxe.Helpers
 {
@@ -16,6 +17,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
+            var vm = (ISlug) context;
             bool absolute = false;
             if (arguments.Length != 0)
             {
@@ -23,12 +25,12 @@ namespace Magxe.Helpers
             }
             if (!absolute)
             {
-                var uri = new Uri(Config.Url, (string) context.url);
+                var uri = new Uri(Config.Url, vm.slug);
                 output.WriteSafeString(uri.ToString());
             }
             else
             {
-                output.WriteSafeString((string) context.url);
+                output.WriteSafeString(vm.slug);
             }
         }
     }
