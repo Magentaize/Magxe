@@ -49,10 +49,10 @@
 
   <ItemGroup>
     <Reference Include="Handlebars">
-      <HintPath>..\..\Handlebars.Net\source\Handlebars\bin\Debug\netstandard2.0\Handlebars.dll</HintPath>
+      <HintPath>..\..\Handlebars.Net.ViewEngine\src\HandlebarsDotNet.ViewEngine\bin\Release\netcoreapp2.0\Handlebars.dll</HintPath>
     </Reference>
     <Reference Include="Handlebars.ViewEngine">
-      <HintPath>..\..\Handlebars.Net.ViewEngine\src\HandlebarsDotNet.ViewEngine\bin\Debug\netcoreapp2.0\Handlebars.ViewEngine.dll</HintPath>
+      <HintPath>..\..\Handlebars.Net.ViewEngine\src\HandlebarsDotNet.ViewEngine\bin\Release\netcoreapp2.0\Handlebars.ViewEngine.dll</HintPath>
     </Reference>
   </ItemGroup>
 

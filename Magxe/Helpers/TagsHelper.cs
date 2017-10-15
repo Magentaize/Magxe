@@ -20,6 +20,7 @@ namespace Magxe.Helpers
         {
             var tags = (IEnumerable<Tag>) context.tags;
             var enumerable = tags as IList<Tag> ?? tags.ToList();
+
             if (enumerable.Any())
             {
                 var arguments = oArguments[0].Cast<HashParameterDictionary>();

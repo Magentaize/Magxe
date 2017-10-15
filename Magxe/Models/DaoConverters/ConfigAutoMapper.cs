@@ -7,7 +7,8 @@ namespace Magxe.Models.DaoConverters
     {
         public static void ConfigAutoMapper(IMapperConfigurationExpression cfg)
         {
-            cfg.CreateMap<User, AuthorViewModel>().ConvertUsing<User2AuthorViewModelConverter>();
+            cfg.CreateMap<User, PostAuthorViewModel>().ConvertUsing<User2PostAuthorViewModelConverter>();
+            cfg.CreateMap<Post,IndexPostViewModel>().ConvertUsing<Post2IndexPostViewModelConverter>();
             cfg.CreateMap<Post,PostViewModel>().ConvertUsing<Post2PostViewModelConverter>();
         }
     }

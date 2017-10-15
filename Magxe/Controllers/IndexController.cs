@@ -18,11 +18,9 @@ namespace Magxe.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
-        private readonly ThemeService _themeService;
 
         public IndexController(ThemeService themeService, DataContext dataContext, IMapper mapper)
         {
-            _themeService = themeService;
             _dataContext = dataContext;
             _mapper = mapper;
         }
@@ -38,22 +36,13 @@ namespace Magxe.Controllers
             var posts =
                 _dataContext.Posts
                     .GetPagePosts(pageNumber)
-                    .Select(p => _mapper.Map<Post, PostViewModel>(p));
-       
-            var title = await _dataContext.GetSettingAsync(Key.Title);
+                    .Select(p => _mapper.Map<Post, IndexPostViewModel>(p));
 
             var vm = new IndexViewModel()
             {
                 ControllerType = ControllerType.Index,
-                meta_title = await _dataContext.GetSettingAsync(Key.Title),
-                blog = new BlogViewModel()
-                {
-                    title = title,
-                    logo = await _dataContext.GetSettingAsync(Key.Logo),
-                    cover_image = await _dataContext.GetSettingAsync(Key.CoverImage),
-                    description = await _dataContext.GetSettingAsync(Key.Description),
-                    navigation = await _dataContext.Settings.GetNavigationsAsync()
-                },
+                meta_title = await _dataContext.Settings.GetSettingAsync(Key.Title),
+                blog = await _dataContext.Settings.GetBlogViewModelAsync(),
                 posts = posts
             };
 

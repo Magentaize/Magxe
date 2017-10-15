@@ -3,8 +3,6 @@ using HandlebarsDotNet.Compiler;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Extensions;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 
 namespace Magxe.Helpers

@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
 using Magxe.Data;
-using Magxe.Data.Setting;
 using Magxe.Extensions;
 
 namespace Magxe.Models.DaoConverters
 {
-    internal class Post2PostViewModelConverter : ITypeConverter<Post,PostViewModel>
+    public class Post2PostViewModelConverter : ITypeConverter<Post, PostViewModel>
     {
         private readonly DataContext _dataContext;
         private readonly IMapper _mapper;
@@ -20,13 +19,13 @@ namespace Magxe.Models.DaoConverters
         {
             return new PostViewModel()
             {
+                AuthorId = source.AuthorId,
+                blog = _dataContext.Settings.GetBlogViewModelAsync().Result,
+                content = source.Html,
+                feature_image = source.FeatureImage,
+                tags = _dataContext.Tags.GetTagsByIds(source.Tags),
                 title = source.Title,
-                url =  source.Slug,
-                date = source.UpdatedTime,
-                author = _mapper.Map<User, AuthorViewModel>(_dataContext.Users.GetUserByIdAsync(source.AuthorId).Result),
-                tags = _dataContext.GetTagsByIds(source.Tags),
-                CustomExcerpt = source.CustomExcerpt,
-                Html = source.Html
+                url = source.Slug
             };
         }
     }

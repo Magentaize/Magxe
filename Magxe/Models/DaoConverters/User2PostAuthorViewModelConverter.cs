@@ -3,9 +3,9 @@ using Magxe.Data;
 
 namespace Magxe.Models.DaoConverters
 {
-    internal class User2AuthorViewModelConverter : ITypeConverter<User, PostAuthorViewModel>
+    internal class User2PostAuthorViewModelConverter : ITypeConverter<User, PostAuthorViewModel>
     {
-        public PostAuthorViewModel Convert(User source, PostAuthorViewModel dest, ResolutionContext context)
+        public PostAuthorViewModel Convert(User source, PostAuthorViewModel destination, ResolutionContext context)
         {
             return new PostAuthorViewModel()
             {
@@ -13,7 +13,7 @@ namespace Magxe.Models.DaoConverters
                 location = source.Location,
                 name = source.Name,
                 profile_image = source.ProfileImage,
-                url = source.Slug,
+                url = $"/author/{source.Slug}",              
             };
         }
     }

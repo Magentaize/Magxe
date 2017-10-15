@@ -21,7 +21,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic dContext, params object[] oArguments)
         {
-            if (dContext is PostViewModel post)
+            if (dContext is IndexPostViewModel post)
             {
                 string excerpt;
                 if (post.CustomExcerpt.IsNullOrEmpty())

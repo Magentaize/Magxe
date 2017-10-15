@@ -2,7 +2,7 @@
 
 namespace Magxe.Models
 {
-    public class AuthorPageAuthorModel : AuthorViewModel
+    public class AuthorPageAuthorModel : PostAuthorViewModel
     {
         public BlogModel blog { get; set; }
     }

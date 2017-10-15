@@ -22,33 +22,32 @@ namespace Magxe.Controllers
         }
 
         [Route("css/{file}")]
-        public async Task<IActionResult> GetCss()
+        public async Task<IActionResult> GetCss(string file)
         {
-            return await GetAsset("css", "text/css");
+            return await GetAsset("css", file, "text/css");
         }
 
         [Route("js/{file}")]
-        public async Task<IActionResult> GetJs()
+        public async Task<IActionResult> GetJs(string file)
         {
-            return await GetAsset("js", "application/javascript");
+            return await GetAsset("js", file, "application/javascript");
         }
 
         [Route("fonts/{file}")]
-        public async Task<IActionResult> GetFont()
+        public async Task<IActionResult> GetFont(string file)
         {
-            var fontType = Path.GetExtension(HttpContext.GetRouteValue("file").Cast<string>());
+            var fontType = Path.GetExtension(file);
             switch (fontType)
             {
                 case ".woff":
-                    return await GetAsset("fonts", "application/font-woff");
+                    return await GetAsset("fonts", file, "application/font-woff");
                 default: throw new NotImplementedException($"fontType: {fontType}");
             }
         }
 
-        private async Task<IActionResult> GetAsset(string assetType, string contentType)
+        private async Task<IActionResult> GetAsset(string assetType, string fileName, string contentType)
         {
-            var filePath = Path.Combine(_themeService.CurrentThemePath, "assets", assetType,
-                HttpContext.GetRouteValue("file").Cast<string>());
+            var filePath = Path.Combine(_themeService.CurrentThemePath, "assets", assetType, fileName);
 
             if (!System.IO.File.Exists(filePath))
             {

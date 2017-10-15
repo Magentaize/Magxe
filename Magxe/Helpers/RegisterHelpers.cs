@@ -19,7 +19,7 @@ namespace Magxe.Helpers
                 .Append<UrlHelper>()
                 .Append<PostClassHelper>()
                 .Append<AuthorHelper>()
-                //.Append<AuthorBlockHelper>()
+                .Append<AuthorBlockHelper>()
                 .Append<PostHelper>()
                 .Append<EncodeHelper>()
                 .Append<ContentHelper>()

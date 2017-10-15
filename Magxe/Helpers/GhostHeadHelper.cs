@@ -18,7 +18,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            output.WriteSafeString(_dataContext.GetSettingAsync(Key.CodeInjectionHead).Result);
+            output.WriteSafeString(_dataContext.Settings.GetSettingAsync(Key.CodeInjectionHead).Result);
         }
     }
 }

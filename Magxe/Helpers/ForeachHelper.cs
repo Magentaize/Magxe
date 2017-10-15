@@ -47,7 +47,7 @@ namespace Magxe.Helpers
 
         private void IndexForEach(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
         {
-            var posts = (IEnumerable<PostViewModel>) arguments[0];
+            var posts = (IEnumerable<IndexPostViewModel>) arguments[0];
             foreach (var post in posts)
             {
                 options.Template(output, post);
