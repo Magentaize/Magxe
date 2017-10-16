@@ -1,0 +1,18 @@
+version: 0.0.{build}
+image: Visual Studio 2017
+configuration: Debug
+platform: Any CPU
+clone_depth: 1
+dotnet_csproj:
+  patch: true
+  file: '**\*.csproj'
+  version: '{version}'
+  package_version: '{version}'
+before_build:
+- appveyor DownloadFile https://dist.nuget.org/win-x86-commandline/latest/nuget.exe
+- ps: >-
+    nuget restore
+
+build:
+  verbosity: minimal
+test: off
