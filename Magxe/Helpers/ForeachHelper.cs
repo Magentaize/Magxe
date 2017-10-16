@@ -1,12 +1,10 @@
 ﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Extensions;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
 using Magxe.Controllers;
 using Magxe.Models;
 using Magxe.Views.Abstractions;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Magxe.Helpers
 {
@@ -19,14 +17,11 @@ namespace Magxe.Helpers
         public override void HandlebarsBlockHelper(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
         {
             // Determine context is a view model contains ControllerType or not
-            if (context is ControllerBaseModel controllerContext)
+            if (arguments[0] is IEnumerable<IPost> posts)
             {
-                var controllerType = controllerContext.ControllerType;
-                switch (controllerType)
+                foreach (var post in posts)
                 {
-                    case ControllerType.Index:
-                        IndexForEach(output, options, context, arguments);
-                        break;
+                    options.Template(output, post);
                 }
             }
             // If not, context is navigation view model
@@ -37,21 +32,6 @@ namespace Magxe.Helpers
                 {
                     options.Template(output, navi);
                 }
-            }
-
-            //var collection = arguments[0].Cast<IEnumerable>();
-            //foreach (object o in collection)
-            //{
-            //    options.Template(output, o);
-            //}
-        }
-
-        private void IndexForEach(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
-        {
-            var posts = (IEnumerable<IPost>) arguments[0];
-            foreach (var post in posts)
-            {
-                options.Template(output, post);
             }
         }
     }

@@ -39,7 +39,7 @@ namespace Magxe.Helpers
                     break;
                 case ControllerType.Author:
                     classes.Add("author-template");
-                    var slug = ((User)((dynamic)((object[])Dynamic.InvokeGet(context, "_objects"))[1]).author).Slug;
+                    var slug = ((dynamic)((object[])Dynamic.InvokeGet(context, "Objects"))[1]).slug;
                     classes.Add($"author-{slug}");
                     break;
                 case ControllerType.Private:

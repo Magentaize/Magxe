@@ -29,7 +29,7 @@ namespace Magxe.Controllers
         public async Task<IActionResult> Index(int pageNumber)
         {
             pageNumber = pageNumber == 0 ? 1 : pageNumber;
-            if (pageNumber > await _dataContext.Posts.GetTotalPageAsync())
+            if (pageNumber > await _dataContext.Posts.GetTotalPagesAsync())
             {
                 return new NotFoundResult();
             }
@@ -45,7 +45,6 @@ namespace Magxe.Controllers
                 meta_title = await _dataContext.Settings.GetSettingAsync(Key.Title),
                 blog = await _dataContext.Settings.GetBlogViewModelAsync(),
                 posts = posts,
-                date = DateTime.Now,
             };
 
             return View("index", vm);

@@ -47,7 +47,7 @@ namespace Magxe.Helpers
             {
                 page = pageMatch.Groups[2].Value.CastToInt();
             }
-            var pages = _dataContext.Posts.GetTotalPageAsync().Result;
+            var pages = _dataContext.Posts.GetTotalPagesAsync().Result;
 
             var vm = new PaginationViewModel()
             {

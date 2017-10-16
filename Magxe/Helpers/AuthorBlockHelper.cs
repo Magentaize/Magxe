@@ -28,16 +28,16 @@ namespace Magxe.Helpers
 
         public override void HandlebarsBlockHelper(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
         {
-            var authorId = ((IAuthor)context).AuthorId;
             var controllerType = ((IControllerType)context).ControllerType;
             object vm = null;
             switch (controllerType)
             {
                 case ControllerType.Post:
+                    var authorId = ((IAuthor)context).AuthorId;
                     vm = GetPostControllerAuthorAsync(authorId).Result;
                     break;
                 case ControllerType.Author:
-                    vm = GetAuthorControllerAuthorAsync(context).Result;
+                    vm = context;
                     break;
                 default: throw new ArgumentOutOfRangeException();
             }

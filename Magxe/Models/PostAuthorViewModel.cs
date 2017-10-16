@@ -3,7 +3,7 @@ using Magxe.Views.Abstractions;
 
 namespace Magxe.Models
 {
-    public class PostAuthorViewModel : IPostAuthor
+    internal class PostAuthorViewModel : IPostAuthor
     {
         public string profile_image { get; set; }
         public string slug { get; set; }
