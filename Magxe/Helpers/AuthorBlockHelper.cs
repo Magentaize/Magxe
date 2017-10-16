@@ -7,8 +7,9 @@ using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Controllers;
 using Magxe.Data;
 using Magxe.Data.Setting;
-using Magxe.Helpers.Abstractions;
+using Magxe.Views.Abstractions;
 using Magxe.Models;
+using Magxe.Models.ControllerViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Helpers
@@ -46,23 +47,24 @@ namespace Magxe.Helpers
 
         private async Task<object> GetAuthorControllerAuthorAsync(dynamic context)
         {
-            AuthorPageAuthorModel obj = null;
-            await Task.Run(async () =>
-            {
-                var authorId = (int)context.author.Id;
-                var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Id == authorId);
-                obj = new AuthorPageAuthorModel
-                {
-                    slug = $"{_authorPrefix}{author.Name}",
-                    profile_image = author.ProfileImage,
-                    name = author.Name,
-                    location = author.Location,
-                    bio = author.Bio,
-                    blog = await _dataContext.Settings.GetBlogModelAsync()
-                };
-            });
+            return null;
+            //AuthorPageViewModel obj = null;
+            //await Task.Run(async () =>
+            //{
+            //    var authorId = (int)context.author.Id;
+            //    var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Id == authorId);
+            //    obj = new AuthorPageViewModel
+            //    {
+            //        slug = $"{_authorPrefix}{author.Name}",
+            //        profile_image = author.ProfileImage,
+            //        name = author.Name,
+            //        location = author.Location,
+            //        bio = author.Bio,
+            //        blog = await _dataContext.Settings.GetBlogModelAsync()
+            //    };
+            //});
 
-            return obj;
+            //return obj;
         }
 
         private async Task<object> GetPostControllerAuthorAsync(int id)

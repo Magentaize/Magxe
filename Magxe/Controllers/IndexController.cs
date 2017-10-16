@@ -1,14 +1,15 @@
-﻿using System;
-using System.Linq;
-using AutoMapper;
+﻿using AutoMapper;
 using Magxe.Data;
 using Magxe.Data.Setting;
 using Magxe.Extensions;
-using Magxe.Models;
+using Magxe.Models.ControllerViewModels;
+using Magxe.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
+using System;
+using System.Linq;
 using System.Threading.Tasks;
-using Magxe.Services;
+using Magxe.Models;
 
 namespace Magxe.Controllers
 {
@@ -36,14 +37,15 @@ namespace Magxe.Controllers
             var posts =
                 _dataContext.Posts
                     .GetPagePosts(pageNumber)
-                    .Select(p => _mapper.Map<Post, IndexPostViewModel>(p));
+                    .Select(p => _mapper.Map<Post, PostViewModel>(p));
 
-            var vm = new IndexViewModel()
+            var vm = new IndexControllerViewModel()
             {
                 ControllerType = ControllerType.Index,
                 meta_title = await _dataContext.Settings.GetSettingAsync(Key.Title),
                 blog = await _dataContext.Settings.GetBlogViewModelAsync(),
-                posts = posts
+                posts = posts,
+                date = DateTime.Now,
             };
 
             return View("index", vm);

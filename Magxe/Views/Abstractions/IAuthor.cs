@@ -1,4 +1,4 @@
-﻿namespace Magxe.Helpers.Abstractions
+﻿namespace Magxe.Views.Abstractions
 {
     internal interface IAuthor
     {

@@ -1,6 +1,6 @@
 ﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Models;
+using Magxe.Views.Abstractions;
 using System.IO;
 
 namespace Magxe.Helpers
@@ -13,8 +13,8 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            var vm = (PostAuthorViewModel)(context.author);
-            output.WriteSafeString($"<a href=\"/author/{vm.slug}/\">{vm.name}</a>");
+            var vm = (IPostAuthor) context.author;
+            output.WriteSafeString($"<a href=\"{vm.slug}/\">{vm.name}</a>");
         }
     }
 }

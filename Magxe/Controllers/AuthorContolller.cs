@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Controllers
 {
-    [Route("author/{name}")]
+    [Route("author/{slug}")]
     public class AuthorContolller : Controller
     {
         private readonly DataContext _dataContext;
@@ -17,10 +17,9 @@ namespace Magxe.Controllers
             _dataContext = dataContext;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string slug)
         {
-            var authorName = HttpContext.GetRouteValue("name").Cast<string>();
-            var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Name == authorName);
+            var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Slug == slug);
             ViewData["key"] = "author";
             ViewData["author"] = new
             {

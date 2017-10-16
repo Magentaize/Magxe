@@ -16,7 +16,7 @@ using Magxe.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Routing;
 using Newtonsoft.Json;
-using Magxe.Models;
+using Magxe.Models.ControllerViewModels;
 using Magxe.Models.DaoConverters;
 using Magxe.Helpers;
 using Magxe.Services;
@@ -62,6 +62,7 @@ namespace Magxe
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IServiceProvider services, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IApplicationBuilder app, IHostingEnvironment env)
         {
+            Config.ServiceProvider = services;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

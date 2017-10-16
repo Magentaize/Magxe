@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using Magxe.Controllers;
 using Magxe.Models;
+using Magxe.Views.Abstractions;
 
 namespace Magxe.Helpers
 {
@@ -47,7 +48,7 @@ namespace Magxe.Helpers
 
         private void IndexForEach(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
         {
-            var posts = (IEnumerable<IndexPostViewModel>) arguments[0];
+            var posts = (IEnumerable<IPost>) arguments[0];
             foreach (var post in posts)
             {
                 options.Template(output, post);

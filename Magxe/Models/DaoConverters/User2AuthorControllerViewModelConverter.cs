@@ -1,13 +1,13 @@
-﻿using AutoMapper;
+using AutoMapper;
 using Magxe.Data;
 
 namespace Magxe.Models.DaoConverters
 {
-    internal class User2AuthorViewModelConverter : ITypeConverter<User, PostAuthorViewModel>
+    internal class User2AuthorControllerViewModel : ITypeConverter<User, AuthorControllerViewModel>
     {
-        public PostAuthorViewModel Convert(User source, PostAuthorViewModel dest, ResolutionContext context)
+        public AuthorControllerViewModel Convert(User source, AuthorControllerViewModel dest, ResolutionContext context)
         {
-            return new PostAuthorViewModel()
+            return new AuthorControllerViewModel()
             {
                 bio = source.Bio,
                 location = source.Location,

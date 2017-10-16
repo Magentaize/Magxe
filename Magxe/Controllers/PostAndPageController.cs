@@ -1,14 +1,15 @@
 ﻿using AutoMapper;
 using Magxe.Data;
-using Magxe.Models;
+using Magxe.Models.ControllerViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Magxe.Extensions;
 
 namespace Magxe.Controllers
 {
-    [Route("/{slug}")]
+    [Route("{slug}")]
     public class PostAndPageController : Controller
     {
         private readonly DataContext _dataContext;
@@ -27,17 +28,17 @@ namespace Magxe.Controllers
             {
                 return new NotFoundResult();
             }
-            PageViewModel vm;
+            PageControllerViewModel vm;
             if (post.IsPage)
             {
-                vm = _mapper.Map<Post, PageViewModel>(post);
+                vm = await post.MapAsync<Page, PageControllerViewModel>();
                 vm.ControllerType = ControllerType.Page;
 
                 return View("page", vm);
             }
             else
             {
-                vm = _mapper.Map<Post, PostViewModel>(post);
+                vm = await post.MapAsync<Post, PostControllerViewModel>();
                 vm.ControllerType = ControllerType.Post;
 
                 return View("post", vm);

@@ -9,6 +9,7 @@ namespace Magxe.Models
         public string logo { get; set; }
         public string title { get; set; }
         public string description { get; set; }
+        public string url { get; set; } = "/";
         public IEnumerable<NavigationItem> navigation { get; set; }
     }
 }

@@ -1,6 +1,8 @@
-﻿namespace Magxe.Models
+﻿using Magxe.Views.Abstractions;
+
+namespace Magxe.Models
 {
-    public class PaginationViewModel
+    public class PaginationViewModel : IPagination
     {
         public int prev { get; set; }
         public int page { get; set; }

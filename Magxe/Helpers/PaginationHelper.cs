@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using HandlebarsDotNet;
+﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Data;
 using Magxe.Extensions;
@@ -10,6 +6,10 @@ using Magxe.Models;
 using Magxe.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Magxe.Helpers
 {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Magxe.Data;
 
-namespace Magxe.Helpers.Abstractions
+namespace Magxe.Views.Abstractions
 {
     internal interface ITags
     {

@@ -1,8 +1,9 @@
 ﻿using Magxe.Controllers;
+using Magxe.Views.Abstractions;
 
 namespace Magxe.Models
 {
-    internal class ControllerBaseModel
+    public class ControllerBaseModel : IControllerType
     {
         public ControllerType ControllerType { get; set; }
     }

@@ -1,16 +1,22 @@
-﻿using Magxe.Controllers;
-using Magxe.Data;
-using Magxe.Helpers.Abstractions;
+﻿using Magxe.Data;
+using Magxe.Views.Abstractions;
+using System;
 using System.Collections.Generic;
 
 namespace Magxe.Models
 {
-    public class PostViewModel : PageViewModel, ITags, IAuthor
+    internal class PostViewModel : IPost, IExcerpt
     {
-        public int AuthorId { get; set; }
-
         #region Template Variables
+        public string slug { get; set; }
+        public string title { get; set; }
+        public IPostAuthor author { get; set; }
         public IEnumerable<Tag> tags { get; set; }
+        public DateTime date { get; set; }
+        public string excerpt { get; set; }
         #endregion
+
+        public string Html { get; set; }
+        public string CustomExcerpt { get; set; }
     }
 }

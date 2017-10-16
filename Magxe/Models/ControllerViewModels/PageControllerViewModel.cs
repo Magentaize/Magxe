@@ -1,12 +1,10 @@
 ﻿using Magxe.Controllers;
-using Magxe.Helpers.Abstractions;
+using Magxe.Views.Abstractions;
 
-namespace Magxe.Models
+namespace Magxe.Models.ControllerViewModels
 {
-    public class PageViewModel : IControllerType, ISlug
+    public class PageControllerViewModel : MetaBaseModel, ISlug
     {
-        public ControllerType ControllerType { get; set; }
-
         #region Template Variables
         public BlogViewModel blog { get; set; }
         public string feature_image { get; set; }

@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Text.RegularExpressions;
-using DownsizeNet;
+﻿using DownsizeNet;
 using HandlebarsDotNet;
 using HandlebarsDotNet.Compiler;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Controllers;
 using Magxe.Extensions;
-using Magxe.Models;
-using Microsoft.AspNetCore.Mvc;
+using Magxe.Views.Abstractions;
+using System.Collections.Generic;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Magxe.Helpers
 {
@@ -21,7 +18,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic dContext, params object[] oArguments)
         {
-            if (dContext is IndexPostViewModel post)
+            if (dContext is IExcerpt post)
             {
                 string excerpt;
                 if (post.CustomExcerpt.IsNullOrEmpty())

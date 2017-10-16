@@ -5,7 +5,7 @@ using HandlebarsDotNet.Compiler;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Data.Meta;
 using Magxe.Extensions;
-using Magxe.Helpers.Abstractions;
+using Magxe.Views.Abstractions;
 
 namespace Magxe.Helpers
 {

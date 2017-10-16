@@ -1,4 +1,4 @@
-﻿using Magxe.Helpers.Abstractions;
+﻿using Magxe.Views.Abstractions;
 
 namespace Magxe.Models
 {

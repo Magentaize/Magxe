@@ -1,7 +1,6 @@
 ﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Data;
-using Magxe.Data.Setting;
 using Magxe.Extensions;
 using Magxe.Models;
 using Magxe.Services;

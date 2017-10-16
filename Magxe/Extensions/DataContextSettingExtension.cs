@@ -1,7 +1,9 @@
-﻿using System.Threading.Tasks;
-using Magxe.Data.Setting;
+﻿using Magxe.Data.Setting;
 using Magxe.Models;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Magxe.Extensions
 {
@@ -19,6 +21,17 @@ namespace Magxe.Extensions
             };
 
             return vm;
+        }
+
+        public static async Task<ICollection<NavigationItem>> GetNavigationsAsync(this DbSet<SettingItem> dbSet)
+        {
+            ICollection<NavigationItem> re = null;
+            await Task.Run(async () =>
+            {
+                re = JsonConvert.DeserializeObject<ICollection<NavigationItem>>(await dbSet.GetSettingAsync(Key.Navigation));
+            });
+
+            return re;
         }
 
         public static async Task<string> GetSettingAsync(this DbSet<SettingItem> dbSet, Key key)
