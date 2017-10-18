@@ -6,7 +6,7 @@ using Magxe.Views.Abstractions;
 
 namespace Magxe.Models
 {
-    internal class AuthorControllerViewModel : PostAuthorViewModel, IPostLoop, IBlog, IControllerType, IPlural
+    internal class AuthorControllerViewModel : PostAuthorViewModel, IPostLoop, IBlog, IControllerType, IPlural, IPaged
     {
         public string cover_image { get; set; }
         public DateTime date { get; set; } = DateTime.Now;
@@ -14,5 +14,6 @@ namespace Magxe.Models
         public IEnumerable<IPost> posts { get; set; }
         public ControllerType ControllerType { get; set; }
         public int PluralNumber { get; set; }
+        public bool IsPaged { get; set; }
     }
 }

@@ -45,6 +45,7 @@ namespace Magxe.Controllers
                 meta_title = await _dataContext.Settings.GetSettingAsync(Key.Title),
                 blog = await _dataContext.Settings.GetBlogViewModelAsync(),
                 posts = posts,
+                IsPaged = pageNumber != 1,
             };
 
             return View("index", vm);

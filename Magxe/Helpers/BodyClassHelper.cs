@@ -8,6 +8,8 @@ using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Controllers;
 using Magxe.Data;
 using Magxe.Utils;
+using Magxe.Views.Abstractions;
+using Microsoft.Rest.Azure;
 
 namespace Magxe.Helpers
 {
@@ -20,8 +22,9 @@ namespace Magxe.Helpers
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
             var classes = new List<string>();
+            var vm = (IControllerType)Dynamic.InvokeGet(context, "Objects")[1];
 
-            switch ((ControllerType)context.controllerType)
+            switch (vm.ControllerType)
             {
                 case ControllerType.Index:
                     classes.Add("home-template");
@@ -39,7 +42,7 @@ namespace Magxe.Helpers
                     break;
                 case ControllerType.Author:
                     classes.Add("author-template");
-                    var slug = ((dynamic)((object[])Dynamic.InvokeGet(context, "Objects"))[1]).slug;
+                    var slug = ((ISlug)vm).slug;
                     classes.Add($"author-{slug}");
                     break;
                 case ControllerType.Private:
@@ -49,9 +52,10 @@ namespace Magxe.Helpers
                     throw new ArgumentOutOfRangeException();
             }
 
-            if (DynamicUtil.ContainsKey(context, "paged"))
+            if(vm is IPaged pagedVm)
             {
-                classes.Add("paged");
+                if (pagedVm.IsPaged)
+                    classes.Add("paged");
             }
 
             output.WriteSafeString(string.Join(' ', classes).Trim());

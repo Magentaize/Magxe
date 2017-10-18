@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Magxe.Data;
 using Magxe.Extensions;
 using Magxe.Models;
@@ -47,6 +48,7 @@ namespace Magxe.Controllers
             vm.blog = await _dataContext.Settings.GetBlogViewModelAsync();
             vm.posts = posts;
             vm.PluralNumber = totalPosts;
+            vm.IsPaged = pageNumber != 1;
 
             return View("author", vm);
         }
