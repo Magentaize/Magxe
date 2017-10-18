@@ -49,6 +49,7 @@ namespace Magxe.Controllers
             vm.posts = posts;
             vm.PluralNumber = totalPosts;
             vm.IsPaged = pageNumber != 1;
+            vm.PageInfo = (totalPages, pageNumber);
 
             return View("author", vm);
         }

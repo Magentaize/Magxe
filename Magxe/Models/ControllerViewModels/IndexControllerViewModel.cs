@@ -8,6 +8,7 @@ namespace Magxe.Models.ControllerViewModels
     {
         public BlogViewModel blog { get; set; }
         public IEnumerable<IPost> posts { get; set; }
+        public (int TotalPages, int CurrentPage) PageInfo { get; set; }
         public bool IsPaged { get; set; }
     }
 }

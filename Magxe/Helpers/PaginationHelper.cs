@@ -10,6 +10,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Magxe.Views.Abstractions;
 
 namespace Magxe.Helpers
 {
@@ -45,14 +46,9 @@ namespace Magxe.Helpers
         {
             if (_firstCall)
             {
-                var urlPath = _httpContextAccessor.HttpContext.Request.Path.Value;
-                var page = 1;
-                var pageMatch = urlPath.Match(@"(/page/)(\d+)(/*)");
-                if (pageMatch.Success)
-                {
-                    page = pageMatch.Groups[2].Value.CastToInt();
-                }
-                var pages = _dataContext.Posts.GetTotalPagesAsync().Result;
+                var postLoopVm = (IPostLoop) context;
+                var page = postLoopVm.PageInfo.CurrentPage;
+                var pages = postLoopVm.PageInfo.TotalPages;
 
                 var vm = new PaginationViewModel()
                 {

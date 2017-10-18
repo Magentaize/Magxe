@@ -12,6 +12,7 @@ namespace Magxe.Models
         public DateTime date { get; set; } = DateTime.Now;
         public BlogViewModel blog { get; set; }
         public IEnumerable<IPost> posts { get; set; }
+        public (int TotalPages, int CurrentPage) PageInfo { get; set; }
         public ControllerType ControllerType { get; set; }
         public int PluralNumber { get; set; }
         public bool IsPaged { get; set; }
