@@ -26,6 +26,9 @@ namespace Magxe.Helpers
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly DataContext _dataContext;
 
+        private string _cachedHtml;
+        private bool _firstCall = true;
+
         public PaginationHelper(DataContext dataContext, ThemeService themeService, IServiceProvider services,
             IHttpContextAccessor httpContextAccessor) : base("pagination", HelperType.HandlebarsHelper)
         {
@@ -40,31 +43,41 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            var urlPath = _httpContextAccessor.HttpContext.Request.Path.Value;
-            var page = 1;
-            var pageMatch = urlPath.Match(@"(/page/)(\d+)(/*)");
-            if (pageMatch.Success)
+            if (_firstCall)
             {
-                page = pageMatch.Groups[2].Value.CastToInt();
-            }
-            var pages = _dataContext.Posts.GetTotalPagesAsync().Result;
+                var urlPath = _httpContextAccessor.HttpContext.Request.Path.Value;
+                var page = 1;
+                var pageMatch = urlPath.Match(@"(/page/)(\d+)(/*)");
+                if (pageMatch.Success)
+                {
+                    page = pageMatch.Groups[2].Value.CastToInt();
+                }
+                var pages = _dataContext.Posts.GetTotalPagesAsync().Result;
 
-            var vm = new PaginationViewModel()
-            {
-                page = page,
-                pages = pages
-            };
-            if (page != pages)
-            {
-                vm.next = page + 1;
+                var vm = new PaginationViewModel()
+                {
+                    page = page,
+                    pages = pages
+                };
+                if (page != pages)
+                {
+                    vm.next = page + 1;
+                }
+                if (page != 1)
+                {
+                    vm.prev = page - 1;
+                }
+
+                _cachedHtml = _viewEngine.Value.RenderViewWithDataAsync(_template, vm).Result;
+
+                _firstCall = false;
             }
-            if (page != 1)
+            else
             {
-                vm.prev = page - 1;
+                _firstCall = true;
             }
 
-            var viewHtml = _viewEngine.Value.RenderViewWithDataAsync(_template, vm).Result;
-            output.WriteSafeString(viewHtml);
+            output.WriteSafeString(_cachedHtml);
         }
 
         private async Task SetTemplateAsync()

@@ -9,6 +9,11 @@ namespace Magxe.Extensions
             return string.IsNullOrEmpty(str);
         }
 
+        public static Match Match(this string input, Regex pattern)
+        {
+            return pattern.Match(input);
+        }
+
         public static Match Match(this string input, string pattern)
         {
             return Regex.Match(input, pattern);
