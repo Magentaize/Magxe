@@ -15,6 +15,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Library\**" />
+    <Compile Remove="LICENSE\**" />
+    <Content Remove="Library\**" />
+    <Content Remove="LICENSE\**" />
+    <EmbeddedResource Remove="Library\**" />
+    <EmbeddedResource Remove="LICENSE\**" />
+    <None Remove="Library\**" />
+    <None Remove="LICENSE\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Helpers\Tpl\subscribe_form.hbs" />
   </ItemGroup>
 
@@ -49,7 +60,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Magxe.Admin\Magxe.Admin.csproj" />
     <ProjectReference Include="..\Magxe.Data\Magxe.Data.csproj" />
   </ItemGroup>
 

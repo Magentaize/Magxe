@@ -4,9 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Magxe
 {
-    internal static class Config
+    public static class Config
     {
-        internal static Uri Url { get; set; } = new Uri("http://localhost:2365");
+        public static Uri Url { get; set; } = new Uri("http://localhost:2365");
 
         internal static string AssetHash { get; set; } = null;
 

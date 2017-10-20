@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Magxe.Extensions
 {
-    internal static class DataContextSettingExtension
+    public static class DataContextSettingExtension
     {
         public static async Task<BlogViewModel> GetBlogViewModelAsync(this DbSet<SettingItem> dbSet)
         {

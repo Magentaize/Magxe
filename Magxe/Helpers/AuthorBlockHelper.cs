@@ -9,19 +9,17 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using Magxe.Extensions;
 
 namespace Magxe.Helpers
 {
     public class AuthorBlockHelper : HandlebarsBaseHelper
     {
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
-        private const string _authorPrefix = "/author/";
 
-        public AuthorBlockHelper(DataContext dataContext, IMapper mapper) : base("author", HelperType.HandlebarsBlockHelper)
+        public AuthorBlockHelper(DataContext dataContext) : base("author", HelperType.HandlebarsBlockHelper)
         {
             _dataContext = dataContext;
-            _mapper = mapper;
         }
 
         public override void HandlebarsBlockHelper(TextWriter output, HelperOptions options, dynamic context, params object[] arguments)
@@ -43,32 +41,10 @@ namespace Magxe.Helpers
             options.Template(output, vm);
         }
 
-        private async Task<object> GetAuthorControllerAuthorAsync(dynamic context)
-        {
-            return null;
-            //AuthorPageViewModel obj = null;
-            //await Task.Run(async () =>
-            //{
-            //    var authorId = (int)context.author.Id;
-            //    var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Id == authorId);
-            //    obj = new AuthorPageViewModel
-            //    {
-            //        slug = $"{_authorPrefix}{author.Name}",
-            //        profile_image = author.ProfileImage,
-            //        name = author.Name,
-            //        location = author.Location,
-            //        bio = author.Bio,
-            //        blog = await _dataContext.Settings.GetBlogModelAsync()
-            //    };
-            //});
-
-            //return obj;
-        }
-
         private async Task<object> GetPostControllerAuthorAsync(int id)
         {
             var author = await _dataContext.Users.FirstAsync(u => u.Id == id);
-            return _mapper.Map<User, PostAuthorViewModel>(author);
+            return await author.MapAsync<User, PostAuthorViewModel>();
         }
     }
 }

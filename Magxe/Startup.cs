@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using HandlebarsDotNet.ViewEngine.Abstractions;
+﻿using AutoMapper;
 using HandlebarsDotNet.ViewEngine.Extensions;
-using Magxe.Controllers;
+using Magxe.Data;
+using Magxe.Models.DaoConverters;
+using Magxe.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Magxe.Data;
-using Magxe.Extensions;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Routing;
-using Newtonsoft.Json;
-using Magxe.Models.ControllerViewModels;
-using Magxe.Models.DaoConverters;
-using Magxe.Helpers;
-using Magxe.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.FileProviders;
+using System;
 
 namespace Magxe
 {
@@ -38,7 +25,12 @@ namespace Magxe
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRouting()
+            services
+                .AddMvcCore()
+                .AddJsonFormatters();
+
+            services
+                .AddRouting()
                 .AddAutoMapper(DaoConverters.ConfigAutoMapper)
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
