@@ -5,6 +5,9 @@
     <ApplicationIcon />
     <OutputType>Exe</OutputType>
     <StartupObject />
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -12,8 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Helpers\Tpl\navigation.hbs" />
-    <None Remove="Helpers\Tpl\pagination.hbs" />
     <None Remove="Helpers\Tpl\subscribe_form.hbs" />
   </ItemGroup>
 
@@ -22,6 +23,7 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="3.0.1" />
     <PackageReference Include="Downsize.Net" Version="1.1.2" />
     <PackageReference Include="Dynamitey" Version="2.0.6-beta114" />
+    <PackageReference Include="Handlebars.Net.ViewEngine" Version="1.0.1-alpha1" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
@@ -41,12 +43,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Helpers\Tpl\navigation.hbs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Helpers\Tpl\pagination.hbs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Helpers\Tpl\subscribe_form.hbs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -59,10 +55,7 @@
 
   <ItemGroup>
     <Reference Include="Handlebars">
-      <HintPath>..\..\Handlebars.Net\source\Handlebars\bin\Debug\netstandard1.3\Handlebars.dll</HintPath>
-    </Reference>
-    <Reference Include="Handlebars.ViewEngine">
-      <HintPath>..\..\Handlebars.Net.ViewEngine\src\HandlebarsDotNet.ViewEngine\bin\Release\netcoreapp2.0\Handlebars.ViewEngine.dll</HintPath>
+      <HintPath>Library\Handlebars.dll</HintPath>
     </Reference>
   </ItemGroup>
 

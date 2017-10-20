@@ -11,6 +11,7 @@ namespace Magxe.Helpers
                 .Append<DateHelper>()
                 .Append<ExcerptHelper>()
                 .Append<TagsHelper>()
+                .Append<TagBlockHelper>()
                 .Append<BlockHelper>()
                 .Append<ContentForHelper>()
                 .Append<ForeachHelper>()

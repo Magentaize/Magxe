@@ -22,6 +22,7 @@ namespace Magxe.Data.Migrations
                     CustomExcerpt = table.Column<string>(type: "text", nullable: true),
                     FeatureImage = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     Html = table.Column<string>(type: "longtext", nullable: true),
+                    IsPage = table.Column<bool>(type: "bit", nullable: false),
                     MetaDescription = table.Column<string>(type: "text", nullable: true),
                     MetaTitle = table.Column<string>(type: "varchar(50)", nullable: true),
                     MobileDoc = table.Column<string>(type: "longtext", nullable: true),
@@ -29,7 +30,6 @@ namespace Magxe.Data.Migrations
                     PublishedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     Slug = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     Status = table.Column<int>(type: "int", nullable: false),
-                    Tags = table.Column<string>(type: "longtext", nullable: true),
                     Title = table.Column<string>(type: "varchar(150)", maxLength: 150, nullable: true),
                     UpdatedTime = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
@@ -93,6 +93,35 @@ namespace Magxe.Data.Migrations
                     table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "PostTags",
+                columns: table => new
+                {
+                    PostId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostTags", x => new { x.PostId, x.TagId });
+                    table.ForeignKey(
+                        name: "FK_PostTags_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PostTags_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostTags_TagId",
+                table: "PostTags",
+                column: "TagId");
+
             var es = Enum.GetValues(typeof(Setting.Key));
             var settingsValue = new object[es.Length, 3];
             for (int i = 0; i < es.Length; i++)
@@ -135,8 +164,8 @@ namespace Magxe.Data.Migrations
                 values: settingsValue
             );
 
-            var postsValue = new object[10, 9];
-            for (int i = 0; i < 10; i++)
+            var postsValue = new object[10, 8];
+            for (int i = 0; i <= 9; i++)
             {
                 postsValue[i, 0] = 1;
                 postsValue[i, 1] = DateTime.Now;
@@ -182,46 +211,60 @@ your team to remove all of these introductory posts!";
                 postsValue[i, 5] = $"welcome{i}";
                 postsValue[i, 6] = "Welcome to Ghost";
                 postsValue[i, 7] = DateTime.Now;
-                postsValue[i, 8] = "[1,2]";
             }
             migrationBuilder.InsertData(
                 "Posts",
-                new[] { "AuthorId", "CreatedTime", "Html", "PlainText", "PublishedTime", "Slug", "Title", "UpdatedTime", "Tags" },
+                new[] { "AuthorId", "CreatedTime", "Html", "PlainText", "PublishedTime", "Slug", "Title", "UpdatedTime" },
                 postsValue
             );
 
-            var tagsValue= new object[3,2];
+            var tagsValue = new object[3, 2];
             for (int i = 0; i < 3; i++)
             {
-                tagsValue[i, 0] = "tag1";
-                tagsValue[i, 1] = "Tag 1";
+                tagsValue[i, 0] = $"tag{i}";
+                tagsValue[i, 1] = $"Tag {i}";
             }
             migrationBuilder.InsertData(
                 "Tags",
-                new[] {"Slug", "Name"},
+                new[] { "Slug", "Name" },
                 tagsValue
             );
 
             migrationBuilder.InsertData(
                 "Users",
-                new []{"Name","Slug"},
-                new object[,] {{"Magxe", "magxe"}}
+                new[] { "Name", "Slug" },
+                new object[,] { { "Magxe", "magxe" } }
+            );
+
+            var postTagsValue = new object[7, 2];
+            for (int i = 0; i <= 6 ; i++)
+            {
+                postTagsValue[i, 0] = i + 4;
+                postTagsValue[i, 1] = 2;
+            }
+            migrationBuilder.InsertData(
+                "PostTags",
+                new[] { "PostId", "TagId" },
+                postTagsValue
             );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "PostTags");
 
             migrationBuilder.DropTable(
                 name: "Settings");
 
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
         }
     }
 }

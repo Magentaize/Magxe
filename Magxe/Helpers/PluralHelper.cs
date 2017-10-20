@@ -4,6 +4,7 @@ using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Extensions;
 using Magxe.Views.Abstractions;
 using System.IO;
+using Magxe.Controllers;
 
 namespace Magxe.Helpers
 {
@@ -16,6 +17,12 @@ namespace Magxe.Helpers
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
             if (!(context is IPlural vm)) return;
+            if (vm.ControllerType == ControllerType.Tag)
+            {
+                output.WriteSafeString(vm.PluralNumber);
+                return;
+            }
+
             var num = vm.PluralNumber;
             var dict = arguments[1].Cast<HashParameterDictionary>();
             if (num >= 2)

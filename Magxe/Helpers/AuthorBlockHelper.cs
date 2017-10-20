@@ -67,7 +67,7 @@ namespace Magxe.Helpers
 
         private async Task<object> GetPostControllerAuthorAsync(int id)
         {
-            var author = await Config.DataContext.Users.FirstAsync(u => u.Id == id);
+            var author = await _dataContext.Users.FirstAsync(u => u.Id == id);
             return _mapper.Map<User, PostAuthorViewModel>(author);
         }
     }

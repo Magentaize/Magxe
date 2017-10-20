@@ -12,8 +12,8 @@ using System;
 namespace Magxe.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20171019105143_changeFK")]
-    partial class changeFK
+    [Migration("20171020032402_Initalize")]
+    partial class Initalize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

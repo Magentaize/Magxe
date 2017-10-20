@@ -4,7 +4,7 @@ using Magxe.Extensions;
 
 namespace Magxe.Models.DaoConverters
 {
-    internal class Post2PostViewModelConverter : ITypeConverter<Post,PostViewModel>
+    internal class Post2PostViewModelConverter : ITypeConverter<Post, PostViewModel>
     {
         private readonly DataContext _dataContext;
 
@@ -15,19 +15,17 @@ namespace Magxe.Models.DaoConverters
 
         public PostViewModel Convert(Post source, PostViewModel destination, ResolutionContext context)
         {
-            var vm = new PostViewModel()
+            return new PostViewModel()
             {
                 title = source.Title,
-                slug =  source.Slug,
+                slug = source.Slug,
                 date = source.UpdatedTime,
                 CustomExcerpt = source.CustomExcerpt,
-                Html = source.Html
+                Html = source.Html,
+                author = _dataContext.Users.GetUserByIdAsync(source.AuthorId).MapAsync<User, PostAuthorViewModel>()
+                    .Result,
+                tags = _dataContext.PostTags.GetTagsByPostId(source.Id),
             };
-            vm.author = _dataContext.Users.GetUserByIdAsync(source.AuthorId).MapAsync<User, PostAuthorViewModel>()
-                .Result;
-            vm.tags = _dataContext.PostTags.GetTagsByPostId(source.Id);
-
-            return vm;
         }
     }
 }

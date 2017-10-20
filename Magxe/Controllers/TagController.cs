@@ -37,8 +37,10 @@ namespace Magxe.Controllers
                 return new NotFoundResult();
             }
 
-            var posts = _dataContext.PostTags.GetPagedPostsByTagId(tag.Id, pageIndex).ToList()
-                .Select(p => _mapper.Map<Post, PostViewModel>(p));
+            var posts =
+                _dataContext.PostTags
+                    .GetPagedPostsByTagId(tag.Id, pageIndex)
+                    .Select(p => p.MapAsync<Post, PostViewModel>().Result);
 
             var vm = await tag.MapAsync<Tag, TagControllerViewModel>();
             vm.ControllerType = ControllerType.Tag;

@@ -35,8 +35,8 @@ namespace Magxe.Controllers
 
             var posts =
                 _dataContext.Posts
-                    .GetPagedPosts(pageIndex).ToList()
-                    .Select(p => _mapper.Map<Post, PostViewModel>(p)).ToList();
+                    .GetPagedPosts(pageIndex)
+                    .Select(p => p.MapAsync<Post, PostViewModel>().Result);
 
             var vm = new IndexControllerViewModel()
             {
