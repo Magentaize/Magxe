@@ -39,7 +39,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            var navigationData = _dataContext.Settings.GetNavigationsAsync().Result;
+            var navigationData = Config.DataContext.Settings.GetNavigationsAsync().Result;
             if (navigationData.Count == 0)
             {
                 output.WriteSafeString(string.Empty);

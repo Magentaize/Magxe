@@ -1,4 +1,6 @@
 ﻿using System;
+using Magxe.Data;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Magxe
 {
@@ -9,5 +11,7 @@ namespace Magxe
         internal static string AssetHash { get; set; } = null;
 
         internal static IServiceProvider ServiceProvider { get; set; }
+
+        internal static DataContext DataContext => ServiceProvider.GetService<DataContext>();
     }
 }

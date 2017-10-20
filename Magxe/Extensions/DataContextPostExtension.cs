@@ -1,28 +1,36 @@
-﻿using System.Collections.Generic;
+﻿using Magxe.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Magxe.Data;
-using Microsoft.EntityFrameworkCore;
 using static Magxe.Constants;
 
 namespace Magxe.Extensions
 {
     internal static class DataContextPostExtension
     {
-        public static IEnumerable<Post> GetPagePosts(this DbSet<Post> dbSet, int pageIndex)
+        private static readonly Lazy<DataContext> _dataContext;
+
+        static DataContextPostExtension()
         {
-            return dbSet.GetOrderedPosts().Skip((pageIndex - 1) * PostPerPage).Take(PostPerPage);
+            _dataContext = new Lazy<DataContext>(() => Config.ServiceProvider.GetService<DataContext>());
         }
 
-        public static IEnumerable<Post> GetAuthorPagePosts(this DbSet<Post> dbSet, int pageIndex, int authorId)
+        public static IQueryable<Post> PagingPosts(this IQueryable<Post> posts, int pageIndex)
         {
-            return dbSet.GetOrderedPosts().Where(p => p.AuthorId == authorId).Skip((pageIndex - 1) * PostPerPage)
-                .Take(PostPerPage);
+            return posts.OrderByDescending(p => p.PublishedTime).Skip((pageIndex - 1) * PostPerPage).Take(PostPerPage);
         }
 
-        public static IEnumerable<Post> GetOrderedPosts(this DbSet<Post> dbSet)
+        public static IQueryable<Post> GetPagedPosts(this DbSet<Post> dbSet, int pageIndex)
         {
-            return dbSet.OrderByDescending(p => p.PublishedTime);
+            return dbSet.PagingPosts(pageIndex);
+        }
+
+        public static IQueryable<Post> GetAuthorPagedPosts(this DbSet<Post> dbSet, int pageIndex, int authorId)
+        {
+            return dbSet.Where(p => p.AuthorId == authorId).PagingPosts(pageIndex);
         }
 
         public static async Task<int> GetTotalPagesAsync(this DbSet<Post> dbSet)
@@ -30,7 +38,8 @@ namespace Magxe.Extensions
             return (await dbSet.CountAsync() + PostPerPage - 1) / PostPerPage;
         }
 
-        public static async Task<(int totalPages, int totalPosts)> GetAuthorTotalPagesAsync(this DbSet<Post> dbSet, int authorId)
+        public static async Task<(int totalPages, int totalPosts)> GetAuthorTotalPagesAsync(this DbSet<Post> dbSet,
+            int authorId)
         {
             var posts = await dbSet.GetAuthorTotalPostsAsync(authorId);
             var pages = (posts + PostPerPage - 1) / PostPerPage;
@@ -40,6 +49,16 @@ namespace Magxe.Extensions
         public static async Task<int> GetAuthorTotalPostsAsync(this DbSet<Post> dbSet, int authorId)
         {
             return await dbSet.Where(p => p.AuthorId == authorId).CountAsync();
+        }
+
+        public static IEnumerable<Tag> GetTags(this Post post)
+        {
+            var o = Config.DataContext.PostTags
+                .Include(pt => pt.Post)
+                .Include(pt => pt.Tag)
+                .Where(p => p.PostId == post.Id)
+                .Select(pt => pt.Tag).ToList();
+            return o;
         }
     }
 }

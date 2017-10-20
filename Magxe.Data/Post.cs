@@ -1,5 +1,5 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,19 +12,8 @@ namespace Magxe.Data
             IsPage = false;
         }
 
-        #region Tags
-
-        [NotMapped]
-        public int[] Tags
-        {
-            get => JsonConvert.DeserializeObject<int[]>(TagsValue);
-            set => JsonConvert.SerializeObject(value);
-        }
-
         [Column("Tags")]
-        public string TagsValue { get; set; }
-
-        #endregion
+        public List<PostTag> PostTags { get; set; }
 
         public int AuthorId { get; set; }
 

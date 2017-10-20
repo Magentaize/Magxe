@@ -1,6 +1,5 @@
 ﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Controllers;
 using Magxe.Models;
 using Magxe.Views.Abstractions;
 using System.Collections.Generic;

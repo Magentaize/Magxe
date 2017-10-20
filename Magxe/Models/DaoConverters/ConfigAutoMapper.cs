@@ -13,6 +13,7 @@ namespace Magxe.Models.DaoConverters
             cfg.CreateMap<Post, PostViewModel>().ConvertUsing<Post2PostViewModelConverter>();
             cfg.CreateMap<Page, PageControllerViewModel>().ConvertUsing<Page2PageControllerViewModelConverter>();
             cfg.CreateMap<Post, PostControllerViewModel>().ConvertUsing<Post2PostControllerViewModelConverter>();
+            cfg.CreateMap<Tag, TagControllerViewModel>().ConvertUsing<Tag2TagControllerViewModelConverter>();
         }
     }
 }

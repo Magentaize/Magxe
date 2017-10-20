@@ -1,16 +1,14 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Controllers;
 using Magxe.Data;
-using Magxe.Data.Setting;
-using Magxe.Views.Abstractions;
 using Magxe.Models;
-using Magxe.Models.ControllerViewModels;
+using Magxe.Views.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace Magxe.Helpers
 {
@@ -69,7 +67,7 @@ namespace Magxe.Helpers
 
         private async Task<object> GetPostControllerAuthorAsync(int id)
         {
-            var author = await _dataContext.Users.FirstAsync(u => u.Id == id);
+            var author = await Config.DataContext.Users.FirstAsync(u => u.Id == id);
             return _mapper.Map<User, PostAuthorViewModel>(author);
         }
     }

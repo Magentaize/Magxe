@@ -1,11 +1,10 @@
-﻿using System;
-using System.IO;
-using HandlebarsDotNet;
+﻿using HandlebarsDotNet;
 using HandlebarsDotNet.Compiler;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Data.Meta;
 using Magxe.Extensions;
 using Magxe.Views.Abstractions;
+using System;
+using System.IO;
 
 namespace Magxe.Helpers
 {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Magxe.Data
@@ -17,5 +18,7 @@ namespace Magxe.Data
 
         [Column(TypeName = "text")]
         public string Description { get; set; }
+
+        public List<PostTag> PostTags { get; set; }
     }
 }

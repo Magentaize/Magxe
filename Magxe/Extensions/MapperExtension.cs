@@ -16,7 +16,7 @@ namespace Magxe.Extensions
 
         public static async Task<TDestination> MapAsync<TSource, TDestination>(this Task<TSource> source)
         {
-            return await source.ContinueWith(innerSource => Mapper.Value.Map<TSource, TDestination>(innerSource.Result));
+            return Mapper.Value.Map<TSource, TDestination>(await source);
         }
 
         public static async Task<TDestination> MapAsync<TSource, TDestination>(this TSource source)

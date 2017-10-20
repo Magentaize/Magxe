@@ -15,16 +15,19 @@ namespace Magxe.Models.DaoConverters
 
         public PostViewModel Convert(Post source, PostViewModel destination, ResolutionContext context)
         {
-            return new PostViewModel()
+            var vm = new PostViewModel()
             {
                 title = source.Title,
                 slug =  source.Slug,
                 date = source.UpdatedTime,
-                author = _dataContext.Users.GetUserByIdAsync(source.AuthorId).MapAsync<User, PostAuthorViewModel>().Result,
-                tags = _dataContext.Tags.GetTagsByIds(source.Tags),
                 CustomExcerpt = source.CustomExcerpt,
                 Html = source.Html
             };
+            vm.author = _dataContext.Users.GetUserByIdAsync(source.AuthorId).MapAsync<User, PostAuthorViewModel>()
+                .Result;
+            vm.tags = _dataContext.PostTags.GetTagsByPostId(source.Id);
+
+            return vm;
         }
     }
 }

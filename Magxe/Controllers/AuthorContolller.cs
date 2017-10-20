@@ -1,10 +1,8 @@
-﻿using System;
-using AutoMapper;
+﻿using AutoMapper;
 using Magxe.Data;
 using Magxe.Extensions;
 using Magxe.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,44 +10,43 @@ using System.Threading.Tasks;
 namespace Magxe.Controllers
 {
     [Route("author/{slug}")]
-    [Route("author/{slug}/page/{pageNumber=1:int}")]
+    [Route("author/{slug}/page/{pageIndex=1:int}")]
     public class AuthorContolller : Controller
     {
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
 
-        public AuthorContolller(DataContext dataContext, IMapper mapper)
+        public AuthorContolller(DataContext dataContext)
         {
             _dataContext = dataContext;
-            _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(string slug, int pageNumber)
+        public async Task<IActionResult> Index(string slug, int pageIndex)
         {
-            pageNumber = pageNumber == 0 ? 1 : pageNumber;
-            var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Slug == slug);
+            pageIndex = pageIndex == 0 ? 1 : pageIndex;
+            var author = await _dataContext.Users.FirstOrDefaultAsync(row => row.Slug.Equals(slug));
             if (author == null)
             {
                 return new NotFoundResult();
             }
+
             var (totalPages, totalPosts) = await _dataContext.Posts.GetAuthorTotalPagesAsync(author.Id);
-            if (pageNumber > totalPages)
+            if (pageIndex > totalPages)
             {
                 return new NotFoundResult();
             }
 
             var posts =
                 _dataContext.Posts
-                    .GetAuthorPagePosts(pageNumber, author.Id)
-                    .Select(p => _mapper.Map<Post, PostViewModel>(p));
+                    .GetAuthorPagedPosts(pageIndex, author.Id)
+                    .Select(p => p.MapAsync<Post, PostViewModel>().Result);
 
             var vm = await author.MapAsync<User, AuthorControllerViewModel>();
             vm.ControllerType = ControllerType.Author;
             vm.blog = await _dataContext.Settings.GetBlogViewModelAsync();
             vm.posts = posts;
             vm.PluralNumber = totalPosts;
-            vm.IsPaged = pageNumber != 1;
-            vm.PageInfo = (totalPages, pageNumber);
+            vm.IsPaged = pageIndex != 1;
+            vm.PageInfo = (totalPages, pageIndex);
 
             return View("author", vm);
         }

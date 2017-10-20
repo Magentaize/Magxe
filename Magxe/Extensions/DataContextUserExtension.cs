@@ -8,7 +8,8 @@ namespace Magxe.Extensions
     {
         public static async Task<User> GetUserByIdAsync(this DbSet<User> dbSet, int id)
         {
-            return await dbSet.FirstAsync(u => u.Id == id);
+            var user = await dbSet.FirstOrDefaultAsync(u => u.Id == id);
+            return user;
         }
     }
 }

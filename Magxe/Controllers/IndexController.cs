@@ -2,19 +2,17 @@
 using Magxe.Data;
 using Magxe.Data.Setting;
 using Magxe.Extensions;
+using Magxe.Models;
 using Magxe.Models.ControllerViewModels;
 using Magxe.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Magxe.Models;
 
 namespace Magxe.Controllers
 {
     [Route("")]
-    [Route("page/{pageNumber=1:int}")]
+    [Route("page/{pageIndex=1:int}")]
     public class IndexController : Controller
     {
         private readonly DataContext _dataContext;
@@ -26,19 +24,19 @@ namespace Magxe.Controllers
             _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(int pageNumber)
+        public async Task<IActionResult> Index(int pageIndex)
         {
-            pageNumber = pageNumber == 0 ? 1 : pageNumber;
+            pageIndex = pageIndex == 0 ? 1 : pageIndex;
             var totalPages = await _dataContext.Posts.GetTotalPagesAsync();
-            if (pageNumber > totalPages)
+            if (pageIndex > totalPages)
             {
                 return new NotFoundResult();
             }
 
             var posts =
                 _dataContext.Posts
-                    .GetPagePosts(pageNumber)
-                    .Select(p => _mapper.Map<Post, PostViewModel>(p));
+                    .GetPagedPosts(pageIndex).ToList()
+                    .Select(p => _mapper.Map<Post, PostViewModel>(p)).ToList();
 
             var vm = new IndexControllerViewModel()
             {
@@ -46,8 +44,8 @@ namespace Magxe.Controllers
                 meta_title = await _dataContext.Settings.GetSettingAsync(Key.Title),
                 blog = await _dataContext.Settings.GetBlogViewModelAsync(),
                 posts = posts,
-                IsPaged = pageNumber != 1,
-                PageInfo = (totalPages, pageNumber),
+                IsPaged = pageIndex != 1,
+                PageInfo = (totalPages, pageIndex),
             };
 
             return View("index", vm);

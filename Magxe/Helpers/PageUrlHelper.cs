@@ -1,9 +1,9 @@
 ﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using System.IO;
-using System.Text.RegularExpressions;
 using Magxe.Extensions;
 using Microsoft.AspNetCore.Http;
+using System.IO;
+using System.Text.RegularExpressions;
 
 namespace Magxe.Helpers
 {

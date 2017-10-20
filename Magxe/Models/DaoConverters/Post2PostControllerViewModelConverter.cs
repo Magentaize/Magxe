@@ -24,7 +24,7 @@ namespace Magxe.Models.DaoConverters
                 feature_image = source.FeatureImage,
                 title = source.Title,
                 AuthorId = source.AuthorId,
-                tags = _dataContext.Tags.GetTagsByIds(source.Tags),
+                tags = _dataContext.PostTags.GetTagsByPostId(source.Id),
                 slug = source.Slug
             };
         }

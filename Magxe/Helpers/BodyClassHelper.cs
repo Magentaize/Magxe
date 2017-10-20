@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Dynamitey;
+﻿using Dynamitey;
 using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Controllers;
-using Magxe.Data;
-using Magxe.Utils;
 using Magxe.Views.Abstractions;
-using Microsoft.Rest.Azure;
+using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Magxe.Helpers
 {

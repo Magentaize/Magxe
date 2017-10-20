@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using HandlebarsDotNet;
+﻿using HandlebarsDotNet;
 using HandlebarsDotNet.Compiler;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Data;
 using Magxe.Extensions;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
 
 namespace Magxe.Helpers
 {

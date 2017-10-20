@@ -20,6 +20,10 @@ namespace Magxe.Helpers
         {
             if (dContext is IExcerpt post)
             {
+                if (post.Html.IsNullOrEmpty())
+                {
+                    return;
+                }
                 string excerpt;
                 if (post.CustomExcerpt.IsNullOrEmpty())
                 {
