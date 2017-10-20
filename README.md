@@ -1,2 +1,2 @@
-![Magxe](Magxe.png)
+<img src="/Magentaize/Magxe/raw/master/Magxe.png" alt="Magxe" style="max-width: 40%;">
 # Magxe [![Build status](https://img.shields.io/appveyor/ci/Magentaize/magxe.svg?style=flat-square)](https://ci.appveyor.com/project/Magentaize/magxe)
