@@ -30,11 +30,11 @@ namespace Magxe
                 .AddJsonFormatters();
 
             services
-                .AddRouting()
                 .AddAutoMapper(DaoConverters.ConfigAutoMapper)
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
                 .AddDbContext<DataContext>()
+                .AddRouting()
                 .AddMvc()
                 .AddViewOptions(options =>
                 {

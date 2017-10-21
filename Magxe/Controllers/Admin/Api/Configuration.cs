@@ -5,19 +5,18 @@ using Magxe.Data.Setting;
 using Magxe.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Magxe.Controllers
+namespace Magxe.Controllers.Admin.Api
 {
-    [Route("ghost/api/v0.1")]
-    public class AdminApiController : Controller
+    [AdminApiRoute]
+    public class Configuration : Controller
     {
         private readonly DataContext _dataContext;
 
-        public AdminApiController(DataContext dataContext)
+        public Configuration(DataContext dataContext)
         {
             _dataContext = dataContext;
         }
 
-        [Route("configuration")]
         [HttpGet]
         public JsonResult ConfigurationGet()
         {
