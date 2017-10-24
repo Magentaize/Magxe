@@ -33,6 +33,7 @@ namespace Magxe.Controllers.Admin
             return new NotFoundResult();
         }
 
+        [Route("assets/img/{file}")]
         [Route("ghost/assets/img/{file}")]
         [HttpGet]
         public IActionResult ImgAssets(string file)

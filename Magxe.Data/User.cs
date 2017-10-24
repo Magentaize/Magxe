@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Magxe.Data.Enums;
 
 namespace Magxe.Data
 {
@@ -29,6 +30,8 @@ namespace Magxe.Data
 
         [Column(TypeName = "text")]
         public string Bio { get; set; }
+
+        public UserStatus Status { get; set; }
 
         [StringLength(100)]
         public string Location { get; set; }

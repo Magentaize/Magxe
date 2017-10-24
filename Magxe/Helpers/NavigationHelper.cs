@@ -53,7 +53,7 @@ namespace Magxe.Helpers
                         current = IsCurrentUrl(o.Url),
                         label = o.Label,
                         secure = false,
-                        slug = Slugify(o.Url)
+                        slug = Slug.Slugify(o.Url)
                     })
                 };
 
@@ -61,14 +61,6 @@ namespace Magxe.Helpers
 
                 output.WriteSafeString(viewHtml);
             }
-        }
-
-        private string Slugify(string label)
-        {
-            var slug = label.ToLower();
-            slug = Regex.Replace(slug, @"[^\w ]+/g", string.Empty);
-            slug = Regex.Replace(slug, @" +/g", "-");
-            return slug;
         }
 
         private bool IsCurrentUrl(string href)
