@@ -1,9 +1,9 @@
-﻿using System.IO;
-using HandlebarsDotNet;
+﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
 using Magxe.Controllers;
-using Magxe.Models;
+using Magxe.Models.ControllerViewModels;
 using Magxe.Views.Abstractions;
+using System.IO;
 
 namespace Magxe.Helpers
 {

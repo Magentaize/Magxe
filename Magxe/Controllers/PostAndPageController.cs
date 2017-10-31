@@ -1,11 +1,9 @@
-﻿using AutoMapper;
-using Magxe.Data;
+﻿using Magxe.Dao;
+using Magxe.Extensions;
 using Magxe.Models.ControllerViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
-using Magxe.Extensions;
 
 namespace Magxe.Controllers
 {
@@ -13,12 +11,10 @@ namespace Magxe.Controllers
     public class PostAndPageController : Controller
     {
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
 
-        public PostAndPageController(DataContext dataContext, IMapper mapper)
+        public PostAndPageController(DataContext dataContext)
         {
             _dataContext = dataContext;
-            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index(string slug)

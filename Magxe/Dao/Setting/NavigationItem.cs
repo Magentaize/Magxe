@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Magxe.Data.Setting
+namespace Magxe.Dao.Setting
 {
     public class NavigationItem
     {

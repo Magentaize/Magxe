@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Magxe.Data
+namespace Magxe.Dao
 {
     internal static class Slug
     {

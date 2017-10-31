@@ -1,13 +1,11 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace Magxe.Controllers.Errors
+namespace Magxe.Controllers.ActionResults
 {
     internal abstract class ErrorResult : StatusCodeResult
     {

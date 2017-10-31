@@ -1,6 +1,5 @@
-﻿using AutoMapper;
-using Magxe.Data;
-using Magxe.Data.Setting;
+﻿using Magxe.Dao;
+using Magxe.Dao.Setting;
 using Magxe.Extensions;
 using Magxe.Models;
 using Magxe.Models.ControllerViewModels;
@@ -16,12 +15,10 @@ namespace Magxe.Controllers
     public class IndexController : Controller
     {
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
 
-        public IndexController(ThemeService themeService, DataContext dataContext, IMapper mapper)
+        public IndexController(ThemeService themeService, DataContext dataContext)
         {
             _dataContext = dataContext;
-            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index(int pageIndex)

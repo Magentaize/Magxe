@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Magxe.Data
+namespace Magxe.Dao
 {
-    public class Page : MetaItem
+    public class Page : MetaItem<int>
     {
         [StringLength(150)]
         [Column(Order = 1)]

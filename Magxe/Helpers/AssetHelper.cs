@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Data.Meta;
+using Magxe.Dao.Meta;
 using Magxe.Extensions;
 
 namespace Magxe.Helpers

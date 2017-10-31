@@ -1,7 +1,7 @@
 ﻿using HandlebarsDotNet;
 using HandlebarsDotNet.Compiler;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Data;
+using Magxe.Dao;
 using Magxe.Extensions;
 using System.Collections.Generic;
 using System.IO;

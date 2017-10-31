@@ -1,6 +1,6 @@
-﻿using System;
-using Magxe.Data;
+﻿using Magxe.Dao;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Magxe
 {

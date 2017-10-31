@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Magxe.Data;
+using Magxe.Dao;
 
 namespace Magxe.Views.Abstractions
 {

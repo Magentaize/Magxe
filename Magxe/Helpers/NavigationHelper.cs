@@ -1,6 +1,6 @@
 ﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Data;
+using Magxe.Dao;
 using Magxe.Extensions;
 using Magxe.Models;
 using Magxe.Services;
@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Magxe.Helpers

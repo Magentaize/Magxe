@@ -2,6 +2,6 @@
 {
     internal interface IAuthor
     {
-        int AuthorId { get; }
+        string AuthorId { get; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Magxe.Data;
+﻿using Magxe.Dao;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -28,7 +28,7 @@ namespace Magxe.Extensions
             return dbSet.PagingPosts(pageIndex);
         }
 
-        public static IQueryable<Post> GetAuthorPagedPosts(this DbSet<Post> dbSet, int pageIndex, int authorId)
+        public static IQueryable<Post> GetAuthorPagedPosts(this DbSet<Post> dbSet, int pageIndex, string authorId)
         {
             return dbSet.Where(p => p.AuthorId == authorId).PagingPosts(pageIndex);
         }
@@ -39,14 +39,14 @@ namespace Magxe.Extensions
         }
 
         public static async Task<(int totalPages, int totalPosts)> GetAuthorTotalPagesAsync(this DbSet<Post> dbSet,
-            int authorId)
+            string authorId)
         {
             var posts = await dbSet.GetAuthorTotalPostsAsync(authorId);
             var pages = (posts + PostPerPage - 1) / PostPerPage;
             return (pages, posts);
         }
 
-        public static async Task<int> GetAuthorTotalPostsAsync(this DbSet<Post> dbSet, int authorId)
+        public static async Task<int> GetAuthorTotalPostsAsync(this DbSet<Post> dbSet, string authorId)
         {
             return await dbSet.Where(p => p.AuthorId == authorId).CountAsync();
         }

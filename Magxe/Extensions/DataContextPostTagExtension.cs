@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
-using Magxe.Data;
+﻿using Magxe.Dao;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace Magxe.Extensions
 {

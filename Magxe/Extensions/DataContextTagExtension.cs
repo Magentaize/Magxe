@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Magxe.Dao;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Extensions.DependencyInjection;
 using System.Threading.Tasks;
-using Magxe.Data;
-using Microsoft.EntityFrameworkCore;
 using static Magxe.Constants;
 
 namespace Magxe.Extensions

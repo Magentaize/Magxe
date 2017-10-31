@@ -1,4 +1,4 @@
-﻿using Magxe.Data.Setting;
+﻿using Magxe.Dao.Setting;
 using Magxe.Models;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;

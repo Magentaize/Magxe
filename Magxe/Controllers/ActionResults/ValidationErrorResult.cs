@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Magxe.Controllers.Errors
+namespace Magxe.Controllers.ActionResults
 {
     internal class ValidationErrorResult : ErrorResult
     {

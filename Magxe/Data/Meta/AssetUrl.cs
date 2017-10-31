@@ -2,7 +2,7 @@
 using System.Text.RegularExpressions;
 using Magxe.Utils;
 
-namespace Magxe.Data.Meta
+namespace Magxe.Dao.Meta
 {
     internal static class AssetUrl
     {

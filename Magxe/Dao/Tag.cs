@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Magxe.Data
+namespace Magxe.Dao
 {
-    public class Tag : MetaItem
+    public class Tag : MetaItem<int>
     {
         [Required]
         [StringLength(150)]

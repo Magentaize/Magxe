@@ -1,12 +1,13 @@
 ﻿using AutoMapper;
 using HandlebarsDotNet.ViewEngine.Extensions;
-using Magxe.Data;
+using Magxe.Dao;
 using Magxe.Models.DaoConverters;
 using Magxe.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -25,6 +26,9 @@ namespace Magxe
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddIdentityServer()
+            //    .AddDeveloperSigningCredential();
+
             services
                 .AddMvcCore()
                 .AddJsonFormatters();
@@ -33,7 +37,7 @@ namespace Magxe
                 .AddAutoMapper(DaoConverters.ConfigAutoMapper)
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
-                .AddDbContext<DataContext>()
+                .AddDbContext<DataContext>(options=>options.UseMySql("Server=localhost;database=Magxe;port=3306;charset=UTF8;uid=root;pwd=;convert zero datetime=True"))
                 .AddRouting()
                 .AddMvc()
                 .AddViewOptions(options =>
@@ -46,7 +50,12 @@ namespace Magxe
 
                     options.ViewLocationFormats.Clear();
                     options.ViewLocationFormats.Add(
-                        () => @"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\casperv1\{0}.hbs"//services.BuildServiceProvider().GetService<ThemeService>().CurrentTheme
+                        () =>
+                        {
+                            var theme = services.BuildServiceProvider().GetService<ThemeService>().CurrentTheme;
+                            return $@"D:\Development\GitHub\Magxe\Magxe\wwwroot\themes\{theme}\{{0}}.hbs";
+                        }
+
                     );
                 });
         }
@@ -64,6 +73,8 @@ namespace Magxe
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseIdentityServer();
 
             app.UseStaticFiles()
                 .Map("/favicon.ico", cfg => cfg.UseStaticFiles())

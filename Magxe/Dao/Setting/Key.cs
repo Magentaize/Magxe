@@ -1,4 +1,4 @@
-﻿namespace Magxe.Data.Setting
+﻿namespace Magxe.Dao.Setting
 {
     public enum Key
     {

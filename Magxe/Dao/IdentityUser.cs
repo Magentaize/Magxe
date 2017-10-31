@@ -1,26 +1,34 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Magxe.Data.Enums;
 
-namespace Magxe.Data
+namespace Magxe.Dao
 {
-    public class User : MetaItem
+    public class IdentityUser : IdentityUser<string>
+    {
+        public IdentityUser()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+    }
+
+    public class IdentityUser<TKey> : MetaItem<TKey> where TKey : IEquatable<TKey>
     {
         [Required]
-        [StringLength(150)]
-        public string Slug { get; set; }
+        [StringLength(200)]
+        public string Password { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(200)]
+        public string Email { get; set; }
+
+        [Required]
+        [StringLength(200)]
         public string Name { get; set; }
 
         [Required]
-        [StringLength(150)]
-        public string Password { get; set; }
-
-        [StringLength(50)]
-        public string Email { get; set; }
+        [StringLength(200)]
+        public string Slug { get; set; }
 
         [StringLength(150)]
         public string ProfileImage { get; set; }
@@ -41,7 +49,7 @@ namespace Magxe.Data
         [Required]
         public DateTime CreatedTime { get; set; }
 
-        //[StringLength(50)]
-        //public string Website { get; set; }
+        [StringLength(50)]
+        public string Website { get; set; }
     }
 }

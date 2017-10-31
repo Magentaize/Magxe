@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Magxe.Controllers.Admin.Models;
-using Magxe.Data;
-using Magxe.Data.Setting;
+﻿using Magxe.Controllers.Admin.Models;
+using Magxe.Dao;
+using Magxe.Dao.Setting;
 using Magxe.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 
 namespace Magxe.Controllers.Admin.Api
 {

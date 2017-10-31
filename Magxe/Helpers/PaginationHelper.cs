@@ -1,6 +1,5 @@
 ﻿using HandlebarsDotNet;
 using HandlebarsDotNet.ViewEngine.Abstractions;
-using Magxe.Data;
 using Magxe.Models;
 using Magxe.Services;
 using Magxe.Views.Abstractions;
@@ -23,20 +22,15 @@ namespace Magxe.Helpers
 
         private readonly ThemeService _themeService;
         private readonly Lazy<IHandlebarsViewEngine> _viewEngine;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly DataContext _dataContext;
 
         private string _cachedHtml;
         private bool _firstCall = true;
 
-        public PaginationHelper(DataContext dataContext, ThemeService themeService, IServiceProvider services,
-            IHttpContextAccessor httpContextAccessor) : base("pagination", HelperType.HandlebarsHelper)
+        public PaginationHelper(ThemeService themeService, IServiceProvider services) : base("pagination", HelperType.HandlebarsHelper)
         {
             _themeService = themeService;
             _viewEngine = new Lazy<IHandlebarsViewEngine>(services.GetService<IHandlebarsViewEngine>);
             _themeService.ThemeChanged += async (_, __) => await SetTemplateAsync();
-            _httpContextAccessor = httpContextAccessor;
-            _dataContext = dataContext;
 
             SetTemplateAsync();
         }

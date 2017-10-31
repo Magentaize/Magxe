@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Magxe.Data.Migrations
+namespace Magxe.Dao.Migrations
 {
     public partial class AddUserStatus : Migration
     {

@@ -1,6 +1,5 @@
 ﻿using Magxe.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing;
 using System;
 using System.IO;
 

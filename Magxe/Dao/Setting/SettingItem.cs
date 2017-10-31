@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore.Scaffolding.Metadata;
 
-namespace Magxe.Data.Setting
+namespace Magxe.Dao.Setting
 {
     public class SettingItem
     {

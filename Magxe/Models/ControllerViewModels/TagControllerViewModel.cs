@@ -3,7 +3,7 @@ using Magxe.Views.Abstractions;
 using System;
 using System.Collections.Generic;
 
-namespace Magxe.Models
+namespace Magxe.Models.ControllerViewModels
 {
     internal class TagControllerViewModel : IPostLoop, IBlog, IControllerType, IPlural, IPaged, ISlug
     {

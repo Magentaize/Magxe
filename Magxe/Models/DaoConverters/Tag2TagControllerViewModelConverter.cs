@@ -1,6 +1,7 @@
-﻿using System;
-using AutoMapper;
-using Magxe.Data;
+﻿using AutoMapper;
+using Magxe.Dao;
+using System;
+using Magxe.Models.ControllerViewModels;
 
 namespace Magxe.Models.DaoConverters
 {

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Magxe.Dao;
+using Magxe.Dao.Setting;
+using Microsoft.AspNetCore.Hosting;
+using System;
 using System.IO;
 using System.Linq;
-using Magxe.Data;
-using Magxe.Data.Setting;
-using Microsoft.AspNetCore.Hosting;
 
 namespace Magxe.Services
 {

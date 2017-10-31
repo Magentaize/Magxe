@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Magxe.Data.Setting;
+using Magxe.Dao.Setting;
 
 namespace Magxe.Models
 {

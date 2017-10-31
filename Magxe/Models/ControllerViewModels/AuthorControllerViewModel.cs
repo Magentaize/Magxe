@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using Magxe.Controllers;
-using Magxe.Data.Setting;
+﻿using Magxe.Controllers;
 using Magxe.Views.Abstractions;
+using System;
+using System.Collections.Generic;
 
-namespace Magxe.Models
+namespace Magxe.Models.ControllerViewModels
 {
     internal class AuthorControllerViewModel : PostAuthorViewModel, IPostLoop, IBlog, IControllerType, IPlural, IPaged
     {

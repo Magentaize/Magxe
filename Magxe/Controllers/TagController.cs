@@ -1,11 +1,11 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Magxe.Data;
+﻿using Magxe.Dao;
 using Magxe.Extensions;
 using Magxe.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
+using Magxe.Models.ControllerViewModels;
 
 namespace Magxe.Controllers
 {
@@ -14,12 +14,10 @@ namespace Magxe.Controllers
     public class TagController : Controller
     {
         private readonly DataContext _dataContext;
-        private readonly IMapper _mapper;
 
-        public TagController(DataContext dataContext, IMapper mapper)
+        public TagController(DataContext dataContext)
         {
             _dataContext = dataContext;
-            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index(string slug, int pageIndex)

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Magxe.Data
+namespace Magxe.Dao
 {
     public class PostTag
     {

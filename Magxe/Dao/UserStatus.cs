@@ -1,4 +1,4 @@
-﻿namespace Magxe.Data.Enums
+﻿namespace Magxe.Dao
 {
     public enum UserStatus
     {

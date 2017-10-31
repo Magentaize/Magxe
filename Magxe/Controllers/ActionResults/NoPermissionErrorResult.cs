@@ -1,4 +1,4 @@
-﻿namespace Magxe.Controllers.Errors
+﻿namespace Magxe.Controllers.ActionResults
 {
     internal class NoPermissionErrorResult : ErrorResult
     {

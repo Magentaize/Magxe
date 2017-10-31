@@ -1,4 +1,4 @@
-﻿using Magxe.Data;
+﻿using Magxe.Dao;
 using Magxe.Views.Abstractions;
 using System;
 using System.Collections.Generic;
