@@ -1,13 +1,13 @@
 ﻿using AutoMapper;
 using HandlebarsDotNet.ViewEngine.Extensions;
 using Magxe.Dao;
+using Magxe.IdentityServer;
 using Magxe.Models.DaoConverters;
 using Magxe.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -26,8 +26,7 @@ namespace Magxe
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddIdentityServer()
-            //    .AddDeveloperSigningCredential();
+            services.AddOAuth2();
 
             services
                 .AddMvcCore()
@@ -37,7 +36,7 @@ namespace Magxe
                 .AddAutoMapper(DaoConverters.ConfigAutoMapper)
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
-                .AddDbContext<DataContext>(options=>options.UseMySql("Server=localhost;database=Magxe;port=3306;charset=UTF8;uid=root;pwd=;convert zero datetime=True"))
+                .AddDbContext<DataContext>()
                 .AddRouting()
                 .AddMvc()
                 .AddViewOptions(options =>

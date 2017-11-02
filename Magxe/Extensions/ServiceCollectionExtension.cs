@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Magxe.Extensions
 {
     internal static class ServiceCollectionExtension
     {
-        internal static IServiceCollection BuildServiceProvider(this IServiceCollection services,
+        public static IServiceCollection BuildServiceProvider(this IServiceCollection services,
             out IServiceProvider provider)
         {
             provider = services.BuildServiceProvider();

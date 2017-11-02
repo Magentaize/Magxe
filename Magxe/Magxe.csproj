@@ -70,6 +70,7 @@
 
   <ItemGroup>
     <Folder Include="Identity\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

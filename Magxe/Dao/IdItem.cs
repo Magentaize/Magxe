@@ -4,6 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Magxe.Dao
 {
+    public class IdItem : IdItem<string>
+    {
+        public IdItem()
+        {
+            Id = Guid.NewGuid().ToString();
+        }
+    }
+
     public class IdItem<TKey> where TKey : IEquatable<TKey>
     {
         [Key]

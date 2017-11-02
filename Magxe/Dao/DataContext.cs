@@ -13,6 +13,9 @@ namespace Magxe.Dao
         {
         }
 
+        public DbSet<AccessToken> AccessTokens { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+
         public DbSet<SettingItem> Settings { get; set; }
         public DbSet<Tag> Tags { get; set; }
         public DbSet<Post> Posts { get; set; }
@@ -22,9 +25,42 @@ namespace Magxe.Dao
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<PostTag>().HasKey(pt => new { pt.PostId, pt.TagId });
-            builder.Entity<PostTag>().HasOne(pt => pt.Post).WithMany(p => p.PostTags).HasForeignKey(pt => pt.PostId);
-            builder.Entity<PostTag>().HasOne(pt => pt.Tag).WithMany(t => t.PostTags).HasForeignKey(pt => pt.TagId);
+            builder.Entity<AccessToken>(b =>
+                {
+                    b.HasIndex(r => r.Token).IsUnique();
+                    b.HasIndex(r => r.UserId);
+                    b.HasIndex(r => r.ClientId);
+
+                    b.HasOne(r => r.Client).WithMany(r => r.AccessTokens).HasForeignKey(r => r.ClientId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne(r => r.User).WithMany(r => r.AccessTokens).HasForeignKey(r => r.UserId)
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            builder.Entity<RefreshToken>(b =>
+            {
+                b.HasIndex(r => r.Token).IsUnique();
+                b.HasIndex(r => r.UserId);
+                b.HasIndex(r => r.ClientId);
+
+                b.HasOne(r => r.Client).WithMany(r => r.RefreshTokens).HasForeignKey(r => r.ClientId)
+                    .OnDelete(DeleteBehavior.Restrict);
+                b.HasOne(r => r.User).WithMany(r => r.RefreshTokens).HasForeignKey(r => r.UserId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            builder.Entity<PostTag>(b =>
+            {
+                b.ToTable("Posts_Tags");
+
+                b.HasIndex(r => r.PostId);
+                b.HasIndex(r => r.TagId);
+
+                b.HasOne(r => r.Post).WithMany(r => r.PostTags).HasForeignKey(r => r.PostId)
+                    .OnDelete(DeleteBehavior.Restrict);
+                b.HasOne(r => r.Tag).WithMany(r => r.PostTags).HasForeignKey(r => r.TagId)
+                    .OnDelete(DeleteBehavior.Restrict);
+            });       
         }
 
         private const string DbS =

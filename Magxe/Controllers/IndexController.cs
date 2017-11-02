@@ -25,7 +25,7 @@ namespace Magxe.Controllers
         {
             pageIndex = pageIndex == 0 ? 1 : pageIndex;
             var totalPages = await _dataContext.Posts.GetTotalPagesAsync();
-            if (pageIndex > totalPages)
+            if (pageIndex > totalPages && totalPages != 0)
             {
                 return new NotFoundResult();
             }

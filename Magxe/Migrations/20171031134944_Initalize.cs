@@ -283,6 +283,48 @@ namespace Magxe.Migrations
                 name: "IX_Users_Roles_RoleId",
                 table: "Users_Roles",
                 column: "RoleId");
+
+            var es = Enum.GetValues(typeof(Dao.Setting.Key));
+            var settingsValue = new object[es.Length, 3];
+            for (int i = 0; i < es.Length; i++)
+            {
+                var e = (Dao.Setting.Key)i;
+                settingsValue[i, 0] = i;
+                settingsValue[i, 1] = e.ToString();
+                string value;
+                switch (e)
+                {
+                    case Dao.Setting.Key.DisplayUpdateNotification:
+                        value = "1.0";
+                        break;
+                    case Dao.Setting.Key.Title:
+                        value = "Magxe";
+                        break;
+                    case Dao.Setting.Key.Description:
+                        value = "Title of Magxe";
+                        break;
+                    case Dao.Setting.Key.TimeZone:
+                        value = "Asia/Shanghai";
+                        break;
+                    case Dao.Setting.Key.Theme:
+                        value = "casperv1";
+                        break;
+                    case Dao.Setting.Key.Navigation:
+                        value =
+                            "[{\"label\":\"Home\", \"url\":\"/\"},{\"label\":\"Home2\", \"url\":\"/wwwww\"},{\"label\":\"Home3\", \"url\":\"/wwwww\"}]";
+                        break;
+                    default:
+                        value = string.Empty;
+                        break;
+                }
+                settingsValue[i, 2] = value;
+            }
+
+            migrationBuilder.InsertData(
+                table: "Settings",
+                columns: new[] { "Id", "Name", "Value" },
+                values: settingsValue
+            );
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

@@ -45,6 +45,8 @@ namespace Magxe.Dao
 
         public DbSet<TRoleClaim> RoleClaims { get; set; }
 
+        public DbSet<Client> Clients { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -74,6 +76,13 @@ namespace Magxe.Dao
             {
                 b.HasKey(r => new {r.UserId, r.RoleId});
                 b.ToTable("Users_Roles");
+            });
+
+            builder.Entity<Client>(b =>
+            {
+                b.HasIndex(r => r.Name).HasName("clients_name_unique").IsUnique();
+                b.HasIndex(r => r.Slug).HasName("clients_slug_unique").IsUnique();
+                b.ToTable("Clients");
             });
         }
     }
