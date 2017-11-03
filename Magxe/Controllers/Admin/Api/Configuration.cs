@@ -4,6 +4,8 @@ using Magxe.Dao.Setting;
 using Magxe.Extensions;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Controllers.Admin.Api
 {
@@ -18,8 +20,9 @@ namespace Magxe.Controllers.Admin.Api
         }
 
         [HttpGet]
-        public JsonResult ConfigurationGet()
+        public async Task<JsonResult> ConfigurationGet()
         {
+            var adminClient = await _dataContext.Clients.FirstAsync(r => r.Slug == "ghost-admin");
             var o = new
             {
                 configuration = new List<ConfigurationItem>()
@@ -42,7 +45,7 @@ namespace Magxe.Controllers.Admin.Api
                             PrimaryTagFallback = "all",
                         },
                         ClientId = "ghost-admin",
-                        ClientSecret = "d9f3252ef6f8"
+                        ClientSecret = adminClient.Secret
                     }
                 }
             };

@@ -79,7 +79,7 @@ namespace Magxe.Controllers.Admin.Api
 
             async Task<IActionResult> SetupTasksAsync(SetupPostItem setupData)
             {
-                if (setupData.Password.Length <= 10)
+                if (setupData.Password.Length < 10)
                 {
                     return new ValidationErrorResult("errors.models.user.passwordDoesNotComplyLength",
                         new Dictionary<string, string>() { { "minLength", "10" } });
