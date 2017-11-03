@@ -13,6 +13,7 @@ namespace Magxe.Dao
         public string Name { get; set; }
         public string Slug { get; set; }
         public string Secret { get; set; }
+        public string Uuid { get; set; }
 
         public ICollection<AccessToken> AccessTokens { get; set; }
         public ICollection<RefreshToken> RefreshTokens { get; set; }

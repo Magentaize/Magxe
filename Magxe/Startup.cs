@@ -7,6 +7,7 @@ using Magxe.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +35,7 @@ namespace Magxe
 
             services
                 .AddAutoMapper(DaoConverters.ConfigAutoMapper)
+                .AddTransient<IPasswordHasher<User>, PasswordHasher<User>>()
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
                 .AddDbContext<DataContext>()

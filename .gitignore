@@ -288,4 +288,5 @@ __pycache__/
 *.xsd.cs
 
 *.psd
+/Magxe/Migrations/*.cs
 /Magxe/wwwroot/themes/casperv1/assets

@@ -21,9 +21,10 @@ namespace Magxe.IdentityServer
 
         public Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-            return Task.FromResult(context.Result = new GrantValidationResult(subject: context.UserName,
-                authenticationMethod: "Email", claims: new Claim[] {new Claim(ClaimTypes.Email, context.UserName)})
-            );
+            context.Result = new GrantValidationResult(subject: context.UserName,
+                authenticationMethod: "Email", claims: new[] {new Claim(ClaimTypes.Email, context.UserName)});
+
+            return Task.CompletedTask;
         }
     }
 }

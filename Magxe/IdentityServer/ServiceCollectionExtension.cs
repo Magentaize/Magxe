@@ -1,8 +1,6 @@
 ﻿using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
-using Magxe.Dao;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 
@@ -25,7 +23,6 @@ namespace Magxe.IdentityServer
                 })
                 .AddInMemoryApiResources(new List<ApiResource>())
                 .Services
-                .AddTransient<IPasswordHasher<User>, PasswordHasher<User>>()
                 .AddTransient<IResourceOwnerPasswordValidator, ResourceOwnerPasswordValidator>()
                 .AddTransient<IProfileService, UserProfileService>()
                 ;
