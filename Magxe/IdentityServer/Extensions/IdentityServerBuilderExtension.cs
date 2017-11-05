@@ -12,5 +12,13 @@ namespace Magxe.IdentityServer.Extensions
 
             return builder;
         }
+
+        public static IIdentityServerBuilder AddRefreshTokenStore<T>(this IIdentityServerBuilder builder)
+            where T : class, IRefreshTokenStore
+        {
+            builder.Services.AddTransient<IRefreshTokenStore, T>();
+
+            return builder;
+        }
     }
 }

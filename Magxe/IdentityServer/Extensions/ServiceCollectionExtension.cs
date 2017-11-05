@@ -2,6 +2,7 @@
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Magxe.IdentityServer.Extensions
@@ -10,11 +11,11 @@ namespace Magxe.IdentityServer.Extensions
     {
         public static IServiceCollection AddOAuth2(this IServiceCollection services)
         {
-            var builder = services.AddIdentityServer();
-
-            builder
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+            services.AddIdentityServer()
                 .AddDeveloperSigningCredential()
                 .AddPersistedGrantStore<InDatabasePersistedGrantStore>()
+                //.AddRefreshTokenStore<InDatabaseRefreshTokenStore>()
                 .AddClientStore<InDatabasePersistedClientStore>()
                 .AddInMemoryIdentityResources(new List<IdentityResource>
                 {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Magxe.Dao
 {
@@ -6,6 +7,7 @@ namespace Magxe.Dao
     {
         public User()
         {
+            Id = Guid.NewGuid().ToString("N");
             AccessTokens = new HashSet<AccessToken>();
             RefreshTokens = new HashSet<RefreshToken>();
         }

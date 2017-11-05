@@ -10,6 +10,7 @@ namespace Magxe.Controllers.Admin
         private static readonly string AdminViewAssetsRoot = Path.Combine("Admin", "Views", "assets");
 
         [Route("assets/{file}")]
+        [Route("ghost/assets/{file}")]
         [HttpGet]
         public IActionResult IndexAssets(string file)
         {

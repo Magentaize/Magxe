@@ -14,14 +14,14 @@ using System.Threading.Tasks;
 
 namespace Magxe.Controllers.Admin.Api
 {
-    [AdminApiRoute]
-    public class Authentication : Controller
+    [AdminApiController]
+    public class AuthenticationController : Controller
     {
         private readonly DataContext _dataContext;
         private readonly IServiceProvider _services;
         private readonly IPasswordHasher<User> _passwordHasher;
 
-        public Authentication(IServiceProvider services, DataContext dataContext, IPasswordHasher<User> passwordHasher)
+        public AuthenticationController(IServiceProvider services, DataContext dataContext, IPasswordHasher<User> passwordHasher)
         {
             _services = services;
             _dataContext = dataContext;

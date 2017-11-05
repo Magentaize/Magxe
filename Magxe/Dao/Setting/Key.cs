@@ -15,5 +15,7 @@
         CodeInjectionHead = 10,
         CodeInjectionFoot = 11,
         Url = 12,
+        IsPrivate = 13,
+        Password = 14
     }
 }

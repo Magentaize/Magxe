@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Controllers.Admin.Api
 {
-    [AdminApiRoute]
-    public class Configuration : Controller
+    [AdminApiController]
+    public class ConfigurationController : Controller
     {
         private readonly DataContext _dataContext;
 
-        public Configuration(DataContext dataContext)
+        public ConfigurationController(DataContext dataContext)
         {
             _dataContext = dataContext;
         }

@@ -32,9 +32,9 @@ namespace Magxe.Dao
                     b.HasIndex(r => r.ClientId);
 
                     b.HasOne(r => r.Client).WithMany(r => r.AccessTokens).HasForeignKey(r => r.ClientId)
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                     b.HasOne(r => r.User).WithMany(r => r.AccessTokens).HasForeignKey(r => r.UserId)
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             builder.Entity<RefreshToken>(b =>
@@ -44,9 +44,9 @@ namespace Magxe.Dao
                 b.HasIndex(r => r.ClientId);
 
                 b.HasOne(r => r.Client).WithMany(r => r.RefreshTokens).HasForeignKey(r => r.ClientId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Cascade);
                 b.HasOne(r => r.User).WithMany(r => r.RefreshTokens).HasForeignKey(r => r.UserId)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             builder.Entity<PostTag>(b =>

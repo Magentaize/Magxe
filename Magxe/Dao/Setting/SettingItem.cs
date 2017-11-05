@@ -9,6 +9,9 @@ namespace Magxe.Dao.Setting
         public Key Id { get; set; }
 
         [Required]
+        public string Type { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         public string Value { get; set; }
