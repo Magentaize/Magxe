@@ -1,10 +1,10 @@
-﻿using IdentityServer4.Models;
+﻿using System.Collections.Generic;
+using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.Generic;
 
-namespace Magxe.IdentityServer
+namespace Magxe.IdentityServer.Extensions
 {
     internal static class ServiceCollectionExtension
     {
@@ -14,7 +14,7 @@ namespace Magxe.IdentityServer
 
             builder
                 .AddDeveloperSigningCredential()
-                .AddInMemoryPersistedGrants()
+                .AddPersistedGrantStore<InDatabasePersistedGrantStore>()
                 .AddClientStore<InDatabasePersistedClientStore>()
                 .AddInMemoryIdentityResources(new List<IdentityResource>
                 {

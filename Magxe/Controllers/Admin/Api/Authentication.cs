@@ -3,14 +3,14 @@ using Magxe.Controllers.ActionResults;
 using Magxe.Controllers.Admin.Models;
 using Magxe.Dao;
 using Magxe.Dao.Setting;
+using Magxe.Utils;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Magxe.Utils;
-using Microsoft.AspNetCore.Identity;
 
 namespace Magxe.Controllers.Admin.Api
 {
@@ -32,7 +32,16 @@ namespace Magxe.Controllers.Admin.Api
 
         private async Task<bool> CheckSetupAsync()
         {
-            return await _dataContext.Users.CountAsync() != 0;
+            var count = await _dataContext.Users.CountAsync();
+            switch (count)
+            {
+                case 0:
+                    return false;
+                case 1:
+                    var u = await _dataContext.Users.FirstAsync(r => true);
+                    return u.Status != UserStatus.InActive;
+                default: return true;
+            }
         }
 
         private async Task<IsSetupItem> IsSetup()
@@ -85,6 +94,8 @@ namespace Magxe.Controllers.Admin.Api
                         new Dictionary<string, string>() { { "minLength", "10" } });
                 }
 
+                _dataContext.Users.RemoveRange(_dataContext.Users);
+
                 var owner = new User()
                 {
                     Name = setupData.Name,
@@ -92,7 +103,7 @@ namespace Magxe.Controllers.Admin.Api
                     Email = setupData.Email,
                     Status = UserStatus.Active,
                     CreatedTime = DateTime.Now,
-                    LastLog = DateTime.Now,
+                    LastSeen = DateTime.Now,
                 };
                 owner.Password = _passwordHasher.HashPassword(owner, setupData.Password);
                 var blogUpdate = new List<object>()

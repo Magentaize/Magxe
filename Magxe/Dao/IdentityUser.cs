@@ -6,10 +6,6 @@ namespace Magxe.Dao
 {
     public class IdentityUser : IdentityUser<string>
     {
-        public IdentityUser()
-        {
-            Id = Guid.NewGuid().ToString();
-        }
     }
 
     public class IdentityUser<TKey> : MetaItem<TKey> where TKey : IEquatable<TKey>
@@ -44,7 +40,7 @@ namespace Magxe.Dao
         [StringLength(100)]
         public string Location { get; set; }
 
-        public DateTime LastLog { get; set; }
+        public DateTime LastSeen { get; set; }
 
         [Required]
         public DateTime CreatedTime { get; set; }

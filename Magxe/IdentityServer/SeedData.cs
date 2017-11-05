@@ -7,6 +7,12 @@ namespace Magxe.IdentityServer
 {
     internal static class SeedData
     {
+        public static void Seed(MigrationBuilder builder)
+        {
+            SeedClients(builder);
+            SeedSettings(builder);
+        }
+
         public static void SeedClients(MigrationBuilder builder)
         {
             var clients = new[,]

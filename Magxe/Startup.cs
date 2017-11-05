@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using HandlebarsDotNet.ViewEngine.Extensions;
 using Magxe.Dao;
-using Magxe.IdentityServer;
+using Magxe.IdentityServer.Extensions;
 using Magxe.Models.DaoConverters;
 using Magxe.Services;
 using Microsoft.AspNetCore.Builder;

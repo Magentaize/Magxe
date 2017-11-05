@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Dao
 {
-    public class DataContext:IdentityDbContext<User, IdentityRole, string>
+    public class DataContext : IdentityDbContext<User, IdentityRole, string>
     {
         public DataContext()
         {            

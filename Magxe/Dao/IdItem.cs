@@ -8,7 +8,7 @@ namespace Magxe.Dao
     {
         public IdItem()
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString("N");
         }
     }
 
