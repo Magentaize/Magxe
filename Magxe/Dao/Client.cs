@@ -6,7 +6,6 @@ namespace Magxe.Dao
     {
         public Client()
         {
-            AccessTokens = new HashSet<AccessToken>();
             RefreshTokens = new HashSet<RefreshToken>();
         }
 
@@ -15,7 +14,6 @@ namespace Magxe.Dao
         public string Secret { get; set; }
         public string Uuid { get; set; }
 
-        public ICollection<AccessToken> AccessTokens { get; set; }
         public ICollection<RefreshToken> RefreshTokens { get; set; }
     }
 }

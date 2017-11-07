@@ -15,7 +15,7 @@ namespace Magxe.Extensions
 
         static DataContextTagExtension()
         {
-            _dataContext = new Lazy<DataContext>(() => Config.ServiceProvider.GetService<DataContext>());
+            _dataContext = new Lazy<DataContext>(() => GlobalVariables.ServiceProvider.GetService<DataContext>());
         }
 
         public static IQueryable<Tag> GetTagsByIds(this DbSet<Tag> dbSet, IEnumerable<int> tagIds)
@@ -32,7 +32,7 @@ namespace Magxe.Extensions
 
         public static async Task<int> GetTagTotalPostsAsync(this DbSet<Tag> dbSet, int tagId)
         {
-            return await Config.DataContext.PostTags.Where(row => row.TagId == tagId).CountAsync();
+            return await GlobalVariables.DataContext.PostTags.Where(row => row.TagId == tagId).CountAsync();
         }
     }
 }

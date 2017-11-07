@@ -24,7 +24,7 @@ namespace Magxe.Helpers
             }
             if (!absolute)
             {
-                var uri = new Uri(Config.Url, vm.slug);
+                var uri = new Uri(GlobalVariables.Config.Url, vm.slug);
                 output.WriteSafeString(uri.ToString());
             }
             else

@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
 
 namespace Magxe
 {
@@ -38,7 +40,10 @@ namespace Magxe
                 .AddTransient<IPasswordHasher<User>, PasswordHasher<User>>()
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
                 .AddScoped<ThemeService, ThemeService>()
-                .AddDbContext<DataContext>()
+                .AddDbContext<DataContext>(options =>
+                {
+                    options.UseMySql(GlobalVariables.Config.ConnectionString);
+                })
                 .AddRouting()
                 .AddMvc()
                 .AddViewOptions(options =>
@@ -64,7 +69,7 @@ namespace Magxe
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IServiceProvider services, IActionDescriptorCollectionProvider actionDescriptorCollectionProvider, IApplicationBuilder app, IHostingEnvironment env)
         {
-            Config.ServiceProvider = services;
+            GlobalVariables.ServiceProvider = services;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -11,7 +11,7 @@ namespace Magxe.Extensions
 
         static MapperExtension()
         {
-            Mapper = new Lazy<IMapper>(() => Config.ServiceProvider.GetService<IMapper>());
+            Mapper = new Lazy<IMapper>(() => GlobalVariables.ServiceProvider.GetService<IMapper>());
         }
 
         public static async Task<TDestination> MapAsync<TSource, TDestination>(this Task<TSource> source)

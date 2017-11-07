@@ -13,7 +13,6 @@ namespace Magxe.Dao
         {
         }
 
-        public DbSet<AccessToken> AccessTokens { get; set; }
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public DbSet<SettingItem> Settings { get; set; }
@@ -25,21 +24,10 @@ namespace Magxe.Dao
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<AccessToken>(b =>
-                {
-                    b.HasIndex(r => r.Token).IsUnique();
-                    b.HasIndex(r => r.UserId);
-                    b.HasIndex(r => r.ClientId);
-
-                    b.HasOne(r => r.Client).WithMany(r => r.AccessTokens).HasForeignKey(r => r.ClientId)
-                        .OnDelete(DeleteBehavior.Cascade);
-                    b.HasOne(r => r.User).WithMany(r => r.AccessTokens).HasForeignKey(r => r.UserId)
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             builder.Entity<RefreshToken>(b =>
             {
-                b.HasIndex(r => r.Token).IsUnique();
+                b.HasKey(r => r.Key);
+                b.HasIndex(r => r.Key).IsUnique();
                 b.HasIndex(r => r.UserId);
                 b.HasIndex(r => r.ClientId);
 
@@ -63,12 +51,12 @@ namespace Magxe.Dao
             });       
         }
 
-        private const string DbS =
-                "Server=localhost;database=Magxe;port=3306;charset=UTF8;uid=root;pwd=;convert zero datetime=True"
-            ;
-        protected override void OnConfiguring(DbContextOptionsBuilder builder)
-        {
-            builder.UseMySql(DbS);
-        }
+        //private const string DbS =
+        //        "Server=localhost;database=Magxe;port=3306;charset=UTF8;uid=root;pwd=;convert zero datetime=True"
+        //    ;
+        //protected override void OnConfiguring(DbContextOptionsBuilder builder)
+        //{
+        //    builder.UseMySql(DbS);
+        //}
     }
 }

@@ -31,7 +31,7 @@ namespace Magxe.Controllers.Admin.Api
                     {
                         UseGravatar = true,
                         PublicApi = false,
-                        BlogUrl = Config.Url.AbsoluteUri,
+                        BlogUrl = GlobalVariables.Config.Url.AbsoluteUri,
                         BlogTitle = _dataContext.Settings.GetSettingAsync(Key.Title).Result,
                         RouteKeywords = new RouteKeywords()
                         {

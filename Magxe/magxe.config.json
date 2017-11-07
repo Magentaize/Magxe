@@ -1,0 +1,14 @@
+{
+    "isDevelopment": "true",
+    "development": {
+      "url": "http://localhost:2365",
+      "database": {
+        "client": "mysql",
+        "connection": {
+          "host": "localhost",
+          "user": "root",
+          "database": "magxe"
+        }
+      }
+    }
+  }

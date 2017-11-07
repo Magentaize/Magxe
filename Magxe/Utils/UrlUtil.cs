@@ -7,9 +7,9 @@ namespace Magxe.Utils
         internal static string GetSubDir()
         {
             var localPath = string.Empty;
-            if (Config.Url != null)
+            if (GlobalVariables.Config.Url != null)
             {
-                localPath = Config.Url.AbsolutePath;
+                localPath = GlobalVariables.Config.Url.AbsolutePath;
                 if (localPath != "/")
                 {
                     localPath = Regex.Replace(localPath, @"\/$", string.Empty);

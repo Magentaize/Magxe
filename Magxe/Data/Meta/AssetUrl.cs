@@ -22,11 +22,11 @@ namespace Magxe.Dao.Meta
             output.Append(path);
 
             // Ensure we have an assetHash
-            if (Config.AssetHash == null)
-                Config.AssetHash = AssetHashUtil.GenerateAssetHash();
+            if (string.IsNullOrEmpty(GlobalVariables.AssetHash))
+                GlobalVariables.AssetHash = AssetHashUtil.GenerateAssetHash();
 
             // Finally add the asset hash to the output URL
-            output.Append($"?v={Config.AssetHash}");
+            output.Append($"?v={GlobalVariables.AssetHash}");
 
             return output.ToString();
         }

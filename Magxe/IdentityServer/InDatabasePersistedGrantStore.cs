@@ -2,7 +2,6 @@
 using IdentityServer4.Stores;
 using Magxe.Dao;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,12 +20,16 @@ namespace Magxe.IdentityServer
         {
             var c = await _dbContext.Clients.FirstAsync(r => r.Slug == grant.ClientId);
             var u = await _dbContext.Users.FirstAsync(r => r.Email == grant.SubjectId);
-            _dbContext.AccessTokens.Add(new AccessToken()
+            _dbContext.RefreshTokens.Add(new Dao.RefreshToken()
             {
-                Token = grant.Key,
+                Key = grant.Key,
                 Client = c,
                 User = u,
-                Expires = grant.Expiration ?? DateTime.Now.AddSeconds(3600),
+                CreationTime = grant.CreationTime,
+                Expiration = grant.Expiration,
+                Data = grant.Data,
+                SubjectId = grant.SubjectId,
+                Type = grant.Type
             });
 
             _dbContext.SaveChanges();

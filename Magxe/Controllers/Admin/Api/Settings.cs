@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Magxe.Controllers.Admin.Api
@@ -21,8 +22,8 @@ namespace Magxe.Controllers.Admin.Api
         }
 
         [HttpGet]
-        [Authorize]
-        public async Task<IActionResult> Index()
+        [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme)]
+        public IActionResult Index()
         {
             var sb = new StringBuilder();
             var values = new List<SettingItem>();

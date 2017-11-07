@@ -15,7 +15,7 @@ namespace Magxe.Extensions
 
         static DataContextPostExtension()
         {
-            _dataContext = new Lazy<DataContext>(() => Config.ServiceProvider.GetService<DataContext>());
+            _dataContext = new Lazy<DataContext>(() => GlobalVariables.ServiceProvider.GetService<DataContext>());
         }
 
         public static IQueryable<Post> PagingPosts(this IQueryable<Post> posts, int pageIndex)
@@ -53,7 +53,7 @@ namespace Magxe.Extensions
 
         public static IEnumerable<Tag> GetTags(this Post post)
         {
-            var o = Config.DataContext.PostTags
+            var o = GlobalVariables.DataContext.PostTags
                 .Include(pt => pt.Post)
                 .Include(pt => pt.Tag)
                 .Where(p => p.PostId == post.Id)
