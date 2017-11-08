@@ -1,11 +1,13 @@
-﻿namespace Magxe.Controllers.ActionResults
+﻿using Magxe.Services;
+
+namespace Magxe.Controllers.ActionResults
 {
     internal class NoPermissionErrorResult : ErrorResult
     {
         public NoPermissionErrorResult(string message = null) : base(403)
         {
-            Dict["ErrorType"] = "NoPermissionError";
-            Dict["Message"] = message ?? "You do not have permission to perform this request.";
+            Dict["ErrorType"] = I18NService.Errors.ActionResult.NoPermissionErrorResult.ErrorType;
+            Dict["Message"] = message ?? I18NService.Errors.ActionResult.NoPermissionErrorResult.Message;
         }
     }
 }

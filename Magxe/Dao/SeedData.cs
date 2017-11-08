@@ -11,6 +11,7 @@ namespace Magxe.Dao
         {
             SeedClients(builder);
             SeedSettings(builder);
+            SeedRoles(builder);
         }
 
         public static void SeedClients(MigrationBuilder builder)
@@ -97,6 +98,30 @@ namespace Magxe.Dao
                 table: "Settings",
                 columns: new[] {"Id", "Name", "Value", "Type"},
                 values: settingsValue
+            );
+        }
+
+        public static void SeedRoles(MigrationBuilder builder)
+        {
+            var roles = new [,]
+            {
+                {"Administrator","Administrators" },
+                {"Editor","Editors" },
+                {"Author","Authors" },
+                {"Owner","Blog Owner" }
+            };
+            var rolesO = new object[4,3];
+            for (int i = 0; i < 4; i++)
+            {
+                rolesO[i,0] = Guid.NewGuid().ToString("N");
+                rolesO[i, 1] = roles[i, 0];
+                rolesO[i, 2] = roles[i, 1];
+            }
+
+            builder.InsertData(
+                "Roles",
+                new[] {"Id", "Name", "Description"},
+                rolesO
             );
         }
     }

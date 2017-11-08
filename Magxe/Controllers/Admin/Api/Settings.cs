@@ -1,13 +1,10 @@
 ﻿using Magxe.Dao;
 using Magxe.Dao.Setting;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Magxe.Controllers.Admin.Api
 {
@@ -22,7 +19,7 @@ namespace Magxe.Controllers.Admin.Api
         }
 
         [HttpGet]
-        [Authorize(AuthenticationSchemes=JwtBearerDefaults.AuthenticationScheme)]
+        [Authorize]
         public IActionResult Index()
         {
             var sb = new StringBuilder();

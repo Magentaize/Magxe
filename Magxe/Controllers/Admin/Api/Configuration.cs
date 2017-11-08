@@ -2,10 +2,11 @@
 using Magxe.Dao;
 using Magxe.Dao.Setting;
 using Magxe.Extensions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Controllers.Admin.Api
 {
@@ -51,6 +52,17 @@ namespace Magxe.Controllers.Admin.Api
             };
 
             return Json(o);
+        }
+
+        [Route("private")]
+        [HttpGet]
+        [Authorize]
+        public IActionResult Private()
+        {
+            return Json(new
+            {
+                Configuration = new object { }
+            });
         }
     }
 }

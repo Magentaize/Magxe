@@ -1,14 +1,13 @@
-﻿using IdentityServer4.AccessTokenValidation;
+﻿using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Validation;
-using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Magxe.IdentityServer.Extensions
 {
@@ -16,24 +15,31 @@ namespace Magxe.IdentityServer.Extensions
     {
         public static IServiceCollection AddOAuth2(this IServiceCollection services)
         {
-            services.AddAuthorization(options =>
+            services.AddAuthentication(options =>
                 {
-                    options.AddPolicy(JwtBearerDefaults.AuthenticationScheme, builder =>
-                    {
-                        builder.AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme,
-                            jwtBearerOptions =>
-                            {
-                                var filename = Path.Combine(Directory.GetCurrentDirectory(), "tempkey.rsa");
-                                var keyFile = File.ReadAllText(filename);
-                                var tempKey = JsonConvert.DeserializeObject<TemporaryRsaKey>(keyFile);
-                                var rsa = new RsaSecurityKey(tempKey.Parameters) { KeyId = tempKey.KeyId };
-                                jwtBearerOptions.TokenValidationParameters.IssuerSigningKey = rsa;
-                                jwtBearerOptions.TokenValidationParameters.ValidIssuer =
-                                    GlobalVariables.Config.Url.AbsoluteUri;
-                            }
-                    });
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
                 })
-                , null);
+                .AddJwtBearer(options =>
+                {
+                    var filename = Path.Combine(Directory.GetCurrentDirectory(), "tempkey.rsa");
+                    var keyFile = File.ReadAllText(filename);
+                    var tempKey = JsonConvert.DeserializeObject<TemporaryRsaKey>(keyFile);
+                    var rsa = new RsaSecurityKey(tempKey.Parameters) {KeyId = tempKey.KeyId};
+
+                    options.SaveToken = true;
+                    options.RefreshOnIssuerKeyNotFound = true;
+                    options.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateAudience = false,
+                        ValidateLifetime = true,
+                        ValidIssuers = new[]
+                            {GlobalVariables.Config.Url.OriginalString, GlobalVariables.Config.Url.AbsoluteUri},
+                        NameClaimType = JwtClaimTypes.Name,
+                        RoleClaimType = JwtClaimTypes.Role,
+                        IssuerSigningKey = rsa,
+                    };
+                });
 
             services.AddIdentityServer()
                 .AddDeveloperSigningCredential()

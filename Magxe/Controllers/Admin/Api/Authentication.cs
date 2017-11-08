@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Magxe.Services;
 
 namespace Magxe.Controllers.Admin.Api
 {
@@ -78,11 +79,11 @@ namespace Magxe.Controllers.Admin.Api
 
                 if (isSetup)
                 {
-                    return new NoPermissionErrorResult("errors.api.authentication.setupAlreadyCompleted");
+                    return new NoPermissionErrorResult(I18NService.Errors.Api.Authentication.SetupAlreadyCompleted);
                 }
                 else
                 {
-                    return new NoPermissionErrorResult("errors.api.authentication.setupMustBeCompleted");
+                    return new NoPermissionErrorResult(I18NService.Errors.Api.Authentication.SetupMustBeCompleted);
                 }
             }
 
@@ -90,7 +91,7 @@ namespace Magxe.Controllers.Admin.Api
             {
                 if (setupData.Password.Length < 10)
                 {
-                    return new ValidationErrorResult("errors.models.user.passwordDoesNotComplyLength",
+                    return new ValidationErrorResult(I18NService.Errors.Models.User.PasswordDoesNotComplyLength,
                         new Dictionary<string, string>() { { "minLength", "10" } });
                 }
 
@@ -104,8 +105,9 @@ namespace Magxe.Controllers.Admin.Api
                     Status = UserStatus.Active,
                     CreatedTime = DateTime.Now,
                     LastSeen = DateTime.Now,
+                    Password = _passwordHasher.HashPassword(null,setupData.Password),
                 };
-                owner.Password = _passwordHasher.HashPassword(owner, setupData.Password);
+                //owner.Password = _passwordHasher.HashPassword(owner, setupData.Password);
                 var blogUpdate = new List<object>()
                 {
                     new SettingItem()
@@ -116,12 +118,20 @@ namespace Magxe.Controllers.Admin.Api
                     new SettingItem()
                     {
                         Id = Key.Description,
-                        Value ="common.api.authentication.sampleBlogDescription"
+                        Value =I18NService.Common.Api.Authentication.SampleBlogDescription
                     }
                 };
 
                 await _dataContext.Users.AddAsync(owner);
                 _dataContext.UpdateRange(blogUpdate);
+
+                var ownerRole = await _dataContext.Roles.FirstAsync(r => r.Name == "Owner");
+                _dataContext.UserRoles.Add(new IdentityUserRole<string>()
+                {
+                    RoleId = ownerRole.Id,
+                    UserId = owner.Id,
+                });
+
                 await _dataContext.SaveChangesAsync();
 
                 return Ok();

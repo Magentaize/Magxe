@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +9,7 @@ namespace Magxe.Dao
     {
         public IdentityRole()
         {
-            Id = Guid.NewGuid().ToString();
+            Id = Guid.NewGuid().ToString("N");
         }
     }
 
@@ -18,29 +19,21 @@ namespace Magxe.Dao
         {
         }
 
-        public IdentityRole(string name)
+        public IdentityRole(string name) : this()
         {
             Name = name;
         }
 
         [Required]
-        public virtual TKey Id { get; set; }
+        public TKey Id { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         [Column(TypeName = "text")]
-        [MaxLength(2000)]
-        public virtual string Description { get; set; }
-
-        public virtual TKey CreatedBy { get; set; }
-
-        public virtual DateTime CreatedAt { get; set; }
-
-        public virtual TKey UpdatedBy { get; set; }
-
-        public virtual DateTime UpdatedAt { get; set; }
+        [MaxLength(200)]
+        public string Description { get; set; }
 
         public override string ToString()
         {

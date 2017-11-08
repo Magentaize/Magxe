@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
 
 namespace Magxe.Dao
 {
@@ -12,6 +14,7 @@ namespace Magxe.Dao
     {
         [Required]
         [StringLength(200)]
+        [IgnoreDataMember]
         public string Password { get; set; }
 
         [Required]
