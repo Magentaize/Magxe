@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
-using Dynamitey;
 
 namespace Magxe.Extensions
 {
     internal static class ObjectExtension
     {
         [DebuggerHidden]
-        public static T Cast<T>(this object o)
+        public static T CastTo<T>(this object o)
         {
             return (T) o;
         }

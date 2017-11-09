@@ -15,7 +15,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            var pattern = arguments[0].Cast<HashParameterDictionary>()["format"].Cast<string>();
+            var pattern = arguments[0].CastTo<HashParameterDictionary>()["format"].CastTo<string>();
             output.WriteSafeString(DateTime.Now.ToString(pattern));
         }
     }

@@ -24,18 +24,18 @@ namespace Magxe.Helpers
             }
 
             var num = vm.PluralNumber;
-            var dict = arguments[1].Cast<HashParameterDictionary>();
+            var dict = arguments[1].CastTo<HashParameterDictionary>();
             if (num >= 2)
             {
-                output.WriteSafeString(dict["plural"].Cast<string>().Replace("%", num.ToString()));
+                output.WriteSafeString(dict["plural"].CastTo<string>().Replace("%", num.ToString()));
             }
             else if (num == 1)
             {
-                output.WriteSafeString(dict["singular"].Cast<string>().Replace("%", num.ToString()));
+                output.WriteSafeString(dict["singular"].CastTo<string>().Replace("%", num.ToString()));
             }
             else
             {
-                output.WriteSafeString(dict["empty"].Cast<string>().Replace("%", num.ToString()));
+                output.WriteSafeString(dict["empty"].CastTo<string>().Replace("%", num.ToString()));
             }
         }
     }

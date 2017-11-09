@@ -16,7 +16,7 @@ namespace Magxe.Helpers
         public override void HandlebarsBlockHelper(TextWriter output, HelperOptions options, dynamic context,
             params object[] arguments)
         {
-            var key = arguments[0].Cast<string>();
+            var key = arguments[0].CastTo<string>();
             var sb = new StringBuilder();
             using (var sw = new StringWriter(sb))
             {

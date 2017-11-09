@@ -9,7 +9,7 @@ namespace Magxe.Extensions
     {
         public static T InvokeWithNamedParameters<T>(this MethodBase self, object obj, IDictionary<string, object> namedParameters)
         {
-            return self.Invoke(obj, MapParameters(self, namedParameters)).Cast<T>();
+            return self.Invoke(obj, MapParameters(self, namedParameters)).CastTo<T>();
         }
 
         public static object[] MapParameters(MethodBase method, IDictionary<string, object> namedParameters)

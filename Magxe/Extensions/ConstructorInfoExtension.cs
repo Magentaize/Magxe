@@ -5,9 +5,10 @@ namespace Magxe.Extensions
 {
     internal static class ConstructorInfoExtension
     {
-        public static T InvokeWithNamedParameters<T>(this ConstructorInfo ctor, IDictionary<string, object> namedParameters)
+        public static T InvokeWithNamedParameters<T>(this ConstructorInfo ctor,
+            IDictionary<string, object> namedParameters)
         {
-            return ctor.Invoke( MethodBaseExtension.MapParameters(ctor, namedParameters)).Cast<T>();
+            return ctor.Invoke(MethodBaseExtension.MapParameters(ctor, namedParameters)).CastTo<T>();
         }
     }
 }

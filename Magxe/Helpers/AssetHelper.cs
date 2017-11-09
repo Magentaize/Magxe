@@ -14,7 +14,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            output.WriteSafeString(AssetUrl.GetAssetUrl(arguments[0].Cast<string>()));
+            output.WriteSafeString(AssetUrl.GetAssetUrl(arguments[0].CastTo<string>()));
         }
     }
 }

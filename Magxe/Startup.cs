@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Magxe.Dao.Extensions;
+using Magxe.Extensions;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 
@@ -39,11 +41,8 @@ namespace Magxe
                 .AddAutoMapper(DaoConverters.ConfigAutoMapper)
                 .AddTransient<IPasswordHasher<User>, PasswordHasher<User>>()
                 .AddSingleton<IHttpContextAccessor, HttpContextAccessor>()
-                .AddScoped<ThemeService, ThemeService>()
-                .AddDbContext<DataContext>(options =>
-                {
-                    options.UseMySql(GlobalVariables.Config.ConnectionString);
-                })
+                .AddServices()
+                .AddDataContext()
                 .AddRouting()
                 .AddMvc()
                 .AddViewOptions(options =>

@@ -38,7 +38,7 @@ namespace Magxe.Helpers
                     excerpt = post.CustomExcerpt;
                 }
 
-                var arguments = oArguments[0].Cast<HashParameterDictionary>();
+                var arguments = oArguments[0].CastTo<HashParameterDictionary>();
                 var parameters = new Dictionary<string, object>()
                 {
                     {"words", arguments.GetValueOrDefault("words", DownsizeOptions.DefaultTruncationLimit).CastToInt()},

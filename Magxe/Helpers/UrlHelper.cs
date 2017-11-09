@@ -20,7 +20,7 @@ namespace Magxe.Helpers
             bool absolute = false;
             if (arguments.Length != 0)
             {
-                absolute = Convert.ToBoolean(arguments[0].Cast<HashParameterDictionary>()["absolute"].Cast<string>());
+                absolute = Convert.ToBoolean(arguments[0].CastTo<HashParameterDictionary>()["absolute"].CastTo<string>());
             }
             if (!absolute)
             {

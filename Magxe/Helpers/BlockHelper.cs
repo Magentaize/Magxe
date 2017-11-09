@@ -14,7 +14,7 @@ namespace Magxe.Helpers
 
         public override void HandlebarsHelper(TextWriter output, dynamic context, params object[] arguments)
         {
-            var key = arguments[0].Cast<string>();
+            var key = arguments[0].CastTo<string>();
             if (Blocks.ContainsKey(key))
             {
                 output.WriteSafeString($"{Blocks[key]}\n");

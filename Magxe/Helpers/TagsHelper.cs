@@ -23,8 +23,8 @@ namespace Magxe.Helpers
 
             if (enumerable.Any())
             {
-                var arguments = oArguments[0].Cast<HashParameterDictionary>();
-                var prefix = arguments.GetValueOrDefault("prefix", string.Empty).Cast<string>();
+                var arguments = oArguments[0].CastTo<HashParameterDictionary>();
+                var prefix = arguments.GetValueOrDefault("prefix", string.Empty).CastTo<string>();
 
                 var sb = new StringBuilder(prefix, 200);
                 foreach (var tag in enumerable)
