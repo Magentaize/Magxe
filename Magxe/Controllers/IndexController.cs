@@ -1,4 +1,5 @@
-﻿using Magxe.Dao;
+﻿using System;
+using Magxe.Dao;
 using Magxe.Dao.Setting;
 using Magxe.Extensions;
 using Magxe.Models;
@@ -7,6 +8,8 @@ using Magxe.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Threading.Tasks;
+using Magxe.Attributes;
+using Microsoft.EntityFrameworkCore;
 
 namespace Magxe.Controllers
 {
@@ -31,7 +34,7 @@ namespace Magxe.Controllers
             }
 
             var posts =
-                _dataContext.Posts
+                _dataContext.Posts.Include(r=>r.PostsTags).ThenInclude(r=>r.Tag)
                     .GetPagedPosts(pageIndex)
                     .Select(p => p.MapAsync<Post, PostViewModel>().Result);
 

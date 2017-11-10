@@ -11,7 +11,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.Stores.Serialization;
 using Magxe.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace Magxe.Controllers.Admin.Api
 {
@@ -97,6 +101,8 @@ namespace Magxe.Controllers.Admin.Api
 
                 _dataContext.Users.RemoveRange(_dataContext.Users);
 
+                var ownerRole = await _dataContext.Roles.FirstAsync(r => r.Name == "Owner");
+
                 var owner = new User()
                 {
                     Name = setupData.Name,
@@ -107,7 +113,8 @@ namespace Magxe.Controllers.Admin.Api
                     LastSeen = DateTime.Now,
                     Password = _passwordHasher.HashPassword(null,setupData.Password),
                 };
-                //owner.Password = _passwordHasher.HashPassword(owner, setupData.Password);
+                owner.UsersRoles.Add(new UserRole() { Role = ownerRole, User = owner});
+
                 var blogUpdate = new List<object>()
                 {
                     new SettingItem()
@@ -118,19 +125,12 @@ namespace Magxe.Controllers.Admin.Api
                     new SettingItem()
                     {
                         Id = Key.Description,
-                        Value =I18NService.Common.Api.Authentication.SampleBlogDescription
+                        Value = I18NService.Common.Api.Authentication.SampleBlogDescription
                     }
                 };
 
                 await _dataContext.Users.AddAsync(owner);
                 _dataContext.UpdateRange(blogUpdate);
-
-                var ownerRole = await _dataContext.Roles.FirstAsync(r => r.Name == "Owner");
-                _dataContext.UserRoles.Add(new IdentityUserRole<string>()
-                {
-                    RoleId = ownerRole.Id,
-                    UserId = owner.Id,
-                });
 
                 await _dataContext.SaveChangesAsync();
 
@@ -139,7 +139,13 @@ namespace Magxe.Controllers.Admin.Api
 
             async Task<IActionResult> DoSettingsAsync()
             {
-                return Json(await _dataContext.Users.FirstAsync(u => true));
+                var json = JObject.FromObject(await _dataContext.Users.FirstAsync(r => true),new JsonSerializer()
+                {
+                    ContractResolver = new CamelCasePropertyNamesContractResolver()
+                });
+                json.Remove("roles");
+
+                return new JsonResult(json);
             }
 
             var data = setupDetails.Setup[0];

@@ -13,7 +13,7 @@ namespace Magxe.Dao
     public class IdentityUser<TKey> : MetaItem<TKey> where TKey : IEquatable<TKey>
     {
         [NotMapped]
-        public ICollection<IdentityRole<TKey>> Roles { get; set; }
+        public ICollection<Role> Roles { get; set; }
 
         [Required]
         [StringLength(200)]

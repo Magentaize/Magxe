@@ -24,7 +24,7 @@ namespace Magxe.Models.DaoConverters
                 Html = source.Html,
                 author = _dataContext.Users.GetUserByIdAsync(source.AuthorId).MapAsync<User, PostAuthorViewModel>()
                     .Result,
-                tags = _dataContext.PostTags.GetTagsByPostId(source.Id),
+                tags = source.Tags,
             };
         }
     }

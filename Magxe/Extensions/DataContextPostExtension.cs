@@ -23,7 +23,7 @@ namespace Magxe.Extensions
             return posts.OrderByDescending(p => p.PublishedTime).Skip((pageIndex - 1) * PostPerPage).Take(PostPerPage);
         }
 
-        public static IQueryable<Post> GetPagedPosts(this DbSet<Post> dbSet, int pageIndex)
+        public static IQueryable<Post> GetPagedPosts(this IQueryable<Post> dbSet, int pageIndex)
         {
             return dbSet.PagingPosts(pageIndex);
         }
@@ -56,7 +56,7 @@ namespace Magxe.Extensions
             var o = GlobalVariables.DataContext.PostTags
                 .Include(pt => pt.Post)
                 .Include(pt => pt.Tag)
-                .Where(p => p.PostId == post.Id)
+                .Where(p => p.Post.Id == post.Id)
                 .Select(pt => pt.Tag).ToList();
             return o;
         }

@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
-using Magxe.Data.Collection;
+using Newtonsoft.Json;
 
 namespace Magxe.Dao
 {
     public class Tag : MetaItem<int>
     {
-#pragma warning disable CS0618
         public Tag()
         {
-            Posts = new JoinCollectionFacade<Post, Tag, PostTag>(this, PostTags);
         }
-#pragma warning restore CS0618
+
+        [NotMapped]
+        public IEnumerable<Post> Posts => PostsTags.Select(r => r.Post);
+
+        [JsonIgnore]
+        public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
 
         [Required]
         [StringLength(150)]
@@ -28,11 +31,5 @@ namespace Magxe.Dao
 
         [Column(TypeName = "text")]
         public string Description { get; set; }
-
-        [Obsolete("MANY-TO-MANY USAGE")]
-        public ICollection<PostTag> PostTags { get; } = new HashSet<PostTag>();
-
-        [NotMapped]
-        public IEnumerable<Post> Posts;
     }
 }

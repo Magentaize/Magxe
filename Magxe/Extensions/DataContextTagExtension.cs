@@ -32,7 +32,7 @@ namespace Magxe.Extensions
 
         public static async Task<int> GetTagTotalPostsAsync(this DbSet<Tag> dbSet, int tagId)
         {
-            return await GlobalVariables.DataContext.PostTags.Where(row => row.TagId == tagId).CountAsync();
+            return await GlobalVariables.DataContext.PostTags.Where(row => row.Tag.Id == tagId).CountAsync();
         }
     }
 }

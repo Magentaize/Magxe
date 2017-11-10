@@ -12,6 +12,89 @@ namespace Magxe.Dao
             SeedClients(builder);
             SeedSettings(builder);
             SeedRoles(builder);
+            SeedPosts(builder);
+        }
+
+        public static void SeedPosts(MigrationBuilder builder)
+        {
+            var postsValue = new object[10, 8];
+            for (int i = 0; i <= 9; i++)
+            {
+                postsValue[i, 0] = 1;
+                postsValue[i, 1] = DateTime.Now;
+                postsValue[i, 2] =
+                    "<div class=\"kg-card-markdown\"><p>Hey! Welcome to Ghost, it's great to have you :)</p><p>We know that first impressions are important, so we've populated your new site with some initial <strong>Getting Started</strong> posts that will help you get familiar with everything in no time. This is the first one!</p><h3 id=\"thereareafewthingsthatyoushouldknowupfront\">There are a few things that you should know up-front:</h3><ol><li><p>Ghost is designed for ambitious, professional publishers who want to actively build a business around their content. That's who it works best for. If you're using Ghost for some other purpose, that's fine too - but it might not be the best choice for you.</p></li><li><p>The entire platform can be modified and customized to suit your needs, which is very powerful, but doing so <strong>does</strong> require some knowledge of code. Ghost is not necessarily a good platform for beginners or people who just want a simple personal blog.</p></li><li><p>For the best experience we recommend downloading the <a href=\"https://ghost.org/downloads/\">Ghost Desktop App</a> for your computer, which is the best way to access your Ghost site on a desktop device.</p></li></ol><p>Ghost is made by an independent non-profit organisation called the Ghost Foundation. We are 100% self funded by revenue from our <a href=\"https://ghost.org/pricing\">Ghost(Pro)</a> service, and every penny we make is re-invested into funding further development of free, open source technology for modern journalism.</p><p>The main thing you'll want to read about next is probably: <a href=\"/the-editor/\">the Ghost editor</a>.</p><p>Once you're done reading, you can simply delete the default <strong>Ghost</strong> user from your team to remove all of these introductory posts!</p></div>";
+                postsValue[i, 3] = @"Hey! Welcome to Ghost, it's great to have you :)
+We know that first impressions are important, so we've populated your new site
+with some initial Getting Started  posts that will help you get familiar with
+everything in no time. This is the first one!
+There are a few things that you should know up-front:
+ 1. Ghost is designed for ambitious, professional publishers who want to
+    actively build a business around their content. That's who it works best
+    for. If you're using Ghost for some other purpose, that's fine too - but it
+    might not be the best choice for you.
+    
+    
+ 2. The entire platform can be modified and customized to suit your needs, which
+    is very powerful, but doing so does  require some knowledge of code. Ghost
+    is not necessarily a good platform for beginners or people who just want a
+    simple personal blog.
+    
+    
+ 3. For the best experience we recommend downloading the Ghost Desktop App
+    [https://ghost.org/downloads/]  for your computer, which is the best way to
+    access your Ghost site on a desktop device.
+    
+    
+Ghost is made by an independent non-profit organisation called the Ghost
+Foundation. We are 100% self funded by revenue from our Ghost(Pro)
+[https://ghost.org/pricing]  service, and every penny we make is re-invested
+into funding further development of free, open source technology for modern
+journalism.
+The main thing you'll want to read about next is probably: the Ghost editor
+[/the-editor/].
+Once you're done reading, you can simply delete the default Ghost  user from
+your team to remove all of these introductory posts!";
+                postsValue[i, 4] = DateTime.Now;
+                postsValue[i, 5] = $"welcome{i}";
+                postsValue[i, 6] = "Welcome to Ghost";
+                postsValue[i, 7] = DateTime.Now;
+            }
+            builder.InsertData(
+                "Posts",
+                new[] { "AuthorId", "CreatedTime", "Html", "PlainText", "PublishedTime", "Slug", "Title", "UpdatedTime" },
+                postsValue
+            );
+
+            var tagsValue = new object[3, 2];
+            for (int i = 0; i < 3; i++)
+            {
+                tagsValue[i, 0] = $"tag{i}";
+                tagsValue[i, 1] = $"Tag {i}";
+            }
+            builder.InsertData(
+                "Tags",
+                new[] { "Slug", "Name" },
+                tagsValue
+            );
+
+            builder.InsertData(
+                "Users",
+                new[] { "Name", "Slug" },
+                new object[,] { { "Magxe", "magxe" } }
+            );
+
+            var postTagsValue = new object[7, 2];
+            for (int i = 0; i <= 6; i++)
+            {
+                postTagsValue[i, 0] = i + 4;
+                postTagsValue[i, 1] = 2;
+            }
+            builder.InsertData(
+                "Posts_Tags",
+                new[] { "PostId", "TagId" },
+                postTagsValue
+            );
         }
 
         public static void SeedClients(MigrationBuilder builder)

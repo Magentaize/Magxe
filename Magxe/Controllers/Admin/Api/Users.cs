@@ -1,13 +1,12 @@
-﻿using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using Magxe.Dao;
+﻿using Magxe.Dao;
 using Magxe.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.Kestrel.Core.Internal.Http;
 using Microsoft.EntityFrameworkCore;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
+using System.Security.Claims;
 
 namespace Magxe.Controllers.Admin.Api
 {
@@ -34,33 +33,13 @@ namespace Magxe.Controllers.Admin.Api
                 
             }
 
-            var me = _dbContext.Users.First(r => true);
-
-            IEnumerable<IdentityRole> roles;
-            if (!string.IsNullOrEmpty(Request.Query["include"][0]))
-            {
-                var roleId = _dbContext.UserRoles.First(r => r.UserId == me.Id).RoleId;
-                roles = _dbContext.Roles.Where(r => r.Id == roleId);
-            }
-            else
-            {
-                roles = new List<IdentityRole>();
-            }
-
+            var me = _dbContext.Users.Include(r=>r.UsersRoles).ThenInclude(r=>r.Role).First(r => true);
             return Json(new
             {
-                Users = new object[]
+                users = new object[]
                 {
-                    new
-                    {
-                        Id = me.Id,
-                        Name = me.Name,
-                        Slug = me.Slug,
-                        Email = me.Email,
-                        Profile_image = me.ProfileImage,
-                        Roles = roles,
-                    }, 
-                },
+                    me
+                }
             });
         }
     }

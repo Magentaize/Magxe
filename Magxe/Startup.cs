@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using HandlebarsDotNet.ViewEngine.Extensions;
 using Magxe.Dao;
+using Magxe.Dao.Extensions;
+using Magxe.Extensions;
 using Magxe.IdentityServer.Extensions;
 using Magxe.Models.DaoConverters;
 using Magxe.Services;
@@ -12,10 +14,6 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Magxe.Dao.Extensions;
-using Magxe.Extensions;
-using Microsoft.EntityFrameworkCore;
-using MySql.Data.MySqlClient;
 
 namespace Magxe
 {

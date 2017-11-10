@@ -2,30 +2,24 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
 
 namespace Magxe.Dao
 {
-    public class IdentityRole : IdentityRole<string>
+    public class Role : IdItem
     {
-        public IdentityRole()
+        public Role()
         {
             Id = Guid.NewGuid().ToString("N");
         }
-    }
 
-    public class IdentityRole<TKey> where TKey : IEquatable<TKey>
-    {
-        public IdentityRole()
-        {
-        }
-
-        public IdentityRole(string name) : this()
+        public Role(string name) : this()
         {
             Name = name;
         }
 
-        [Required]
-        public TKey Id { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<UserRole> UsersRoles { get; set; }
 
         [Required]
         [MaxLength(50)]
