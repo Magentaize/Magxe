@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Magxe.Data.Collection;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using Newtonsoft.Json;
 
 namespace Magxe.Dao
 {
@@ -12,13 +12,14 @@ namespace Magxe.Dao
         public Post()
         {
             IsPage = false;
+            Tags = new JoinCollectionFacade<Tag, Post, PostTag>(this, PostsTags);
         }
 
         [NotMapped]
-        public IEnumerable<Tag> Tags => PostsTags.Select(r => r.Tag);
+        public ICollection<Tag> Tags { get; }
 
         [JsonIgnore]
-        public ICollection<PostTag> PostsTags { get; set; } = new HashSet<PostTag>();
+        public ICollection<PostTag> PostsTags { get; set; } = new List<PostTag>();
 
         public string AuthorId { get; set; }
 
