@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Magxe.Dao.Enum;
 
 namespace Magxe.Dao
 {
@@ -30,14 +31,8 @@ namespace Magxe.Dao
 
         public string CodeInjectionFoot { get; set; }
 
-        public bool IsPage { get; set; }
+        public bool IsPage { get; set; } = true;
 
         public PostStatus Status { get; set; }
-
-        public enum PostStatus
-        {
-            Published,
-            Draft
-        }
     }
 }

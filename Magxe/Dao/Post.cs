@@ -21,7 +21,7 @@ namespace Magxe.Dao
         [JsonIgnore]
         public ICollection<PostTag> PostsTags { get; set; } = new List<PostTag>();
 
-        public string AuthorId { get; set; }
+        public User Author { get; set; }
 
         [Required]
         public DateTime CreatedTime { get; set; }

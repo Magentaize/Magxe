@@ -2,7 +2,7 @@
 
 namespace Magxe.Controllers.ActionResults
 {
-    internal class NoPermissionErrorResult : ErrorResult
+    internal class NoPermissionErrorResult : BaseErrorResult
     {
         public NoPermissionErrorResult(string message = null) : base(403)
         {

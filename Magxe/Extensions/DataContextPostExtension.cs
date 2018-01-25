@@ -30,7 +30,7 @@ namespace Magxe.Extensions
 
         public static IQueryable<Post> GetAuthorPagedPosts(this DbSet<Post> dbSet, int pageIndex, string authorId)
         {
-            return dbSet.Where(p => p.AuthorId == authorId).PagingPosts(pageIndex);
+            return dbSet.Where(p => p.Author.Id == authorId).PagingPosts(pageIndex);
         }
 
         public static async Task<int> GetTotalPagesAsync(this DbSet<Post> dbSet)
@@ -48,7 +48,7 @@ namespace Magxe.Extensions
 
         public static async Task<int> GetAuthorTotalPostsAsync(this DbSet<Post> dbSet, string authorId)
         {
-            return await dbSet.Where(p => p.AuthorId == authorId).CountAsync();
+            return await dbSet.Where(p => p.Author.Id == authorId).CountAsync();
         }
 
         public static IEnumerable<Tag> GetTags(this Post post)

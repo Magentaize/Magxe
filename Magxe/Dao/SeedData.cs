@@ -1,4 +1,5 @@
 ﻿using System;
+using Magxe.Dao.Enum;
 using Magxe.Dao.Setting;
 using Magxe.Utils;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -17,7 +18,13 @@ namespace Magxe.Dao
 
         public static void SeedPosts(MigrationBuilder builder)
         {
-            var postsValue = new object[10, 8];
+            builder.InsertData(
+                "Users",
+                new[] { "Id", "Name", "Slug" ,"CreatedTime", "Email","LastSeen","Password","Status"},
+                new object[,] { { "1", "Magxe", "magentaize", DateTime.Now, "magxe@example.com" ,DateTime.Now,Guid.NewGuid().ToString("N"),(int)UserStatus.InActive} }
+            );
+
+            var postsValue = new object[10, 9];
             for (int i = 0; i <= 9; i++)
             {
                 postsValue[i, 0] = 1;
@@ -59,10 +66,11 @@ your team to remove all of these introductory posts!";
                 postsValue[i, 5] = $"welcome{i}";
                 postsValue[i, 6] = "Welcome to Ghost";
                 postsValue[i, 7] = DateTime.Now;
+                postsValue[i, 8] = (int)PostStatus.Published;
             }
             builder.InsertData(
                 "Posts",
-                new[] { "AuthorId", "CreatedTime", "Html", "PlainText", "PublishedTime", "Slug", "Title", "UpdatedTime" },
+                new[] { "AuthorId", "CreatedTime", "Html", "PlainText", "PublishedTime", "Slug", "Title", "UpdatedTime", "Status"},
                 postsValue
             );
 
@@ -76,12 +84,6 @@ your team to remove all of these introductory posts!";
                 "Tags",
                 new[] { "Slug", "Name" },
                 tagsValue
-            );
-
-            builder.InsertData(
-                "Users",
-                new[] { "Name", "Slug" },
-                new object[,] { { "Magxe", "magxe" } }
             );
 
             var postTagsValue = new object[7, 2];
@@ -124,7 +126,7 @@ your team to remove all of these introductory posts!";
 
         public static void SeedSettings(MigrationBuilder builder)
         {
-            var es = Enum.GetValues(typeof(Key));
+            var es = System.Enum.GetValues(typeof(Key));
             var settingsValue = new object[es.Length, 4];
             for (int i = 0; i < es.Length; i++)
             {

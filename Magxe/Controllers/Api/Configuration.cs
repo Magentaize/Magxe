@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Magxe.Controllers.Admin.Api
+namespace Magxe.Controllers.Api
 {
-    [AdminApiController]
+    [RestApiController]
     public class ConfigurationController : Controller
     {
         private readonly DataContext _dataContext;

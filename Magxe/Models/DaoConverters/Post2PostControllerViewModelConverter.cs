@@ -23,7 +23,7 @@ namespace Magxe.Models.DaoConverters
                 content = source.Html,
                 feature_image = source.FeatureImage,
                 title = source.Title,
-                AuthorId = source.AuthorId,
+                AuthorId = source.Author.Id,
                 tags = source.Tags,
                 slug = source.Slug
             };

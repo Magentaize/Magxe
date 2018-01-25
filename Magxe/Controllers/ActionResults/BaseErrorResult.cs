@@ -7,14 +7,14 @@ using Newtonsoft.Json.Serialization;
 
 namespace Magxe.Controllers.ActionResults
 {
-    internal abstract class ErrorResult : StatusCodeResult
+    internal abstract class BaseErrorResult : StatusCodeResult
     {
         private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings()
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver()
         };
 
-        protected ErrorResult(int statusCode) : base(statusCode)
+        protected BaseErrorResult(int statusCode) : base(statusCode)
         {
         }
 
@@ -30,7 +30,6 @@ namespace Magxe.Controllers.ActionResults
 
             var response = context.HttpContext.Response;
             response.ContentType = "application/json";
-
 
             var o = new
             {

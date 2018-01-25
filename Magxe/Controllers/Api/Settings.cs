@@ -6,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Magxe.Controllers.Admin.Api
+namespace Magxe.Controllers.Api
 {
-    [AdminApiController]
+    [RestApiController]
     public class SettingsController : Controller
     {
         private readonly DataContext _dbContext;

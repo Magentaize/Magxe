@@ -22,7 +22,11 @@ namespace Magxe.Dao
         [JsonIgnore]
         public ICollection<UserRole> UsersRoles { get; set; } = new HashSet<UserRole>();
 
+        [JsonIgnore]
         public ICollection<RefreshToken> RefreshTokens { get; set; } = new HashSet<RefreshToken>();
+
+        [JsonIgnore]
+        public ICollection<Post> Posts { get; set; } = new HashSet<Post>();
 
         [Required]
         [StringLength(200)]
@@ -55,6 +59,7 @@ namespace Magxe.Dao
         [StringLength(100)]
         public string Location { get; set; }
 
+        [Required]
         public DateTime LastSeen { get; set; }
 
         [Required]

@@ -19,7 +19,7 @@ namespace Magxe.Controllers
 
         public async Task<IActionResult> Index(string slug)
         {
-            var post = await _dataContext.Posts.FirstOrDefaultAsync(p => p.Slug == slug);
+            var post = await _dataContext.Posts.Include(r=>r.PostsTags).ThenInclude(r=>r.Tag).FirstOrDefaultAsync(p => p.Slug == slug);
             if (post == null)
             {
                 return new NotFoundResult();

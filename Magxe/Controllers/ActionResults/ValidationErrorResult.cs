@@ -3,7 +3,7 @@ using Magxe.Services;
 
 namespace Magxe.Controllers.ActionResults
 {
-    internal class ValidationErrorResult : ErrorResult
+    internal class ValidationErrorResult : BaseErrorResult
     {
         public ValidationErrorResult(string message = null) : this(message,null)
         {

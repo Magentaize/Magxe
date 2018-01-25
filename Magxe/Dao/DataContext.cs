@@ -115,9 +115,10 @@ namespace Magxe.Dao
                     .OnDelete(DeleteBehavior.Cascade);
             });
 
+            builder.Entity<Post>(b => { b.Property(r => r.IsPage).HasDefaultValue(false); });
+
             builder.Entity<PostTag>(b =>
             {
-
                 //b.HasIndex(r => r.Post);
                 //b.HasIndex(r => r.Tag);
             });

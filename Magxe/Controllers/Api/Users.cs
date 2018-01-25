@@ -8,9 +8,9 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 
-namespace Magxe.Controllers.Admin.Api
+namespace Magxe.Controllers.Api
 {
-    [AdminApiController]
+    [RestApiController]
     public class UsersController : Controller
     {
         private readonly DataContext _dbContext;

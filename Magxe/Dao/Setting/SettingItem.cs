@@ -6,6 +6,7 @@ namespace Magxe.Dao.Setting
     public class SettingItem
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        [Key]
         public Key Id { get; set; }
 
         [Required]

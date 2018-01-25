@@ -3,23 +3,22 @@ using Magxe.Controllers.ActionResults;
 using Magxe.Controllers.Admin.Models;
 using Magxe.Dao;
 using Magxe.Dao.Setting;
+using Magxe.Services;
 using Magxe.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using IdentityServer4.Stores.Serialization;
-using Magxe.Services;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Serialization;
 
-namespace Magxe.Controllers.Admin.Api
+namespace Magxe.Controllers.Api
 {
-    [AdminApiController]
+    [RestApiController]
     public class AuthenticationController : Controller
     {
         private readonly DataContext _dataContext;

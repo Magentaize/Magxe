@@ -48,6 +48,12 @@ namespace Magxe.Services
                     public static string ErrorType = "ValidationError";
                     public static string Message = "The request failed validation.";
                 }
+
+                public static class ArgumentOutOfRangeErrorResult
+                {
+                    public static string ErrorType = "ArgumentOutOfRangeErrorResult";
+                    public static string Message = "Argument was out of range";
+                }
             }
         }
     }

@@ -34,7 +34,7 @@ namespace Magxe.Controllers
             }
 
             var posts =
-                _dataContext.Posts.Include(r=>r.PostsTags).ThenInclude(r=>r.Tag)
+                _dataContext.Posts.Include(r => r.PostsTags).ThenInclude(r => r.Tag).Include(r=>r.Author)
                     .GetPagedPosts(pageIndex)
                     .Select(p => p.MapAsync<Post, PostViewModel>().Result);
 

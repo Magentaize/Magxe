@@ -24,7 +24,7 @@ namespace Magxe
 
         public static IWebHost BuildWebHost(string[] args)
         {
-            var cfgm = JsonConvert.DeserializeObject<ConfigModel>(File.ReadAllText("magxe.config.json"),new JsonSerializerSettings()
+            var cfgm = JsonConvert.DeserializeObject<ConfigModel>(File.ReadAllText("magxe.config.json"), new JsonSerializerSettings()
             {
                 ContractResolver = new CamelCasePropertyNamesContractResolver()
             });
@@ -32,7 +32,7 @@ namespace Magxe
             GlobalVariables.Config.ConnectionString = new MySqlConnectionStringBuilder()
             {
                 Server = GlobalVariables.Config.Database.Connection.Host,
-                Port = (uint) GlobalVariables.Config.Database.Connection.Port,
+                Port = (uint)GlobalVariables.Config.Database.Connection.Port,
                 UserID = GlobalVariables.Config.Database.Connection.User,
                 Password = GlobalVariables.Config.Database.Connection.Password,
                 Database = GlobalVariables.Config.Database.Connection.Database,

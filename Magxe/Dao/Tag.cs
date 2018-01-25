@@ -15,6 +15,7 @@ namespace Magxe.Dao
             Posts = new JoinCollectionFacade<Post, Tag, PostTag>(this, PostsTags);
         }
 
+        [JsonIgnore]
         [NotMapped]
         public ICollection<Post> Posts { get; }
 

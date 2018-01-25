@@ -1,10 +1,10 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc.Routing;
 
-namespace Magxe.Controllers.Admin.Api
+namespace Magxe.Controllers.Api
 {
     [AttributeUsage(AttributeTargets.Class)]
-    public class AdminApiControllerAttribute : Attribute, IRouteTemplateProvider
+    public class RestApiControllerAttribute : Attribute, IRouteTemplateProvider
     {
         public string Template => "ghost/api/v0.1/[controller]";
         public int? Order { get; set; }

@@ -1,11 +1,12 @@
-﻿using Magxe.Dao;
+﻿using AutoMapper;
+using Magxe.Dao;
 using Magxe.Extensions;
 using Magxe.Models;
+using Magxe.Models.ControllerViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
-using Magxe.Models.ControllerViewModels;
 
 namespace Magxe.Controllers
 {

@@ -22,7 +22,7 @@ namespace Magxe.Models.DaoConverters
                 date = source.UpdatedTime,
                 CustomExcerpt = source.CustomExcerpt,
                 Html = source.Html,
-                author = _dataContext.Users.GetUserByIdAsync(source.AuthorId).MapAsync<User, PostAuthorViewModel>()
+                author = _dataContext.Users.GetUserByIdAsync(source.Author.Id).MapAsync<User, PostAuthorViewModel>()
                     .Result,
                 tags = source.Tags,
             };
